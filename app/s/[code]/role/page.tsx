@@ -201,7 +201,7 @@ export default function RolePage() {
           key={i}
           aria-hidden
           className={`h-2 w-2 rounded-full ${
-            i <= step ? "bg-emerald-500" : "bg-slate-300"
+            i <= step ? "bg-orange-500" : "bg-slate-300"
           }`}
         />
       ))}
@@ -215,7 +215,7 @@ export default function RolePage() {
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
         <div className="mx-auto max-w-md">
           <Progress />
-          <p className="mb-2 text-center text-xs font-semibold tracking-widest text-emerald-700">
+          <p className="mb-2 text-center text-xs font-semibold tracking-widest text-orange-700">
             質問 {step + 1} / {questions.length}
           </p>
           <h1 className="mb-8 text-center text-2xl font-bold leading-snug text-slate-900">
@@ -226,7 +226,7 @@ export default function RolePage() {
               <button
                 type="button"
                 onClick={() => setStep(chooseStep)}
-                className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100"
+                className="rounded-lg border border-orange-300 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-100"
               >
                 質問をスキップして役割だけ選ぶ →
               </button>
@@ -239,7 +239,7 @@ export default function RolePage() {
                 type="button"
                 onClick={() => handleAnswer(opt.value)}
                 style={{ minHeight: 56 }}
-                className="w-full rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-base font-semibold text-slate-900 transition-colors hover:border-emerald-500 hover:bg-emerald-50 active:bg-emerald-100"
+                className="w-full rounded-lg border-2 border-slate-200 bg-white px-4 py-3 text-base font-semibold text-slate-900 transition-colors hover:border-orange-500 hover:bg-orange-50 active:bg-orange-100"
               >
                 {opt.label}
               </button>
@@ -280,7 +280,7 @@ export default function RolePage() {
       <div className="mx-auto max-w-md">
         <Progress />
         <header className="mb-6 text-center">
-          <p className="text-xs font-semibold tracking-widest text-emerald-700">
+          <p className="text-xs font-semibold tracking-widest text-orange-700">
             役割をえらぶ
           </p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">
@@ -314,8 +314,8 @@ export default function RolePage() {
                   onClick={() => selectRole(role.id)}
                   disabled={saving}
                   style={{ minHeight: 80 }}
-                  className={`flex w-full items-center gap-4 rounded-lg border-2 bg-white p-4 text-left transition-colors hover:bg-emerald-50 active:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-50 ${
-                    isRecommended ? "border-emerald-500" : "border-slate-200"
+                  className={`flex w-full items-center gap-4 rounded-lg border-2 bg-white p-4 text-left transition-colors hover:bg-orange-50 active:bg-orange-100 disabled:cursor-not-allowed disabled:opacity-50 ${
+                    isRecommended ? "border-orange-500" : "border-slate-200"
                   }`}
                 >
                   <span
@@ -329,7 +329,7 @@ export default function RolePage() {
                         {role.name}
                       </p>
                       {isRecommended && (
-                        <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-xs font-semibold text-white">
+                        <span className="rounded-full bg-orange-500 px-2 py-0.5 text-xs font-semibold text-white">
                           おすすめ
                         </span>
                       )}

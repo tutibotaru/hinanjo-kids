@@ -170,7 +170,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
     <main className="min-h-screen bg-slate-50 pb-12">
       <div className="mx-auto max-w-md">
         <header className="border-b border-slate-200 bg-white px-5 py-4 text-center">
-          <p className="text-xs font-semibold tracking-widest text-emerald-700">
+          <p className="text-xs font-semibold tracking-widest text-orange-700">
             訓練の振り返り
           </p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">
@@ -188,7 +188,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
               避難所運営は本来この7班が並行で動きます。
-              <span className="font-semibold text-emerald-700">●</span>{" "}
+              <span className="font-semibold text-orange-700">●</span>{" "}
               は本アプリで計測した班。
               <span className="font-semibold text-slate-500">○</span>{" "}
               は現場で別途運営した班(本アプリの管理対象外)。
@@ -383,7 +383,7 @@ function StatCard({
   hint?: string;
 }) {
   const styles: Record<typeof color, string> = {
-    emerald: "border-emerald-200 bg-emerald-50 text-emerald-900",
+    emerald: "border-orange-200 bg-orange-50 text-orange-900",
     slate: "border-slate-200 bg-white text-slate-900",
     amber: "border-amber-200 bg-amber-50 text-amber-900",
     blue: "border-sky-200 bg-sky-50 text-sky-900",

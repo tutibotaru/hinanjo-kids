@@ -224,7 +224,7 @@ export default function ManagePage() {
             autoCapitalize="characters"
             autoCorrect="off"
             spellCheck={false}
-            className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg uppercase tracking-widest text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+            className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg uppercase tracking-widest text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
           />
           <button
             type="button"
@@ -237,7 +237,7 @@ export default function ManagePage() {
               }
             }}
             style={{ minHeight: 52 }}
-            className="mt-3 w-full rounded-lg bg-emerald-600 px-4 py-3 text-base font-bold text-white hover:bg-emerald-700"
+            className="mt-3 w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white hover:bg-orange-700"
           >
             運営者として開く
           </button>
@@ -266,7 +266,7 @@ export default function ManagePage() {
         <header className="border-b border-slate-200 bg-white px-5 py-3">
           <div className="flex items-baseline justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-emerald-700">
+              <p className="text-xs font-semibold tracking-widest text-orange-700">
                 運営パネル
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
@@ -277,7 +277,7 @@ export default function ManagePage() {
                 {session.mode === "training" ? "訓練" : "本番"}
               </p>
               {autoUnlockReason && (
-                <p className="mt-1 inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-800">
+                <p className="mt-1 inline-block rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold text-orange-800">
                   {autoUnlockReason}
                 </p>
               )}
@@ -285,7 +285,7 @@ export default function ManagePage() {
             <div className="flex flex-shrink-0 flex-col items-end gap-1">
               <Link
                 href={`/s/${code}/board`}
-                className="text-xs text-emerald-700 underline"
+                className="text-xs text-orange-700 underline"
               >
                 ボードへ
               </Link>
@@ -303,7 +303,7 @@ export default function ManagePage() {
 
         <div className="space-y-5 px-5 py-5">
           {msg && (
-            <p className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+            <p className="rounded-md border border-orange-200 bg-orange-50 px-3 py-2 text-sm text-orange-800">
               {msg}
             </p>
           )}
@@ -328,7 +328,7 @@ export default function ManagePage() {
                 onClick={() => changePhase(1)}
                 disabled={busy || session.phase >= PHASE_MAX}
                 style={{ minHeight: 48 }}
-                className="flex-1 rounded-lg bg-emerald-600 text-sm font-bold text-white disabled:opacity-40"
+                className="flex-1 rounded-lg bg-orange-600 text-sm font-bold text-white disabled:opacity-40"
               >
                 次のフェーズ →
               </button>
@@ -382,7 +382,7 @@ export default function ManagePage() {
               </button>
               <Link
                 href={`/admin/qr?code=${code}`}
-                className="mt-2 text-xs text-emerald-700 underline"
+                className="mt-2 text-xs text-orange-700 underline"
               >
                 印刷用ページを開く
               </Link>

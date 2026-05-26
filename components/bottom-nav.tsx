@@ -126,7 +126,7 @@ function NavTab({
       style={{ minHeight: 56 }}
       className={`flex items-center justify-center text-sm font-semibold transition-colors ${
         active
-          ? "border-t-2 border-emerald-500 text-emerald-700"
+          ? "border-t-2 border-orange-500 text-orange-700"
           : "border-t-2 border-transparent text-slate-500 hover:text-slate-700"
       }`}
     >

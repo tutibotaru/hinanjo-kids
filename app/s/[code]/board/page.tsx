@@ -138,7 +138,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
         <header className="border-b border-slate-200 bg-white px-5 py-3">
           <div className="flex items-baseline justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-emerald-700">
+              <p className="text-xs font-semibold tracking-widest text-orange-700">
                 全体ボード
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
@@ -152,13 +152,13 @@ function BoardView({ session, code }: { session: Session; code: string }) {
               <InviteButton code={code} />
               <Link
                 href={`/s/${code}/finish`}
-                className="text-emerald-700 underline"
+                className="text-orange-700 underline"
               >
                 振り返り
               </Link>
               <Link
                 href={`/s/${code}/manage`}
-                className="text-emerald-700 underline"
+                className="text-orange-700 underline"
               >
                 運営
               </Link>
@@ -173,7 +173,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
               避難所運営は本来この7班が並行して動きます。
-              <span className="font-semibold text-emerald-700">●</span>{" "}
+              <span className="font-semibold text-orange-700">●</span>{" "}
               はこのアプリで管理。
               <span className="font-semibold text-slate-500">○</span>{" "}
               は現場で別途運営してください(本アプリの管理対象外)。
@@ -271,7 +271,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                     {total > 0 && (
                       <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-200">
                         <div
-                          className="h-full bg-emerald-500 transition-all"
+                          className="h-full bg-orange-500 transition-all"
                           style={{
                             width: `${(completedCount / total) * 100}%`,
                           }}
@@ -360,7 +360,7 @@ function StatusIcon({ status }: { status: string | null }) {
       <span
         role="img"
         aria-label="完了"
-        className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white"
+        className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white"
       >
         <span aria-hidden="true">✓</span>
       </span>

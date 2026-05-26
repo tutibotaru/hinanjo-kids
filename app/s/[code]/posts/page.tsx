@@ -103,7 +103,7 @@ function PostsView({
         <header className="border-b border-slate-200 bg-white px-5 py-3">
           <div className="flex items-baseline justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-emerald-700">
+              <p className="text-xs font-semibold tracking-widest text-orange-700">
                 共有タイムライン
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
@@ -193,7 +193,7 @@ function ComposeForm({
           onClick={() => setType("finding")}
           className={`flex-1 rounded-md border-2 px-3 py-2 text-sm font-semibold transition-colors ${
             type === "finding"
-              ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+              ? "border-orange-500 bg-orange-50 text-orange-800"
               : "border-slate-200 bg-white text-slate-500"
           }`}
         >
@@ -213,7 +213,7 @@ function ComposeForm({
         rows={3}
         maxLength={500}
         aria-describedby="post-content-note"
-        className="mt-3 w-full resize-none rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+        className="mt-3 w-full resize-none rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
       />
       <p
         id="post-content-note"
@@ -237,7 +237,7 @@ function ComposeForm({
         type="submit"
         disabled={submitting}
         style={{ minHeight: 48 }}
-        className="mt-3 w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50"
+        className="mt-3 w-full rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:opacity-50"
       >
         {submitting ? "投稿中…" : "投稿する"}
       </button>
@@ -284,7 +284,7 @@ function Timeline({
                 className={`rounded px-1.5 py-0.5 font-bold ${
                   post.type === "trouble"
                     ? "bg-amber-100 text-amber-800"
-                    : "bg-emerald-100 text-emerald-800"
+                    : "bg-orange-100 text-orange-800"
                 }`}
               >
                 {post.type === "trouble" ? "困った" : "発見"}

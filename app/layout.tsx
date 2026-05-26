@@ -15,9 +15,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "避難所サポート",
+  title: "親子で避難所体験",
   description:
-    "QRを読むだけで、知識ゼロでも避難所が立ち上がる。役割分担と進捗共有で住民協働運営を支援する MVP。",
+    "親子で楽しく学ぶ避難所運営の体験キャンプ用アプリ。QRを読むだけで、役割を決めて、ステップに沿って避難所を立ち上げてみよう。",
   manifest: "/manifest.json",
   icons: {
     icon: "/icon.svg",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: "避難所",
+    title: "避難所体験",
     statusBarStyle: "default",
   },
 };
@@ -34,7 +34,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#1D9E75",
+  themeColor: "#F97316",
 };
 
 export default function RootLayout({

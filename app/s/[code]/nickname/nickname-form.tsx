@@ -123,7 +123,7 @@ export default function NicknameForm({
           placeholder="例: たけし"
           autoFocus
           maxLength={20}
-          className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+          className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
         />
         <p className="mt-1 text-xs text-slate-500">
           他の参加者に表示される名前です。本名でなくてOK。
@@ -143,7 +143,7 @@ export default function NicknameForm({
         type="submit"
         disabled={submitting}
         style={{ minHeight: 52 }}
-        className="w-full rounded-lg bg-emerald-600 px-4 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-emerald-700 active:bg-emerald-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+        className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:cursor-not-allowed disabled:bg-slate-400"
       >
         {submitting ? "登録中…" : "次へ進む"}
       </button>

@@ -64,7 +64,7 @@ function QRView() {
           </h1>
           <p className="mt-2 text-sm text-slate-600">
             URL に <code>?code=XXX</code> を付けるか、
-            <Link href="/admin/new" className="text-emerald-700 underline">
+            <Link href="/admin/new" className="text-orange-700 underline">
               新しい避難所を開設
             </Link>
             してください。
@@ -94,7 +94,7 @@ function QRView() {
           </p>
           <Link
             href="/admin/new"
-            className="mt-4 inline-block text-sm text-emerald-700 underline"
+            className="mt-4 inline-block text-sm text-orange-700 underline"
           >
             新しい避難所を開設する →
           </Link>
@@ -111,7 +111,7 @@ function QRView() {
         <header className="border-b border-slate-200 px-5 py-3">
           <div className="mx-auto flex max-w-3xl items-baseline justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold tracking-widest text-emerald-700">
+              <p className="text-xs font-semibold tracking-widest text-orange-700">
                 管理者 / QR発行
               </p>
               <h1 className="mt-0.5 text-lg font-bold text-slate-900">
@@ -122,7 +122,7 @@ function QRView() {
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+                className="rounded-lg bg-orange-600 px-3 py-2 text-sm font-semibold text-white hover:bg-orange-700"
               >
                 印刷
               </button>

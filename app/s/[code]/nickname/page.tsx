@@ -21,7 +21,7 @@ export default async function NicknamePage({
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-md">
         <header className="mb-8">
-          <p className="text-xs font-semibold tracking-widest text-emerald-700">
+          <p className="text-xs font-semibold tracking-widest text-orange-700">
             参加先
           </p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">

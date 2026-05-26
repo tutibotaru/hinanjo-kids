@@ -108,7 +108,7 @@ export default function AdminNewPage() {
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
         <div className="mx-auto max-w-md">
           <header className="mb-6">
-            <p className="text-xs font-semibold tracking-widest text-emerald-700">
+            <p className="text-xs font-semibold tracking-widest text-orange-700">
               管理者向けゲート
             </p>
             <h1 className="mt-1 text-2xl font-bold text-slate-900">
@@ -149,7 +149,7 @@ export default function AdminNewPage() {
                 inputMode="numeric"
                 value={challengeAnswer}
                 onChange={(e) => setChallengeAnswer(e.target.value)}
-                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
               />
             </div>
             {gateError && (
@@ -163,7 +163,7 @@ export default function AdminNewPage() {
             <button
               type="submit"
               style={{ minHeight: 52 }}
-              className="w-full rounded-lg bg-emerald-600 px-4 py-3 text-base font-bold text-white hover:bg-emerald-700 active:bg-emerald-800"
+              className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white hover:bg-orange-700 active:bg-orange-800"
             >
               運営者として開く
             </button>
@@ -184,7 +184,7 @@ export default function AdminNewPage() {
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-md">
         <header className="mb-8">
-          <p className="text-xs font-semibold tracking-widest text-emerald-700">
+          <p className="text-xs font-semibold tracking-widest text-orange-700">
             管理者
           </p>
           <h1 className="mt-1 text-2xl font-bold text-slate-900">
@@ -211,7 +211,7 @@ export default function AdminNewPage() {
               placeholder="例: ○○小学校体育館"
               maxLength={40}
               autoFocus
-              className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+              className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
             />
           </div>
 
@@ -232,7 +232,7 @@ export default function AdminNewPage() {
                 autoCapitalize="characters"
                 autoCorrect="off"
                 spellCheck={false}
-                className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg uppercase tracking-widest text-slate-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg uppercase tracking-widest text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
               />
               <button
                 type="button"
@@ -260,7 +260,7 @@ export default function AdminNewPage() {
             type="submit"
             disabled={submitting}
             style={{ minHeight: 52 }}
-            className="w-full rounded-lg bg-emerald-600 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-emerald-700 active:bg-emerald-800 disabled:opacity-50"
+            className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:opacity-50"
           >
             {submitting ? "作成中…" : "開設して QR を発行"}
           </button>

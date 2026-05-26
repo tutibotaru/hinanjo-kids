@@ -41,7 +41,7 @@ export default function InviteButton({
         onClick={() => setOpen(true)}
         aria-label="この避難所への招待リンクとQRコードを表示"
         style={{ minHeight: 40 }}
-        className="flex items-center justify-center rounded-md border border-emerald-300 bg-emerald-50 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-100 active:bg-emerald-200"
+        className="flex items-center justify-center rounded-md border border-orange-300 bg-orange-50 px-3 text-sm font-semibold text-orange-700 hover:bg-orange-100 active:bg-orange-200"
       >
         📨 {label}
       </button>
@@ -59,7 +59,7 @@ export default function InviteButton({
             onClick={(e) => e.stopPropagation()}
           >
             <header className="text-center">
-              <p className="text-xs font-semibold tracking-widest text-emerald-700">
+              <p className="text-xs font-semibold tracking-widest text-orange-700">
                 友達を招待
               </p>
               <h2 className="mt-1 text-lg font-bold text-slate-900">
@@ -95,7 +95,7 @@ export default function InviteButton({
                 type="button"
                 onClick={handleCopy}
                 style={{ minHeight: 48 }}
-                className="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-700 active:bg-emerald-800"
+                className="w-full rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
               >
                 {copied ? "✓ コピーしました" : "リンクをコピー"}
               </button>

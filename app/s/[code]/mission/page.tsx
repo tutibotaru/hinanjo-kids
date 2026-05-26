@@ -333,7 +333,7 @@ function MissionView({
           </div>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200">
             <div
-              className="h-full bg-emerald-500 transition-all"
+              className="h-full bg-orange-500 transition-all"
               style={{
                 width: totalForRole
                   ? `${(completedCount / totalForRole) * 100}%`
@@ -360,7 +360,7 @@ function MissionView({
               <Link
                 href={`/s/${code}/manage`}
                 style={{ minHeight: 44 }}
-                className="flex flex-shrink-0 items-center rounded-md bg-emerald-500 px-3 text-sm font-bold text-white shadow-sm hover:bg-emerald-400 active:bg-emerald-600"
+                className="flex flex-shrink-0 items-center rounded-md bg-orange-500 px-3 text-sm font-bold text-white shadow-sm hover:bg-orange-400 active:bg-orange-600"
               >
                 運営パネル →
               </Link>
@@ -390,7 +390,7 @@ function MissionView({
             </p>
             <Link
               href={`/s/${code}/finish`}
-              className="mt-6 inline-block rounded-lg border border-emerald-300 bg-emerald-50 px-5 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-100"
+              className="mt-6 inline-block rounded-lg border border-orange-300 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-100"
             >
               振り返りを見る →
             </Link>
@@ -416,7 +416,7 @@ function MissionView({
                   key={i}
                   className="flex gap-3 rounded-lg border border-slate-200 bg-white p-3"
                 >
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">
+                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 text-sm font-bold text-orange-700">
                     {i + 1}
                   </span>
                   <p className="text-sm leading-relaxed text-slate-800">
@@ -426,9 +426,9 @@ function MissionView({
               ))}
             </ol>
 
-            <div className="mt-6 rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-              <p className="text-xs font-semibold text-emerald-700">完了条件</p>
-              <p className="mt-1 text-sm text-emerald-900">
+            <div className="mt-6 rounded-lg border border-orange-200 bg-orange-50 p-3">
+              <p className="text-xs font-semibold text-orange-700">完了条件</p>
+              <p className="mt-1 text-sm text-orange-900">
                 {current.step.completion_condition}
               </p>
             </div>
@@ -474,7 +474,7 @@ function MissionView({
               disabled={acting}
               aria-label={`「${current.step.title}」を完了として記録する`}
               style={{ minHeight: 52 }}
-              className="w-full rounded-lg bg-emerald-600 px-4 py-3 text-base font-bold text-white shadow-sm transition-colors hover:bg-emerald-700 active:bg-emerald-800 focus-visible:ring-4 focus-visible:ring-emerald-300 disabled:opacity-50"
+              className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 focus-visible:ring-4 focus-visible:ring-orange-300 disabled:opacity-50"
             >
               {acting ? "保存中…" : "✓ できた"}
             </button>
