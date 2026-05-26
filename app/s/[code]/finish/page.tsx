@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useStepProgress } from "@/lib/hooks/useStepProgress";
 import { useParticipants } from "@/lib/hooks/useParticipants";
 import RubyText from "@/components/ruby-text";
+import FuriganaToggle from "@/components/furigana-toggle";
 import stepsData from "@/data/steps.json";
 
 type Session = {
@@ -170,6 +171,9 @@ function FinishView({ session, code }: { session: Session; code: string }) {
   return (
     <main className="min-h-screen bg-amber-50 pb-12">
       <div className="mx-auto max-w-md">
+        <div className="flex justify-end px-3 pt-3">
+          <FuriganaToggle />
+        </div>
         <header className="border-b border-orange-200 bg-gradient-to-br from-orange-100 via-amber-50 to-yellow-50 px-5 py-8 text-center">
           {(() => {
             // 達成率で星の数を決める(50%未満で1、80%未満で2、それ以上で3)

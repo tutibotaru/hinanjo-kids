@@ -9,6 +9,7 @@ import { useParticipants } from "@/lib/hooks/useParticipants";
 import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
+import FuriganaToggle from "@/components/furigana-toggle";
 import RubyText from "@/components/ruby-text";
 import stepsData from "@/data/steps.json";
 
@@ -150,6 +151,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col items-end gap-1 text-xs">
+              <FuriganaToggle />
               <InviteButton code={code} />
               <Link
                 href={`/s/${code}/finish`}
@@ -305,12 +307,12 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                             </p>
                             {p?.status === "done" && nickname && (
                               <p className="mt-0.5 text-xs text-slate-500">
-                                {nickname} さんが完了
+                                {nickname} さんが できた
                               </p>
                             )}
                             {p?.status === "skipped" && nickname && (
                               <p className="mt-0.5 text-xs text-slate-500">
-                                {nickname} さんがスキップ
+                                {nickname} さんが とばした
                               </p>
                             )}
                             {p?.status === "stuck" && (
@@ -336,7 +338,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                                   : "border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-slate-700"
                               }`}
                             >
-                              {armedUndoId === p.id ? "本当に取消?" : "取消"}
+                              {armedUndoId === p.id ? "ほんとうに もどす?" : "もどす"}
                             </button>
                           )}
                         </li>

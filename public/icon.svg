@@ -1,8 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="避難所サポート">
-  <rect width="512" height="512" rx="96" fill="#1D9E75"/>
-  <path d="M256 96 L448 256 L448 440 L64 440 L64 256 Z" fill="#ffffff"/>
-  <path d="M256 96 L448 256 L448 280 L256 120 L64 280 L64 256 Z" fill="#0F6F4E"/>
-  <rect x="216" y="320" width="80" height="120" fill="#1D9E75"/>
-  <rect x="120" y="300" width="60" height="56" fill="#1D9E75"/>
-  <rect x="332" y="300" width="60" height="56" fill="#1D9E75"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="親子で避難所体験">
+  <!-- オレンジ角丸背景 -->
+  <rect width="512" height="512" rx="96" fill="#F97316"/>
+
+  <!-- 家本体 -->
+  <path d="M256 96 L456 256 L456 440 L56 440 L56 256 Z" fill="#FFFFFF"/>
+
+  <!-- 屋根のアクセント -->
+  <path d="M256 96 L472 272 L456 272 L256 116 L56 272 L40 272 Z" fill="#EA580C"/>
+
+  <!-- ドア -->
+  <rect x="232" y="340" width="48" height="100" fill="#F97316" rx="6"/>
+
+  <!-- ハート(親子のきずな) -->
+  <path d="M256 220 c-14-26 -50-26 -50 6 c0 30 50 56 50 56 s50-26 50-56 c0-32 -36-32 -50-6 z" fill="#F87171"/>
+
+  <!-- 親(おとな・大きめ) -->
+  <circle cx="158" cy="320" r="24" fill="#1F2937"/>
+  <rect x="134" y="346" width="48" height="74" fill="#1F2937" rx="10"/>
+
+  <!-- 子(子ども・小さめ・少し右下) -->
+  <circle cx="350" cy="336" r="18" fill="#1F2937"/>
+  <rect x="332" y="358" width="36" height="62" fill="#1F2937" rx="8"/>
 </svg>

@@ -38,11 +38,11 @@ export default function NicknameForm({
     e.preventDefault();
     const trimmed = nickname.trim();
     if (!trimmed) {
-      setError("ニックネームを入力してください");
+      setError("ニックネームを いれてね");
       return;
     }
     if (trimmed.length > 20) {
-      setError("20文字以内で入力してください");
+      setError("20もじ いないで いれてね");
       return;
     }
 
@@ -69,7 +69,7 @@ export default function NicknameForm({
         .eq("id", existingId);
       if (updateError) {
         setSubmitting(false);
-        setError("通信エラーが発生しました。もう一度お試しください。");
+        setError("つうしんエラー。もういちど ためしてね");
         return;
       }
       participantId = existingId;
@@ -81,7 +81,7 @@ export default function NicknameForm({
         .single();
       if (insertError || !data) {
         setSubmitting(false);
-        setError("通信エラーが発生しました。もう一度お試しください。");
+        setError("つうしんエラー。もういちど ためしてね");
         return;
       }
       participantId = data.id;
@@ -126,7 +126,7 @@ export default function NicknameForm({
           className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
         />
         <p className="mt-1 text-xs text-slate-500">
-          他の参加者に表示される名前です。本名でなくてOK。
+          ほかの さんかしゃに みえる なまえだよ。 ほんみょうじゃなくてOK。
         </p>
       </div>
 
@@ -145,7 +145,7 @@ export default function NicknameForm({
         style={{ minHeight: 52 }}
         className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:cursor-not-allowed disabled:bg-slate-400"
       >
-        {submitting ? "登録中…" : "次へ進む"}
+        {submitting ? "ほぞんちゅう…" : "つぎへ すすむ"}
       </button>
     </form>
   );

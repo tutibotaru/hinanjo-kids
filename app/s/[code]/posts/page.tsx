@@ -8,6 +8,7 @@ import { useParticipants } from "@/lib/hooks/useParticipants";
 import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
+import FuriganaToggle from "@/components/furigana-toggle";
 import type { SharedPost, PostType } from "@/lib/types/database";
 
 type Session = {
@@ -21,11 +22,23 @@ type StoredParticipant = { id: string; nickname: string };
 
 function timeAgo(iso: string): string {
   const d = Date.now() - new Date(iso).getTime();
-  if (d < 60_000) return "今";
-  if (d < 3_600_000) return `${Math.floor(d / 60_000)}分前`;
-  if (d < 86_400_000) return `${Math.floor(d / 3_600_000)}時間前`;
-  return `${Math.floor(d / 86_400_000)}日前`;
+  if (d < 60_000) return "いま";
+  if (d < 3_600_000) return `${Math.floor(d / 60_000)}ふんまえ`;
+  if (d < 86_400_000) return `${Math.floor(d / 3_600_000)}じかんまえ`;
+  return `${Math.floor(d / 86_400_000)}にちまえ`;
 }
+
+// 子ども向けスタンプ。文字を書きづらい子でも 1タップで気持ちを共有できる。
+// type は既存スキーマの "trouble" / "finding" に振り分け、追加マイグレ無しで動く。
+const STAMPS: ReadonlyArray<{ emoji: string; label: string; type: PostType }> =
+  [
+    { emoji: "🥺", label: "こまった", type: "trouble" },
+    { emoji: "🤔", label: "なやみちゅう", type: "trouble" },
+    { emoji: "💪", label: "がんばる", type: "finding" },
+    { emoji: "⭐", label: "できた!", type: "finding" },
+    { emoji: "😊", label: "たのしい", type: "finding" },
+    { emoji: "🎉", label: "やったね", type: "finding" },
+  ];
 
 export default function PostsPage() {
   const params = useParams<{ code: string }>();
@@ -70,7 +83,9 @@ export default function PostsPage() {
   if (!ctx) {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
-        <p className="mx-auto max-w-md text-sm text-slate-500">読み込み中…</p>
+        <p className="mx-auto max-w-md text-sm text-slate-500">
+          よみこみちゅう…
+        </p>
       </main>
     );
   }
@@ -104,7 +119,7 @@ function PostsView({
           <div className="flex items-baseline justify-between gap-3">
             <div>
               <p className="text-xs font-semibold tracking-widest text-orange-700">
-                共有タイムライン
+                ひろば
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
                 {session.name}
@@ -113,7 +128,8 @@ function PostsView({
                 コード {code} / フェーズ {session.phase}
               </p>
             </div>
-            <div className="flex-shrink-0">
+            <div className="flex flex-shrink-0 flex-col items-end gap-1">
+              <FuriganaToggle />
               <InviteButton code={code} />
             </div>
           </div>
@@ -142,33 +158,40 @@ function ComposeForm({
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = content.trim();
-    if (!trimmed) {
-      setError("本文を入力してください");
-      return;
-    }
-
+  async function send(payload: { content: string; type: PostType }) {
     setSubmitting(true);
     setError(null);
-
     const supabase = createClient();
     const { error: insertError } = await supabase.from("shared_posts").insert({
       session_id: sessionId,
       participant_id: participantId,
-      content: trimmed,
+      content: payload.content,
       photo_url: null,
-      type,
+      type: payload.type,
     });
-
     setSubmitting(false);
-    if (insertError) {
-      setError("投稿に失敗しました。もう一度お試しください。");
+    return insertError;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = content.trim();
+    if (!trimmed) {
+      setError("なにか かいてね");
       return;
     }
-
+    const err = await send({ content: trimmed, type });
+    if (err) {
+      setError("おくれませんでした。もういちど ためしてね");
+      return;
+    }
     setContent("");
+  }
+
+  async function handleStamp(emoji: string, label: string, t: PostType) {
+    if (submitting) return;
+    const err = await send({ content: `${emoji} ${label}`, type: t });
+    if (err) setError("おくれませんでした。もういちど ためしてね");
   }
 
   return (
@@ -176,71 +199,101 @@ function ComposeForm({
       onSubmit={handleSubmit}
       className="rounded-lg border border-slate-200 bg-white p-4"
     >
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => setType("trouble")}
-          className={`flex-1 rounded-md border-2 px-3 py-2 text-sm font-semibold transition-colors ${
-            type === "trouble"
-              ? "border-amber-500 bg-amber-50 text-amber-800"
-              : "border-slate-200 bg-white text-slate-500"
-          }`}
-        >
-          ⚠ 困った
-        </button>
-        <button
-          type="button"
-          onClick={() => setType("finding")}
-          className={`flex-1 rounded-md border-2 px-3 py-2 text-sm font-semibold transition-colors ${
-            type === "finding"
-              ? "border-orange-500 bg-orange-50 text-orange-800"
-              : "border-slate-200 bg-white text-slate-500"
-          }`}
-        >
-          💡 発見
-        </button>
+      {/* スタンプ:文字を書きづらい子でも 1タップで気持ちを送れる */}
+      <p className="text-xs font-semibold text-slate-700">
+        スタンプで さくっと おくる
+      </p>
+      <div className="mt-2 grid grid-cols-3 gap-2">
+        {STAMPS.map((s) => (
+          <button
+            key={s.emoji}
+            type="button"
+            onClick={() => handleStamp(s.emoji, s.label, s.type)}
+            disabled={submitting}
+            style={{ minHeight: 60 }}
+            className="flex flex-col items-center justify-center gap-0.5 rounded-lg border-2 border-slate-200 bg-white px-2 py-2 transition-colors hover:border-orange-400 hover:bg-orange-50 active:bg-orange-100 disabled:opacity-50"
+            aria-label={`${s.label} を おくる`}
+          >
+            <span className="text-2xl leading-none" aria-hidden>
+              {s.emoji}
+            </span>
+            <span className="text-[10px] font-semibold text-slate-700">
+              {s.label}
+            </span>
+          </button>
+        ))}
       </div>
 
-      <textarea
-        id="post-content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder={
-          type === "trouble"
-            ? "例: 受付の机が足りません"
-            : "例: 体育館裏に給水所がありました"
-        }
-        rows={3}
-        maxLength={500}
-        aria-describedby="post-content-note"
-        className="mt-3 w-full resize-none rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
-      />
-      <p
-        id="post-content-note"
-        className="mt-2 text-[10px] leading-relaxed text-slate-500"
-      >
-        ・実名・住所・電話番号などの個人情報は書かない。
-        ・人を傷つける書き込み・誹謗中傷は禁止。
-        ・参加コードを知る人なら誰でも見えます。
-      </p>
-
-      {error && (
-        <p
-          role="alert"
-          className="mt-3 break-all rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700"
-        >
-          {error}
+      <div className="mt-5 border-t border-slate-100 pt-4">
+        <p className="text-xs font-semibold text-slate-700">
+          じぶんで かいて おくる
         </p>
-      )}
+        <div className="mt-2 flex gap-2">
+          <button
+            type="button"
+            onClick={() => setType("trouble")}
+            className={`flex-1 rounded-md border-2 px-3 py-2 text-sm font-semibold transition-colors ${
+              type === "trouble"
+                ? "border-amber-500 bg-amber-50 text-amber-800"
+                : "border-slate-200 bg-white text-slate-500"
+            }`}
+          >
+            ⚠ こまった
+          </button>
+          <button
+            type="button"
+            onClick={() => setType("finding")}
+            className={`flex-1 rounded-md border-2 px-3 py-2 text-sm font-semibold transition-colors ${
+              type === "finding"
+                ? "border-orange-500 bg-orange-50 text-orange-800"
+                : "border-slate-200 bg-white text-slate-500"
+            }`}
+          >
+            💡 みつけた
+          </button>
+        </div>
 
-      <button
-        type="submit"
-        disabled={submitting}
-        style={{ minHeight: 48 }}
-        className="mt-3 w-full rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:opacity-50"
-      >
-        {submitting ? "投稿中…" : "投稿する"}
-      </button>
+        <textarea
+          id="post-content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder={
+            type === "trouble"
+              ? "れい: うけつけの つくえが たりない"
+              : "れい: たいいくかんの うしろに みずが あった"
+          }
+          rows={3}
+          maxLength={500}
+          aria-describedby="post-content-note"
+          className="mt-3 w-full resize-none rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
+        />
+        <p
+          id="post-content-note"
+          className="mt-2 text-[10px] leading-relaxed text-slate-500"
+        >
+          ・ほんみょう・でんわばんごう・じゅうしょは かかない。
+          ・ともだちが かなしむことは かかない。
+          ・コードを しっている みんなに みえるよ。
+        </p>
+
+        {error && (
+          <p
+            role="alert"
+            className="mt-3 break-all rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700"
+          >
+            {error}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          style={{ minHeight: 48 }}
+          className="mt-3 w-full rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:opacity-50"
+        >
+          {submitting ? "おくっているちゅう…" : "おくる"}
+        </button>
+      </div>
     </form>
   );
 }
@@ -256,7 +309,7 @@ function Timeline({
     return (
       <div className="rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center">
         <p className="text-sm text-slate-500">
-          まだ投稿はありません。最初の一つを送ってみましょう。
+          まだ なにも ないよ。 さいしょの ひとつを おくってみてね!
         </p>
       </div>
     );
@@ -267,13 +320,17 @@ function Timeline({
       role="log"
       aria-live="polite"
       aria-relevant="additions"
-      aria-label="共有タイムラインの投稿一覧。新着が追加されると読み上げます"
+      aria-label="ひろばの とうこういちらん。あたらしい とうこうが はいると よみあげるよ"
       className="space-y-3"
     >
       {posts.map((post) => {
         const author = post.participant_id
-          ? (nameById.get(post.participant_id) ?? "不明")
-          : "匿名";
+          ? (nameById.get(post.participant_id) ?? "だれか")
+          : "とくめい";
+        // 絵文字スタンプかどうかで見た目を変える(スタンプは絵文字を大きく)。
+        // \p{...} 正規表現は tsconfig の target が ES5 なので避け、
+        // STAMPS の絵文字リストで前方一致判定する。
+        const isStamp = STAMPS.some((s) => post.content.startsWith(s.emoji));
         return (
           <li
             key={post.id}
@@ -287,12 +344,16 @@ function Timeline({
                     : "bg-orange-100 text-orange-800"
                 }`}
               >
-                {post.type === "trouble" ? "困った" : "発見"}
+                {post.type === "trouble" ? "こまった" : "みつけた"}
               </span>
               <span className="font-semibold text-slate-900">{author}</span>
               <span className="text-slate-400">{timeAgo(post.created_at)}</span>
             </div>
-            <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">
+            <p
+              className={`mt-2 whitespace-pre-wrap text-slate-800 ${
+                isStamp ? "text-2xl" : "text-sm"
+              }`}
+            >
               {post.content}
             </p>
           </li>

@@ -10,6 +10,7 @@ import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import RubyText from "@/components/ruby-text";
+import FuriganaToggle from "@/components/furigana-toggle";
 import { stripRuby } from "@/lib/ruby";
 import stepsData from "@/data/steps.json";
 import type { StepStatus } from "@/lib/types/database";
@@ -307,6 +308,9 @@ function MissionView({
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col gap-1">
+              <div className="flex justify-end">
+                <FuriganaToggle />
+              </div>
               <InviteButton code={code} />
               <Link
                 href={`/s/${code}/nickname`}

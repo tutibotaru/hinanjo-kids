@@ -15,10 +15,10 @@ type Session = {
 };
 
 const PHASE_LABELS: Record<number, string> = {
-  0: "初動(発災〜15分)",
-  1: "開設初期(15分〜1時間)",
-  2: "応急運営(1〜2時間)",
-  3: "安定運営(1日〜)",
+  0: "はじめる(さいしょの15ふん)",
+  1: "ひらく(つぎの30ぷん)",
+  2: "つづける(1〜2じかん)",
+  3: "おちつく(1にち〜)",
 };
 const PHASE_MAX = 3;
 
@@ -31,7 +31,7 @@ export default function ManagePage() {
   const [resetArmed, setResetArmed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
-  // WHY: 運営パネルはフェーズ変更・進捗リセット等の破壊操作を持つ。
+  // WHY: リーダーパネルはフェーズ変更・進捗リセット等の破壊操作を持つ。
   // 一般参加者の誤タップ防止のため、コード再入力で意思確認する
   // (RLS による本来のアクセス制御は別途サーバ側で対応する想定)。
   // ただし本部(leader)ロールを選んだ参加者は運営する立場なので、
@@ -92,7 +92,7 @@ export default function ManagePage() {
         if (cancelled) return;
         if (data?.role === "leader") {
           setUnlocked(true);
-          setAutoUnlockReason("本部役として開きました");
+          setAutoUnlockReason("リーダーとして ひらいたよ");
         }
       });
     return () => {
@@ -123,11 +123,11 @@ export default function ManagePage() {
       .eq("id", session.id);
     setBusy(false);
     if (error) {
-      setMsg("フェーズの更新に失敗しました。");
+      setMsg("フェーズが かえられなかったよ。");
       return;
     }
     await refresh();
-    setMsg(`フェーズを ${next} に変更しました。`);
+    setMsg(`フェーズを ${next} に かえたよ。`);
   }
 
   async function toggleMode() {
@@ -142,11 +142,11 @@ export default function ManagePage() {
       .eq("id", session.id);
     setBusy(false);
     if (error) {
-      setMsg("モードの切り替えに失敗しました。");
+      setMsg("モードが かえられなかったよ。");
       return;
     }
     await refresh();
-    setMsg(next === "training" ? "訓練モードにしました。" : "本番モードにしました。");
+    setMsg(next === "training" ? "たいけんモードに したよ。" : "ほんばんモードに したよ。");
   }
 
   async function resetProgress() {
@@ -173,11 +173,11 @@ export default function ManagePage() {
     setBusy(false);
     setResetArmed(false);
     if (r1.error || r2.error || r3.error) {
-      setMsg("リセットに一部失敗しました。もう一度お試しください。");
+      setMsg("もどせなかったよ。もういちど ためしてね。");
       return;
     }
     await refresh();
-    setMsg("進捗・タイムラインを消去し、フェーズを0に戻しました。");
+    setMsg("できた と ひろばを ぜんぶ もどして、フェーズを 0に したよ。");
   }
 
   async function copyLink() {
@@ -187,14 +187,14 @@ export default function ManagePage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      setMsg("コピーに失敗しました。URL を手動で選択してください。");
+      setMsg("コピーできなかったよ。URL を じぶんで えらんでね。");
     }
   }
 
   if (!session) {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
-        <p className="mx-auto max-w-md text-sm text-slate-500">読み込み中…</p>
+        <p className="mx-auto max-w-md text-sm text-slate-500">よみこみちゅう…</p>
       </main>
     );
   }
@@ -203,17 +203,20 @@ export default function ManagePage() {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
         <div className="mx-auto max-w-md">
-          <h1 className="text-xl font-bold text-slate-900">運営パネル</h1>
+          <h1 className="text-xl font-bold text-slate-900">リーダーパネル</h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            この画面では <strong>フェーズ変更・モード切替・進捗リセット</strong>{" "}
-            ができます。運営担当の方だけが開いてください。
-            参加者の方は下のボタンを押さず、ボードに戻ってください。
+            この がめんでは{" "}
+            <strong>
+              フェーズの きりかえ・モードの きりかえ・ぜんぶ もとに もどす
+            </strong>{" "}
+            ことが できるよ。リーダーの ひとだけ ひらいてね。
+            ちがうひとは、 した のボタンで ボードに もどってね。
           </p>
           <label
             htmlFor="gate"
             className="mt-6 block text-sm font-semibold text-slate-700"
           >
-            参加コードを入力して開く
+            さんかコードを いれて ひらく
           </label>
           <input
             id="gate"
@@ -233,13 +236,13 @@ export default function ManagePage() {
                 setMsg(null);
                 setUnlocked(true);
               } else {
-                setMsg("コードが一致しません。");
+                setMsg("コードが ちがうよ。");
               }
             }}
             style={{ minHeight: 52 }}
             className="mt-3 w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white hover:bg-orange-700"
           >
-            運営者として開く
+            リーダーとして ひらく
           </button>
           {msg && (
             <p className="mt-3 rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">
@@ -251,7 +254,7 @@ export default function ManagePage() {
             style={{ minHeight: 48 }}
             className="mt-6 flex items-center justify-center rounded-lg border border-slate-300 bg-white text-sm font-semibold text-slate-600 hover:bg-slate-50"
           >
-            ボードに戻る
+            ボードに もどる
           </Link>
         </div>
       </main>
@@ -267,14 +270,14 @@ export default function ManagePage() {
           <div className="flex items-baseline justify-between gap-3">
             <div>
               <p className="text-xs font-semibold tracking-widest text-orange-700">
-                運営パネル
+                リーダーパネル
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
                 {session.name}
               </h1>
               <p className="mt-0.5 text-xs text-slate-500">
                 コード {code} / フェーズ {session.phase} /{" "}
-                {session.mode === "training" ? "訓練" : "本番"}
+                {session.mode === "training" ? "たいけん" : "ほんばん"}
               </p>
               {autoUnlockReason && (
                 <p className="mt-1 inline-block rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold text-orange-800">
@@ -294,7 +297,7 @@ export default function ManagePage() {
                   href={`/s/${code}/mission`}
                   className="text-xs text-slate-500 underline"
                 >
-                  マイへ戻る
+                  じぶんへ もどる
                 </Link>
               )}
             </div>
@@ -309,7 +312,7 @@ export default function ManagePage() {
           )}
 
           <section className="rounded-lg border border-slate-200 bg-white p-4">
-            <h2 className="text-sm font-bold text-slate-900">フェーズ進行</h2>
+            <h2 className="text-sm font-bold text-slate-900">フェーズを すすめる</h2>
             <p className="mt-1 text-xs text-slate-500">
               いま: フェーズ {session.phase} — {PHASE_LABELS[session.phase]}
             </p>
@@ -321,7 +324,7 @@ export default function ManagePage() {
                 style={{ minHeight: 48 }}
                 className="flex-1 rounded-lg border-2 border-slate-300 bg-white text-sm font-semibold text-slate-700 disabled:opacity-40"
               >
-                ← 前のフェーズ
+                ← まえのフェーズ
               </button>
               <button
                 type="button"
@@ -330,7 +333,7 @@ export default function ManagePage() {
                 style={{ minHeight: 48 }}
                 className="flex-1 rounded-lg bg-orange-600 text-sm font-bold text-white disabled:opacity-40"
               >
-                次のフェーズ →
+                つぎのフェーズ →
               </button>
             </div>
           </section>
@@ -338,7 +341,7 @@ export default function ManagePage() {
           <section className="rounded-lg border border-slate-200 bg-white p-4">
             <h2 className="text-sm font-bold text-slate-900">モード</h2>
             <p className="mt-1 text-xs text-slate-500">
-              訓練モードでは画面上部に黄色の帯が出ます。
+              たいけんモードでは がめんの うえに きいろの おびが でるよ。
             </p>
             <button
               type="button"
@@ -348,17 +351,18 @@ export default function ManagePage() {
               className="mt-3 w-full rounded-lg border-2 border-slate-300 bg-white text-sm font-semibold text-slate-700 disabled:opacity-40"
             >
               {session.mode === "training"
-                ? "本番モードに切り替える"
-                : "訓練モードに切り替える"}
+                ? "ほんばんモードに きりかえる"
+                : "たいけんモードに きりかえる"}
             </button>
           </section>
 
           <section className="rounded-lg border border-slate-200 bg-white p-4">
             <h2 className="text-sm font-bold text-slate-900">
-              参加用 QR / リンク
+              さんかよう QR / リンク
             </h2>
             <p className="mt-1 text-xs text-slate-500">
-              印刷せずに、この画面を見せる/リンクを送るだけでも参加できます。
+              いんさつしなくても、この がめんを みせるか リンクを おくれば
+              さんかできるよ。
             </p>
             <div className="mt-3 flex flex-col items-center">
               {joinUrl && (
@@ -378,24 +382,25 @@ export default function ManagePage() {
                 onClick={copyLink}
                 className="mt-3 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
-                {copied ? "コピーしました" : "リンクをコピー"}
+                {copied ? "コピーした!" : "リンクを コピー"}
               </button>
               <Link
                 href={`/admin/qr?code=${code}`}
                 className="mt-2 text-xs text-orange-700 underline"
               >
-                印刷用ページを開く
+                いんさつようの ページを ひらく
               </Link>
             </div>
           </section>
 
           <section className="rounded-lg border border-rose-200 bg-rose-50 p-4">
             <h2 className="text-sm font-bold text-rose-900">
-              進捗をリセット(訓練のやり直し)
+              ぜんぶ もとに もどす(やりなおし)
             </h2>
             <p className="mt-1 text-xs text-rose-700">
-              全ステップの進捗と共有タイムラインを消去し、フェーズを0に戻します。
-              参加者(ニックネーム・役割)は残ります。元に戻せません。
+              ステップの できた・ひろばの とうこうを ぜんぶ きえして、
+              フェーズを 0に もどします。 さんかしたひとと やくわりは のこるよ。
+              もとには もどせないよ。
             </p>
             <button
               type="button"
@@ -409,8 +414,8 @@ export default function ManagePage() {
               }`}
             >
               {resetArmed
-                ? "本当にリセットする(もう一度タップ)"
-                : "進捗をリセット"}
+                ? "ほんとうに もどす(もういちど タップ)"
+                : "ぜんぶ もとに もどす"}
             </button>
             {resetArmed && (
               <button

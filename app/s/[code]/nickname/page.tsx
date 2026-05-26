@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import FuriganaToggle from "@/components/furigana-toggle";
 import NicknameForm from "./nickname-form";
 
 export default async function NicknamePage({
@@ -20,9 +21,12 @@ export default async function NicknamePage({
   return (
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-md">
+        <div className="mb-4 flex justify-end">
+          <FuriganaToggle />
+        </div>
         <header className="mb-8">
           <p className="text-xs font-semibold tracking-widest text-orange-700">
-            参加先
+            さんかさき
           </p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">
             {session.name}
@@ -33,7 +37,7 @@ export default async function NicknamePage({
               {session.qr_code}
             </code>
             {" / "}
-            {session.mode === "training" ? "訓練モード" : "本番モード"}
+            {session.mode === "training" ? "たいけんモード" : "ほんばんモード"}
           </p>
         </header>
 

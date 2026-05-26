@@ -17,13 +17,17 @@ export type RubyToken =
   | { type: "text"; value: string }
   | { type: "ruby"; base: string; rt: string };
 
-const RUBY_RE = /\{([^{|}]+)\|([^{|}]+)\}/g;
+// WHY exec ループ:tsconfig の target が ES5 なので String#matchAll が使えない。
+// グローバル RegExp を毎回新規生成して lastIndex 副作用を避ける。
+const RUBY_RE_SRC = "\\{([^{|}]+)\\|([^{|}]+)\\}";
 
 export function parseRuby(text: string): RubyToken[] {
   const tokens: RubyToken[] = [];
+  const re = new RegExp(RUBY_RE_SRC, "g");
   let lastIndex = 0;
-  for (const m of text.matchAll(RUBY_RE)) {
-    const start = m.index ?? 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    const start = m.index;
     if (start > lastIndex) {
       tokens.push({ type: "text", value: text.slice(lastIndex, start) });
     }
@@ -38,5 +42,5 @@ export function parseRuby(text: string): RubyToken[] {
 
 // 記法を取り除いて素のテキストだけ返す(aria-label や検索用に使う)。
 export function stripRuby(text: string): string {
-  return text.replace(RUBY_RE, (_m, base) => base);
+  return text.replace(new RegExp(RUBY_RE_SRC, "g"), (_m, base) => base);
 }

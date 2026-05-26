@@ -4,7 +4,8 @@ export default function TrainingBanner({ mode }: { mode: string }) {
   if (mode !== "training") return null;
   return (
     <div className="sticky top-0 z-30 bg-amber-400 px-4 py-1 text-center text-xs font-bold text-amber-950">
-      📣 たいけんちゅう — これは ほんものの 災害じゃないよ
+      📣 たいけんちゅう — これは ほんものの{" "}
+      <ruby>災害<rt>さいがい</rt></ruby>じゃないよ
     </div>
   );
 }

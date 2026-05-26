@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import RubyText from "@/components/ruby-text";
+import FuriganaToggle from "@/components/furigana-toggle";
 import stepsData from "@/data/steps.json";
 
 type StoredParticipant = { id: string; nickname: string };
@@ -194,6 +195,9 @@ export default function RolePage() {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
         <div className="mx-auto max-w-md">
+          <div className="mb-3 flex justify-end">
+            <FuriganaToggle />
+          </div>
           <Progress />
           <p className="mb-2 text-center text-xs font-semibold tracking-widest text-orange-700">
             しつもん {step + 1} / {questions.length}
@@ -257,6 +261,9 @@ export default function RolePage() {
   return (
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-md">
+        <div className="mb-3 flex justify-end">
+          <FuriganaToggle />
+        </div>
         <Progress />
         <header className="mb-6 text-center">
           <p className="text-xs font-semibold tracking-widest text-orange-700">

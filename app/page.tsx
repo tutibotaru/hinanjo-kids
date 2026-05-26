@@ -4,13 +4,16 @@ import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import FuriganaToggle from "@/components/furigana-toggle";
 
 export default function Home() {
   return (
     <Suspense
       fallback={
         <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
-          <p className="mx-auto max-w-md text-sm text-slate-500">読み込み中…</p>
+          <p className="mx-auto max-w-md text-sm text-slate-500">
+            よみこみちゅう…
+          </p>
         </main>
       }
     >
@@ -31,7 +34,7 @@ function HomeForm() {
     e.preventDefault();
     const trimmed = code.trim().toUpperCase();
     if (!trimmed) {
-      setError("参加コードを入力してください");
+      setError("さんかコードを いれてね");
       return;
     }
 
@@ -47,12 +50,12 @@ function HomeForm() {
 
     if (dbError) {
       setSubmitting(false);
-      setError("通信エラーが発生しました。もう一度お試しください。");
+      setError("つうしんエラー。もういちど ためしてね");
       return;
     }
     if (!data) {
       setSubmitting(false);
-      setError("そのコードの避難所が見つかりません");
+      setError("そのコードの たいけんかいじょうが みつからないよ");
       return;
     }
 
@@ -62,19 +65,28 @@ function HomeForm() {
   return (
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
       <div className="mx-auto max-w-md">
+        <div className="mb-4 flex justify-end">
+          <FuriganaToggle />
+        </div>
         <header className="mb-8">
           <div className="mb-3 inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800">
-            📣 体験キャンプ版
+            📣 たいけんキャンプ<ruby>版<rt>ばん</rt></ruby>
           </div>
           <p className="text-xs font-semibold tracking-widest text-orange-700">
-            親子で避難所体験
+            <ruby>親子<rt>おやこ</rt></ruby>で{" "}
+            <ruby>避難所<rt>ひなんじょ</rt></ruby>
+            <ruby>体験<rt>たいけん</rt></ruby>
           </p>
           <h1 className="mt-2 text-3xl font-bold text-slate-900">
-            いっしょに参加
+            いっしょに <ruby>参加<rt>さんか</rt></ruby>
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-600">
-            QR コードを読んで、おうちの人といっしょに避難所を立ち上げてみよう。
-            役割を選んで、ステップに沿って動くだけ。
+            QR コードを よんで、おうちの{" "}
+            <ruby>人<rt>ひと</rt></ruby>といっしょに{" "}
+            <ruby>避難所<rt>ひなんじょ</rt></ruby>を{" "}
+            <ruby>立<rt>た</rt></ruby>ち
+            <ruby>上<rt>あ</rt></ruby>げてみよう。 やくわりを えらんで、
+            ステップに そって うごくだけ。
           </p>
         </header>
 
@@ -84,14 +96,14 @@ function HomeForm() {
               htmlFor="code"
               className="block text-sm font-semibold text-slate-700"
             >
-              参加コード
+              さんかコード
             </label>
             <input
               id="code"
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
-              placeholder="例: TEST01"
+              placeholder="れい: TEST01"
               autoCapitalize="characters"
               autoCorrect="off"
               spellCheck={false}
@@ -116,26 +128,27 @@ function HomeForm() {
             style={{ minHeight: 52 }}
             className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {submitting ? "確認中…" : "いっしょに参加する"}
+            {submitting ? "かくにんちゅう…" : "いっしょに さんかする"}
           </button>
         </form>
 
         <div className="mt-10 border-t border-slate-200 pt-6">
           <p className="text-sm leading-relaxed text-slate-500">
-            掲示された QR コードを、スマホのカメラで読むと
-            この画面が自動で開いて、コードも入るよ。読めないときは、
-            QR の下に書いてある参加コードを上のらんに入れてね。
+            はってある QR コードを、スマホの カメラで よむと
+            このがめんが じどうで ひらいて、コードも はいるよ。
+            よめないときは、 QR の <ruby>下<rt>した</rt></ruby>に かいてある
+            さんかコードを <ruby>上<rt>うえ</rt></ruby>の らんに いれてね。
           </p>
         </div>
 
         <section className="mt-8 rounded-lg border border-orange-200 bg-orange-50 p-4">
           <p className="text-xs font-semibold text-orange-800">
-            🌟 はじめての人はこちらから
+            🌟 はじめての <ruby>人<rt>ひと</rt></ruby>は こちらから
           </p>
           <p className="mt-1 text-xs leading-relaxed text-orange-900">
-            体験会場「DEMO01」をすぐにためせるよ。
-            ほかの人もさわっているかもしれないけど、
-            体験用だから自由にいじって大丈夫!
+            たいけんかいじょう「DEMO01」を すぐ ためせるよ。
+            ほかの <ruby>人<rt>ひと</rt></ruby>も さわっているかも しれないけど、
+            たいけんようだから じゆうに さわってOK!
           </p>
           <Link
             href="/?code=DEMO01"
@@ -143,37 +156,54 @@ function HomeForm() {
             style={{ minHeight: 48 }}
             className="mt-3 flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
           >
-            🎯 体験会場「DEMO01」をためす
+            🎯 たいけんかいじょう「DEMO01」を ためす
           </Link>
         </section>
 
         <section className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
           <p className="text-xs font-semibold text-slate-700">
-            体験キャンプを主催する方へ
+            たいけんキャンプを <ruby>主催<rt>しゅさい</rt></ruby>する
+            <ruby>方<rt>かた</rt></ruby>へ
           </p>
           <p className="mt-1 text-xs leading-relaxed text-slate-500">
-            新しい体験会場を作って、参加する親子用の QR コードを発行できます。
-            PTA・子ども会・防災イベント主催者向け。
+            <ruby>新<rt>あたら</rt></ruby>しい たいけんかいじょうを{" "}
+            <ruby>作<rt>つく</rt></ruby>って、
+            <ruby>参加<rt>さんか</rt></ruby>する{" "}
+            <ruby>親子用<rt>おやこよう</rt></ruby>の QR コードを{" "}
+            <ruby>発行<rt>はっこう</rt></ruby>できます。 PTA・
+            <ruby>子<rt>こ</rt></ruby>ども<ruby>会<rt>かい</rt></ruby>・
+            <ruby>防災<rt>ぼうさい</rt></ruby>イベント
+            <ruby>主催者<rt>しゅさいしゃ</rt></ruby>
+            <ruby>向<rt>む</rt></ruby>け。
           </p>
           <Link
             href="/admin/new"
             style={{ minHeight: 48 }}
             className="mt-3 flex items-center justify-center rounded-lg border-2 border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
           >
-            ➕ 新しい体験会場を作る(主催者向け)
+            ➕ <ruby>新<rt>あたら</rt></ruby>しい たいけんかいじょうを{" "}
+            <ruby>作<rt>つく</rt></ruby>る
           </Link>
         </section>
 
         <footer className="mt-10 border-t border-slate-200 pt-6 text-xs text-slate-500">
           <p className="leading-relaxed">
-            このアプリは親子で楽しむ「避難所体験キャンプ」用の試験版(ベータ)です。
-            本物の災害時に使うことは想定していません。
-            体験を通じて、避難所のしくみと、もしものとき家族でできることを
-            一緒に考えるきっかけになれば嬉しいです。
+            このアプリは <ruby>親子<rt>おやこ</rt></ruby>で たのしむ「
+            <ruby>避難所<rt>ひなんじょ</rt></ruby>
+            <ruby>体験<rt>たいけん</rt></ruby>キャンプ」<ruby>用<rt>よう</rt></ruby>
+            の しけんばん(ベータ)です。 ほんものの{" "}
+            <ruby>災害<rt>さいがい</rt></ruby>のときに{" "}
+            <ruby>使<rt>つか</rt></ruby>うことは{" "}
+            <ruby>想定<rt>そうてい</rt></ruby>していません。
+            たいけんを とおして、
+            <ruby>避難所<rt>ひなんじょ</rt></ruby>のしくみと、
+            もしものとき かぞくで できることを いっしょに{" "}
+            <ruby>考<rt>かんが</rt></ruby>える きっかけに なれば うれしいです。
           </p>
           <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
             <Link href="/policy" className="text-orange-700 underline">
-              利用規約・プライバシー・免責
+              <ruby>利用規約<rt>りようきやく</rt></ruby>・プライバシー・
+              <ruby>免責<rt>めんせき</rt></ruby>
             </Link>
             <a
               href="https://github.com/tutibotaru/hinanjo-kids"
@@ -189,11 +219,16 @@ function HomeForm() {
               rel="noopener noreferrer"
               className="text-orange-700 underline"
             >
-              お問い合わせ
+              お<ruby>問<rt>と</rt></ruby>い<ruby>合<rt>あ</rt></ruby>わせ
             </a>
           </div>
           <p className="mt-3 text-[10px] text-slate-400">
-            提供: 親子で避難所体験(個人開発・オープンソース)
+            <ruby>提供<rt>ていきょう</rt></ruby>:{" "}
+            <ruby>親子<rt>おやこ</rt></ruby>で{" "}
+            <ruby>避難所<rt>ひなんじょ</rt></ruby>
+            <ruby>体験<rt>たいけん</rt></ruby>(
+            <ruby>個人<rt>こじん</rt></ruby>
+            <ruby>開発<rt>かいはつ</rt></ruby>・オープンソース)
           </p>
         </footer>
       </div>

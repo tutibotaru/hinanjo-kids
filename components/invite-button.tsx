@@ -8,7 +8,7 @@ import { QRCodeSVG } from "qrcode.react";
 // /admin/qr は管理者画面なので、参加者向けにモーダル表示で完結させる。
 export default function InviteButton({
   code,
-  label = "招待",
+  label = "しょうたい",
 }: {
   code: string;
   label?: string;
@@ -39,7 +39,7 @@ export default function InviteButton({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="この避難所への招待リンクとQRコードを表示"
+        aria-label="このひなんじょへの しょうたいリンクと QRコードを ひらく"
         style={{ minHeight: 40 }}
         className="flex items-center justify-center rounded-md border border-orange-300 bg-orange-50 px-3 text-sm font-semibold text-orange-700 hover:bg-orange-100 active:bg-orange-200"
       >
@@ -52,7 +52,7 @@ export default function InviteButton({
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"
-          aria-label="友達を招待"
+          aria-label="ともだちを しょうたい"
         >
           <div
             className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-lg"
@@ -60,13 +60,13 @@ export default function InviteButton({
           >
             <header className="text-center">
               <p className="text-xs font-semibold tracking-widest text-orange-700">
-                友達を招待
+                ともだちを しょうたい
               </p>
               <h2 className="mt-1 text-lg font-bold text-slate-900">
-                同じ避難所に参加してもらう
+                おなじ <ruby>避難所<rt>ひなんじょ</rt></ruby>に きてもらう
               </h2>
               <p className="mt-2 text-xs text-slate-500">
-                QR を読み取るか、リンクを送ってください。
+                QR を よみとるか、リンクを おくってね。
               </p>
             </header>
 
@@ -97,7 +97,7 @@ export default function InviteButton({
                 style={{ minHeight: 48 }}
                 className="w-full rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
               >
-                {copied ? "✓ コピーしました" : "リンクをコピー"}
+                {copied ? "✓ コピーした!" : "リンクを コピー"}
               </button>
               <button
                 type="button"

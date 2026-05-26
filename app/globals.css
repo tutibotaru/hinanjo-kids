@@ -41,3 +41,9 @@ ruby rt {
   line-height: 1;
   user-select: none;
 }
+
+/* ふりがな OFF モード(FuriganaToggle 経由で body[data-furigana="off"])。
+   直接書いた <ruby> も RubyText も一括で漢字だけ表示にする。 */
+body[data-furigana="off"] ruby rt {
+  display: none;
+}
