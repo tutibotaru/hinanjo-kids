@@ -1,0 +1,10 @@
+# リポジトリ内は LF に統一(Windows でも作業差分にCRLF警告を出さない)
+* text=auto eol=lf
+
+# バイナリは変換しない
+*.woff binary
+*.woff2 binary
+*.ico binary
+*.png binary
+*.jpg binary
+*.webp binary

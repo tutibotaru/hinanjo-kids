@@ -1,0 +1,27 @@
+{
+  "name": "避難所サポート",
+  "short_name": "避難所",
+  "description": "QRを読むだけで、知識ゼロでも避難所が立ち上がる。役割分担と進捗共有で住民協働運営を支援するMVP。",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1D9E75",
+  "background_color": "#f8fafc",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

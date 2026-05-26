@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="避難所サポート">
+  <rect width="512" height="512" rx="96" fill="#1D9E75"/>
+  <path d="M256 96 L448 256 L448 440 L64 440 L64 256 Z" fill="#ffffff"/>
+  <path d="M256 96 L448 256 L448 280 L256 120 L64 280 L64 256 Z" fill="#0F6F4E"/>
+  <rect x="216" y="320" width="80" height="120" fill="#1D9E75"/>
+  <rect x="120" y="300" width="60" height="56" fill="#1D9E75"/>
+  <rect x="332" y="300" width="60" height="56" fill="#1D9E75"/>
+</svg>
