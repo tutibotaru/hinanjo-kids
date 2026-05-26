@@ -90,17 +90,17 @@ export default function BottomNav({
       <div className="mx-auto grid max-w-md grid-cols-3">
         <NavTab
           href={`/s/${code}/mission`}
-          label="マイ"
+          label="じぶん"
           active={pathname.endsWith("/mission")}
         />
         <NavTab
           href={`/s/${code}/board`}
-          label="全体"
+          label="みんな"
           active={pathname.endsWith("/board")}
         />
         <NavTab
           href={`/s/${code}/posts`}
-          label="共有"
+          label="ひろば"
           active={onPosts}
           hasUnread={hasUnread}
         />

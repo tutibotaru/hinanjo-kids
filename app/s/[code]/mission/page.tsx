@@ -297,11 +297,11 @@ function MissionView({
                 {participant.nickname} さん / {role.name}
               </p>
               <p className="text-sm text-slate-500">
-                仲間 {sameRoleCount}人 / {session.name} ({code})
+                なかま {sameRoleCount}人 / {session.name}({code})
               </p>
               <p className="mt-0.5 text-xs leading-snug text-slate-400">
-                他班 {otherSummary.activeBands}/{otherSummary.totalOthers}班{" "}
-                計{otherSummary.people}人(詳細はボード)
+                ほかのチーム {otherSummary.activeBands}/
+                {otherSummary.totalOthers}チーム ぜんぶで{otherSummary.people}人
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col gap-1">
@@ -381,26 +381,26 @@ function MissionView({
           </section>
         ) : !current ? (
           <section className="px-5 py-16 text-center">
-            <p className="text-4xl">🎉</p>
+            <p className="text-5xl">🎉</p>
             <h1 className="mt-4 text-xl font-bold text-slate-900">
-              いまのフェーズはおしまい!
+              いまの ぶんは おしまい!
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              次のフェーズが始まるまでお待ちください。
+              つぎの ステップが はじまるまで まってね。
             </p>
             <Link
               href={`/s/${code}/finish`}
               className="mt-6 inline-block rounded-lg border border-orange-300 bg-orange-50 px-5 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-100"
             >
-              振り返りを見る →
+              ⭐ おつかれさま画面を みる →
             </Link>
           </section>
         ) : (
           <section className="px-5 py-6">
             <div className="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
               {current.progress?.status === "stuck"
-                ? "再チャレンジ"
-                : "いまやること"}
+                ? "もういちど やってみる"
+                : "いま やること"}
             </div>
             <h1 className="mt-3 text-2xl font-bold leading-snug text-slate-900">
               {current.step.title}
@@ -427,7 +427,7 @@ function MissionView({
             </ol>
 
             <div className="mt-6 rounded-lg border border-orange-200 bg-orange-50 p-3">
-              <p className="text-xs font-semibold text-orange-700">完了条件</p>
+              <p className="text-xs font-semibold text-orange-700">できたサイン</p>
               <p className="mt-1 text-sm text-orange-900">
                 {current.step.completion_condition}
               </p>
@@ -439,7 +439,9 @@ function MissionView({
                   💡
                 </span>
                 <div>
-                  <p className="text-xs font-semibold text-sky-700">ポイント</p>
+                  <p className="text-xs font-semibold text-sky-700">
+                    だいじなこと
+                  </p>
                   <p className="mt-1 text-sm text-sky-900">
                     {current.step.point}
                   </p>
@@ -448,9 +450,8 @@ function MissionView({
             )}
 
             <p className="mt-4 text-[10px] leading-relaxed text-slate-400">
-              ※ 本アプリは内閣府ガイドライン等を参考にした行動指針で、
-              医療判断・法的判断を行うものではありません。
-              現場の専門家(医療従事者・行政等)の指示を優先してください。
+              ※ これは 防災を まなぶための 体験です。ほんものの 災害のときは、
+              おとなや まちの人の しじを いちばんに きいてね。
             </p>
 
             {actionError && (
@@ -472,32 +473,32 @@ function MissionView({
               type="button"
               onClick={handleDone}
               disabled={acting}
-              aria-label={`「${current.step.title}」を完了として記録する`}
+              aria-label={`「${current.step.title}」が できたよ`}
               style={{ minHeight: 52 }}
               className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 focus-visible:ring-4 focus-visible:ring-orange-300 disabled:opacity-50"
             >
-              {acting ? "保存中…" : "✓ できた"}
+              {acting ? "ほぞんちゅう…" : "✓ できた!"}
             </button>
             <div className="mt-2 flex gap-2">
               <button
                 type="button"
                 onClick={() => setShowTrouble(true)}
                 disabled={acting}
-                aria-label="困ったを報告する(理由を選んで送信)"
+                aria-label="こまったを つたえる(りゆうを えらぶ)"
                 style={{ minHeight: 48 }}
                 className="flex-1 rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:border-amber-500 hover:bg-amber-50 focus-visible:ring-4 focus-visible:ring-amber-200 disabled:opacity-50"
               >
-                困った
+                こまった
               </button>
               <button
                 type="button"
                 onClick={handleSkip}
                 disabled={acting}
-                aria-label={`「${current.step.title}」をスキップして次のステップへ進む`}
+                aria-label={`「${current.step.title}」を とばして つぎへ`}
                 style={{ minHeight: 48 }}
                 className="flex-1 rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:border-slate-500 focus-visible:ring-4 focus-visible:ring-slate-200 disabled:opacity-50"
               >
-                スキップ
+                とばす
               </button>
             </div>
           </div>

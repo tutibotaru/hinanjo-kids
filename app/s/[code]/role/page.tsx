@@ -12,97 +12,76 @@ type Answers = {
   q2?: AnswerValue;
   q3?: AnswerValue;
   q4?: AnswerValue;
-  q5?: AnswerValue;
 };
-type QuestionKey = "q1" | "q2" | "q3" | "q4" | "q5";
+type QuestionKey = "q1" | "q2" | "q3" | "q4";
 type Question = {
   key: QuestionKey;
   text: string;
   options: ReadonlyArray<{ label: string; value: AnswerValue }>;
 };
 
-// 7班に対応するため Q4(子育て・高齢者支援) と Q5(整理・数を扱う) を追加。
+// 4班(うけつけ/おへや/たべもの/けが)に対応する4問。
+// 子ども親子向けに「すき / ふつう / にがて」形式で答えやすく。
 const questions: ReadonlyArray<Question> = [
   {
     key: "q1",
-    text: "体を動かす作業はできますか?",
+    text: "からだを うごかすのは すき?",
     options: [
-      { label: "できる", value: 2 },
-      { label: "少しなら", value: 1 },
-      { label: "難しい", value: 0 },
+      { label: "すき", value: 2 },
+      { label: "ふつう", value: 1 },
+      { label: "にがて", value: 0 },
     ],
   },
   {
     key: "q2",
-    text: "医療や福祉の経験はありますか?",
+    text: "人と はなしたり、せわするのは すき?",
     options: [
-      { label: "ある", value: 2 },
-      { label: "少しある", value: 1 },
-      { label: "ない", value: 0 },
+      { label: "すき", value: 2 },
+      { label: "ふつう", value: 1 },
+      { label: "にがて", value: 0 },
     ],
   },
   {
     key: "q3",
-    text: "人前で話すのは得意ですか?",
+    text: "ものを かたづけたり、かぞえたりするのは すき?",
     options: [
-      { label: "得意", value: 2 },
-      { label: "普通", value: 1 },
-      { label: "苦手", value: 0 },
+      { label: "すき", value: 2 },
+      { label: "ふつう", value: 1 },
+      { label: "にがて", value: 0 },
     ],
   },
   {
     key: "q4",
-    text: "子育てや高齢者の支援の経験はありますか?",
+    text: "だれかが ぐあいわるいとき、こえをかけられる?",
     options: [
-      { label: "ある", value: 2 },
-      { label: "少しある", value: 1 },
-      { label: "ない", value: 0 },
-    ],
-  },
-  {
-    key: "q5",
-    text: "物の整理や数を扱う作業は得意ですか?",
-    options: [
-      { label: "得意", value: 2 },
-      { label: "普通", value: 1 },
-      { label: "苦手", value: 0 },
+      { label: "できる", value: 2 },
+      { label: "たぶん", value: 1 },
+      { label: "むずかしい", value: 0 },
     ],
   },
 ];
 
-// 訓練結果でチューニング想定の単純重み付け。Q が空(スキップ)時は 0 として扱う。
-// 7班(総務/施設/情報/救護衛生/食料物資/要配慮者支援/本部)それぞれに
-// 「向いている人の特徴」を反映。
+// 4班それぞれに「向いている人の特徴」を反映。
 // 設問の意味:
-//   q1: 体力(運搬・点検・立ち仕事)
-//   q2: 医療経験(検温・救護・薬の知識)
-//   q3: 対人スキル(放送・案内・調整)
-//   q4: 福祉経験(高齢者・障害者・乳幼児ケア)
-//   q5: 整理整頓(名簿・在庫・掲示整理)
-// WHY: 内閣府ガイドライン R6 と各自治体マニュアルを参照し、各班に
-//   主要 2 問(重み2-3)+ 補助 1-2 問(重み1)を反映。
-//   訓練データに応じて微調整可能。
+//   q1: からだをうごかすのが すき(体力)
+//   q2: 人とはなす・せわするのが すき(対人)
+//   q3: かたづけ・かぞえるのが すき(整理)
+//   q4: ぐあいわるい人にこえをかけられる(共感・救護)
+// 各班に主要 1問(重み2)+ 補助 1問(重み1)を反映。
 function computeScores(answers: Answers): Record<string, number> {
   const q1 = answers.q1 ?? 0;
   const q2 = answers.q2 ?? 0;
   const q3 = answers.q3 ?? 0;
   const q4 = answers.q4 ?? 0;
-  const q5 = answers.q5 ?? 0;
   return {
-    // 受付・名簿管理:対人(声かけ)が主、整理(名簿)と軽い体力(立ち仕事)を補助
-    "general-affairs": q3 * 2 + q5 + q1,
-    // 安全確認・スペース設営:体力(資機材)が主、整理(レイアウト)と対人(現場調整)を補助
-    facility: q1 * 2 + q5 + q3,
-    // 通信・広報・掲示:対人(話す)が主、医療(健康情報)と整理(掲示整理)を補助
-    information: q3 * 2 + q2 + q5,
-    // 検温・救護・衛生:医療経験が必須に近い、福祉(要配慮者ケア)と体力を補助
-    "medical-hygiene": q2 * 3 + q1 + q4,
-    // 備蓄・在庫・配布:整理(在庫)と体力(運搬)が両輪、対人(配布時の声かけ)を補助
-    supplies: q1 * 2 + q5 * 2 + q3,
-    // 要配慮者・多文化:福祉経験と医療経験が両輪、対人(やさしい話)を補助
-    "vulnerable-support": q4 * 2 + q2 * 2 + q3,
-    // 司令塔・班間調整:対人が主、体力と医療判断と整理判断をバランスで補助
-    leader: q3 * 2 + q1 + q2 + q5,
+    // うけつけ: 人とはなす + 整理(名簿)
+    uketsuke: q2 * 2 + q3,
+    // おへやづくり: 体力(運搬・点検) + 整理(レイアウト)
+    oheya: q1 * 2 + q3,
+    // たべものとみず: 整理(かぞえる) + 体力(はこぶ)
+    monosuke: q3 * 2 + q1,
+    // けがびょうき: こえかけ(共感) + 体力(けが人を運ぶ)
+    kyugo: q4 * 2 + q1,
   };
 }
 
@@ -216,7 +195,7 @@ export default function RolePage() {
         <div className="mx-auto max-w-md">
           <Progress />
           <p className="mb-2 text-center text-xs font-semibold tracking-widest text-orange-700">
-            質問 {step + 1} / {questions.length}
+            しつもん {step + 1} / {questions.length}
           </p>
           <h1 className="mb-8 text-center text-2xl font-bold leading-snug text-slate-900">
             {q.text}
@@ -228,7 +207,7 @@ export default function RolePage() {
                 onClick={() => setStep(chooseStep)}
                 className="rounded-lg border border-orange-300 bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-700 hover:bg-orange-100"
               >
-                質問をスキップして役割だけ選ぶ →
+                しつもんをとばして やくわりだけえらぶ →
               </button>
             </div>
           )}
@@ -252,7 +231,7 @@ export default function RolePage() {
                 onClick={handleBack}
                 className="text-sm text-slate-500 underline"
               >
-                ← 前の質問に戻る
+                ← まえのしつもんに もどる
               </button>
             </div>
           )}
@@ -266,8 +245,7 @@ export default function RolePage() {
     answers.q1 === undefined &&
     answers.q2 === undefined &&
     answers.q3 === undefined &&
-    answers.q4 === undefined &&
-    answers.q5 === undefined;
+    answers.q4 === undefined;
   const scores = computeScores(answers);
   const roles = stepsData.roles as Role[];
   const sortedRoles = [...roles].sort(
@@ -281,17 +259,17 @@ export default function RolePage() {
         <Progress />
         <header className="mb-6 text-center">
           <p className="text-xs font-semibold tracking-widest text-orange-700">
-            役割をえらぶ
+            やくわりをえらぶ
           </p>
           <h1 className="mt-2 text-2xl font-bold text-slate-900">
             {skipped
-              ? `${stored.nickname} さんの役割`
+              ? `${stored.nickname} さんのやくわり`
               : `${stored.nickname} さんへのおすすめ`}
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            気が変わったら後から変更できます。
+            きがかわったら あとでかえられるよ。
             <br />
-            この避難所運営は本来7班で動きます。あなたが担当する1班を選んでください。
+            4つのチームから、じぶんが やりたいのを1つえらんでね。
           </p>
         </header>
 
@@ -350,7 +328,7 @@ export default function RolePage() {
             onClick={() => setStep(questions.length - 1)}
             className="text-sm text-slate-500 underline"
           >
-            ← 質問をやり直す
+            ← しつもんを やりなおす
           </button>
         </div>
       </div>

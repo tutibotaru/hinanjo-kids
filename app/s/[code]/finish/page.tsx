@@ -167,31 +167,44 @@ function FinishView({ session, code }: { session: Session; code: string }) {
   );
 
   return (
-    <main className="min-h-screen bg-slate-50 pb-12">
+    <main className="min-h-screen bg-amber-50 pb-12">
       <div className="mx-auto max-w-md">
-        <header className="border-b border-slate-200 bg-white px-5 py-4 text-center">
-          <p className="text-xs font-semibold tracking-widest text-orange-700">
-            訓練の振り返り
-          </p>
-          <h1 className="mt-2 text-2xl font-bold text-slate-900">
-            お疲れさまでした
+        <header className="border-b border-orange-200 bg-gradient-to-br from-orange-100 via-amber-50 to-yellow-50 px-5 py-8 text-center">
+          {(() => {
+            // 達成率で星の数を決める(50%未満で1、80%未満で2、それ以上で3)
+            const rate = totalSteps > 0 ? doneCount / totalSteps : 0;
+            const stars = rate >= 0.8 ? 3 : rate >= 0.5 ? 2 : 1;
+            return (
+              <p
+                className="text-4xl"
+                aria-label={`星${stars}つ獲得`}
+              >
+                {"⭐".repeat(stars)}
+                <span aria-hidden className="opacity-25">
+                  {"⭐".repeat(3 - stars)}
+                </span>
+              </p>
+            );
+          })()}
+          <h1 className="mt-3 text-3xl font-bold text-orange-900">
+            おつかれさま!
           </h1>
-          <p className="mt-1 text-xs text-slate-500">
-            {session.name} (コード {code}) / 経過 {formatElapsed(elapsedMs)}
+          <p className="mt-2 text-sm font-semibold text-orange-800">
+            {doneCount} / {totalSteps} ステップ できたよ
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-slate-600">
+            {session.name}({code}) / かかった じかん {formatElapsed(elapsedMs)}
           </p>
         </header>
 
         {functions.length > 0 && (
           <section className="border-b border-slate-200 bg-white px-5 py-4">
             <h2 className="text-sm font-bold text-slate-900">
-              全体の班構成(参考)
+              4つのチームのおはなし
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
-              避難所運営は本来この7班が並行で動きます。
-              <span className="font-semibold text-orange-700">●</span>{" "}
-              は本アプリで計測した班。
-              <span className="font-semibold text-slate-500">○</span>{" "}
-              は現場で別途運営した班(本アプリの管理対象外)。
+              ほんものの避難所は、もっとたくさんのチームでうごいているよ。
+              きょうは その中の 4つのチームを 体験したよ。
             </p>
             <ul className="mt-3 grid grid-cols-1 gap-1.5">
               {functions.map((fn) => {
@@ -236,17 +249,17 @@ function FinishView({ session, code }: { session: Session; code: string }) {
         )}
 
         <section className="grid grid-cols-2 gap-3 px-5 py-5">
-          <StatCard label="完了" value={doneCount} unit="件" color="emerald" />
-          <StatCard label="スキップ" value={skippedCount} unit="件" color="slate" />
+          <StatCard label="できた!" value={doneCount} unit="こ" color="emerald" />
+          <StatCard label="とばした" value={skippedCount} unit="こ" color="slate" />
           <StatCard
-            label="困った"
+            label="こまった"
             value={stuckCount}
-            unit="件"
+            unit="こ"
             color="amber"
-            hint={stuckCount > 0 ? "改善ポイント" : undefined}
+            hint={stuckCount > 0 ? "つぎはこうしよう" : undefined}
           />
           <StatCard
-            label="参加者"
+            label="なかま"
             value={participants.length}
             unit="人"
             color="blue"
@@ -255,7 +268,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
 
         <section className="px-5">
           <h2 className="mb-2 text-sm font-semibold text-slate-700">
-            役割別の達成
+            チームごとに できたこと
           </h2>
           <div className="space-y-2">
             {roles.map((role) => {
@@ -302,7 +315,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
         {stuckItems.length > 0 && (
           <section className="mt-6 px-5">
             <h2 className="mb-2 text-sm font-semibold text-slate-700">
-              困った箇所(改善のヒント)
+              こまったこと(つぎは こうしよう)
             </h2>
             <ul className="space-y-2">
               {stuckItems.map((item, i) => (
@@ -315,19 +328,19 @@ function FinishView({ session, code }: { session: Session; code: string }) {
                       {item.step?.title ?? item.troubleLabel ?? "—"}
                     </p>
                     <span className="flex-shrink-0 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-bold text-amber-800">
-                      困った {item.count}回
+                      こまった {item.count}かい
                     </span>
                   </div>
                   {item.troubleLabel && (
                     <p className="mt-1 text-xs text-amber-700">
-                      理由: {item.troubleLabel}
+                      りゆう: {item.troubleLabel}
                     </p>
                   )}
                   <p className="mt-0.5 text-xs text-amber-600">
                     {item.resolved
-                      ? "→ 最終的に解消"
-                      : "→ 未解消(要フォロー)"}
-                    {item.nickname ? ` / 報告: ${item.nickname} さん` : ""}
+                      ? "→ さいごは できた!"
+                      : "→ まだ できてない"}
+                    {item.nickname ? ` / つたえた人: ${item.nickname}` : ""}
                   </p>
                 </li>
               ))}
@@ -337,17 +350,30 @@ function FinishView({ session, code }: { session: Session; code: string }) {
 
         <section className="mt-6 px-5">
           <h2 className="mb-2 text-sm font-semibold text-slate-700">
-            進捗サマリー
+            きょうの まとめ
           </h2>
           <p className="text-xs leading-relaxed text-slate-600">
-            フェーズ {session.phase} までの全 {totalSteps} ステップ中、
-            {attemptedCount} 件に着手(着手率{" "}
+            ぜんぶで {totalSteps} ステップのうち、{attemptedCount} ステップに
+            ちょうせんしたよ(
             {totalSteps ? Math.round((attemptedCount / totalSteps) * 100) : 0}
-            %)。内訳:完了 {doneCount} / スキップ {skippedCount}。
+            %)。
+            できた: {doneCount} / とばした: {skippedCount}。
             {stuckCount > 0
-              ? `困った発生 ${stuckCount} 箇所(完了済みも含む。改善のヒント参照)。`
-              : "困った報告はありませんでした。"}
+              ? `こまったこと: ${stuckCount} こ。つぎはもっと うまくいくよ!`
+              : "こまったことは ほとんどなかったよ。すごい!"}
           </p>
+        </section>
+
+        <section className="mt-8 px-5">
+          <div className="rounded-lg bg-orange-100 p-4 text-center">
+            <p className="text-sm font-bold text-orange-900">
+              🎉 きょうの 体験は ここまで!
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-orange-800">
+              ほんものの 災害のときは、おとなや まちの人と いっしょに
+              うごこう。きょう おぼえたことを かぞくに はなしてみてね。
+            </p>
+          </div>
         </section>
 
         <div className="mt-8 flex flex-col gap-2 px-5">
@@ -355,13 +381,19 @@ function FinishView({ session, code }: { session: Session; code: string }) {
             href={`/s/${code}/board`}
             className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >
-            全体ボードに戻る
+            ぜんたいボードを みる
+          </Link>
+          <Link
+            href={`/s/${code}/mission`}
+            className="rounded-lg border border-orange-300 bg-orange-50 px-4 py-3 text-center text-sm font-semibold text-orange-800 hover:bg-orange-100"
+          >
+            もういちど やってみる
           </Link>
           <Link
             href="/"
             className="rounded-lg bg-slate-100 px-4 py-3 text-center text-sm font-semibold text-slate-600 hover:bg-slate-200"
           >
-            トップに戻る
+            トップに もどる
           </Link>
         </div>
       </div>
