@@ -47,3 +47,16 @@ ruby rt {
 body[data-furigana="off"] ruby rt {
   display: none;
 }
+
+/* 修了証(/s/[code]/certificate)印刷用のスタイル。
+   ヘッダー/ナビゲーション類は print:hidden で個別に消し、
+   ここでは余白と背景を A4 印刷に最適化する。 */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+  body {
+    background: #ffffff !important;
+  }
+}

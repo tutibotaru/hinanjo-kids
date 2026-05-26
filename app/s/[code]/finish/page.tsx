@@ -389,6 +389,12 @@ function FinishView({ session, code }: { session: Session; code: string }) {
 
         <div className="mt-8 flex flex-col gap-2 px-5">
           <Link
+            href={`/s/${code}/certificate`}
+            className="rounded-lg bg-amber-500 px-4 py-3 text-center text-sm font-bold text-white shadow-sm hover:bg-amber-600 active:bg-amber-700"
+          >
+            🏅 しゅうりょうしょうを みる(いんさつ / PDFほぞん)
+          </Link>
+          <Link
             href={`/s/${code}/board`}
             className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >

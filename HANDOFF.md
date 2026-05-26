@@ -71,37 +71,62 @@
 
 ---
 
-## Phase 4 以降の候補(次にやれそうなこと)
+## Phase 4 完了内容(2026-05-27)
 
-優先順位は要相談。
+### A. 子ども向けアイコン
+- `public/icon.svg` を子ども向けデザインに(オレンジ家+親子+ハート)
 
-### A. アイコン作成
-- `public/icon.svg` を子ども向けデザインに(現状は本家から流用)
-- カラフルでかわいいデザイン
+### B. ふりがな(ルビ)機能
+- `lib/ruby.ts` パーサー: `{漢字|よみ}` 記法 → `<ruby>` トークン
+- `components/ruby-text.tsx` `<RubyText text />`
+- `data/steps.json` の漢字 260 回をすべて 記法化
+- 主要画面 (mission/role/board/finish/posts) の steps 表示を RubyText で包む
+- UI ラベル(役割→やくわり、完了→できた、 等)を平仮名化または `<ruby>` 化
+- `scripts/add-furigana.ps1` 一括置換スクリプト(再利用可)
 
-### B. ふりがな(ルビ)実装
-- HTML の `<ruby>` タグを使う
-- steps.json に `furigana` フィールドを追加する設計
-- 漢字のあるところだけにふりがな
+### C. 修了証
+- `app/s/[code]/certificate/page.tsx`: A4 縦のしゅうりょうしょう。
+  finish 画面から「🏅 しゅうりょうしょうを みる」で遷移。
+  `window.print()` で 印刷ダイアログ → PDF 保存可能。
+- `globals.css` に `@media print` の A4 設定
 
-### C. 修了証 PDF ダウンロード
-- finish 画面から「修了証をダウンロード」
-- ニックネーム・役割・体験日が入った PDF
+### E. 絵文字スタンプ
+- `posts` 画面に 6 種類のスタンプボタン (🥺💪😊⭐🎉🤔)。
+  1 タップでpost。 タイムラインで絵文字は大きく表示。
+
+### 追加機能: ふりがな ON/OFF トグル
+- `components/furigana-toggle.tsx`: localStorage `hinanjo:furigana` を
+  `document.body[data-furigana]` と同期し、 `globals.css` の
+  `body[data-furigana=off] ruby rt { display: none }` で一括 OFF。
+- 各主要画面のヘッダーに 「亜あ」ボタンとして配置。
+- 直接書いた `<ruby>` も RubyText もすべて一括で消える。
+
+### 修正: 役割保存エラー(通信エラー)
+- 原因: `participants.role` の CHECK 制約が 7 班版 ID しか許可していなかった。
+- 対応: `migrations/008_kids_roles.sql` で 子ども版 4 班 ID
+  (uketsuke / oheya / monosuke / kyugo) を 制約に追加(7班 ID とも共存)。
+
+---
+
+## Phase 5 以降の候補
 
 ### D. 親子セット参加機能
 - 受付時に「親子ペア」として登録
 - ペア相手が次のステップに進むと自分にも通知
-
-### E. 共有タイムラインの絵文字スタンプ
-- 子どもが書きづらいときに、スタンプだけで「困った」「楽しい」等が送れる
+- DB に participants.pair_id 追加が必要
 
 ### F. 体験ガイド PDF(主催者向け)
-- 「30分版」「45分版」「60分版」の進行台本
-- 体験キャンプを開く人が事前に読む
+- 「30 分版」「45 分版」「60 分版」の進行台本
+- 体験キャンプを開く人が事前に読む(コンテンツ作成中心)
 
 ### G. 写真投稿(将来)
 - Supabase Storage を使う
 - 親が撮った体験の写真をアップロード(顔写真は禁止のルール)
+- モデレーション(NG ワード・顔検出など)も併せて要検討
+
+### H. 受付名簿の印刷
+- 当日参加者一覧を A4 で印刷できる(主催者向け)
+- 既存の修了証印刷機構を流用
 
 ---
 
@@ -121,9 +146,10 @@
 - 001 initial_schema
 - 004 stuck_count
 - 005 hardening
-- 006 roles_expanded(本家用の7値CHECKを継承。子ども版は4値しか使わないが共存OK)
+- 006 roles_expanded(本家用の7値CHECKを継承)
 - 007 anon_auth_rls(匿名認証+per-session RLS)
-- ※ 008 以降の anon ポリシー削除はまだ未適用(本家と同じく)
+- 008 kids_roles(子ども版 4 班 ID を CHECK 制約に追加。 Phase 4 で適用)
+- ※ anon ポリシー削除(`007` 末尾の 008 ひな形)はまだ未適用(本家と同じく)
 
 ### 既知のセキュリティアドバイザー警告
 - `rls_policy_always_true` 系(007 適用後も一部残る)
