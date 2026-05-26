@@ -25,3 +25,19 @@ body {
     text-wrap: balance;
   }
 }
+
+/* ふりがな(<ruby>)の見た目。
+   子どもが本文を読み飛ばさず、漢字の上の小さなよみが自然に目に入る大きさに。
+   行が詰まりすぎないよう ruby-position: over を明示。 */
+ruby {
+  ruby-position: over;
+  ruby-align: center;
+}
+ruby rt {
+  font-size: 0.55em;
+  font-weight: 400;
+  color: inherit;
+  letter-spacing: 0;
+  line-height: 1;
+  user-select: none;
+}

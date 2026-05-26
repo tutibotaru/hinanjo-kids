@@ -9,6 +9,7 @@ import { useParticipants } from "@/lib/hooks/useParticipants";
 import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
+import RubyText from "@/components/ruby-text";
 import stepsData from "@/data/steps.json";
 
 type Session = {
@@ -139,7 +140,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
           <div className="flex items-baseline justify-between gap-3">
             <div>
               <p className="text-xs font-semibold tracking-widest text-orange-700">
-                全体ボード
+                みんなのボード
               </p>
               <h1 className="mt-1 text-lg font-bold text-slate-900">
                 {session.name}
@@ -154,13 +155,13 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                 href={`/s/${code}/finish`}
                 className="text-orange-700 underline"
               >
-                振り返り
+                ふりかえり
               </Link>
               <Link
                 href={`/s/${code}/manage`}
                 className="text-orange-700 underline"
               >
-                運営
+                リーダー
               </Link>
             </div>
           </div>
@@ -169,14 +170,14 @@ function BoardView({ session, code }: { session: Session; code: string }) {
         {functions.length > 0 && (
           <section className="border-b border-slate-200 bg-white px-5 py-4">
             <h2 className="text-sm font-bold text-slate-900">
-              全体の班構成
+              ぜんぶの チームしょうかい
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
-              避難所運営は本来この7班が並行して動きます。
+              きょう たいけんするのは 4つのチーム。
               <span className="font-semibold text-orange-700">●</span>{" "}
-              はこのアプリで管理。
+              が きょうの たいけん。
               <span className="font-semibold text-slate-500">○</span>{" "}
-              は現場で別途運営してください(本アプリの管理対象外)。
+              は ほんものの ひなんじょで うごく ほかのチーム。
             </p>
             <ul className="mt-3 space-y-1.5">
               {functions.map((fn) => {
@@ -200,17 +201,17 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                         </span>
                         {fn.in_app && (
                           <span className="text-slate-500">
-                            ({inAppCount}人)
+                            ({inAppCount}<ruby>人<rt>にん</rt></ruby>)
                           </span>
                         )}
                         {!fn.in_app && (
                           <span className="text-[10px] text-slate-400">
-                            現場担当
+                            きょうは おやすみ
                           </span>
                         )}
                       </div>
                       <p className="mt-0.5 text-slate-600">
-                        {fn.responsibility}
+                        <RubyText text={fn.responsibility} />
                       </p>
                     </div>
                   </li>
@@ -252,19 +253,19 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                       {role.name}
                     </p>
                     <p className="text-xs text-slate-500">
-                      仲間 {rolePeople.length}人
+                      なかま {rolePeople.length}<ruby>人<rt>にん</rt></ruby>
                     </p>
                   </div>
                   <div className="mt-2">
                     <div className="flex items-baseline justify-between text-xs text-slate-600">
                       <span>
                         {total
-                          ? `${completedCount} / ${total} 完了`
-                          : "ステップなし"}
+                          ? `${completedCount} / ${total} できた`
+                          : "まだ"}
                       </span>
                       {stuckCount > 0 && (
                         <span className="text-amber-700">
-                          ⚠ 困った {stuckCount}件
+                          ⚠ こまった {stuckCount}こ
                         </span>
                       )}
                     </div>
@@ -283,7 +284,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
 
                 {total === 0 ? (
                   <p className="px-4 py-3 text-xs text-slate-400">
-                    ステップ準備中
+                    これから はじまるよ
                   </p>
                 ) : (
                   <ul className="divide-y divide-slate-100">
@@ -300,7 +301,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                           <StatusIcon status={p?.status ?? null} />
                           <div className="flex-1">
                             <p className="text-sm font-medium text-slate-900">
-                              {step.title}
+                              <RubyText text={step.title} />
                             </p>
                             {p?.status === "done" && nickname && (
                               <p className="mt-0.5 text-xs text-slate-500">

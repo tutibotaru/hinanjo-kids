@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import RubyText from "@/components/ruby-text";
 import stepsData from "@/data/steps.json";
 
 type StoredParticipant = { id: string; nickname: string };
@@ -34,7 +35,7 @@ const questions: ReadonlyArray<Question> = [
   },
   {
     key: "q2",
-    text: "人と はなしたり、せわするのは すき?",
+    text: "{人|ひと}と はなしたり、せわするのは すき?",
     options: [
       { label: "すき", value: 2 },
       { label: "ふつう", value: 1 },
@@ -198,7 +199,7 @@ export default function RolePage() {
             しつもん {step + 1} / {questions.length}
           </p>
           <h1 className="mb-8 text-center text-2xl font-bold leading-snug text-slate-900">
-            {q.text}
+            <RubyText text={q.text} />
           </h1>
           {step === 0 && alreadyHasRole && (
             <div className="mb-6 text-center">
@@ -313,7 +314,7 @@ export default function RolePage() {
                       )}
                     </div>
                     <p className="mt-1 text-xs text-slate-600">
-                      {role.description}
+                      <RubyText text={role.description} />
                     </p>
                   </div>
                 </button>

@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useStepProgress } from "@/lib/hooks/useStepProgress";
 import { useParticipants } from "@/lib/hooks/useParticipants";
+import RubyText from "@/components/ruby-text";
 import stepsData from "@/data/steps.json";
 
 type Session = {
@@ -203,8 +204,9 @@ function FinishView({ session, code }: { session: Session; code: string }) {
               4つのチームのおはなし
             </h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-500">
-              ほんものの避難所は、もっとたくさんのチームでうごいているよ。
-              きょうは その中の 4つのチームを 体験したよ。
+              ほんものの <ruby>避難所<rt>ひなんじょ</rt></ruby>は、もっとたくさんのチームでうごいているよ。
+              きょうは その なかの 4つのチームを{" "}
+              <ruby>体験<rt>たいけん</rt></ruby>したよ。
             </p>
             <ul className="mt-3 grid grid-cols-1 gap-1.5">
               {functions.map((fn) => {
@@ -228,17 +230,17 @@ function FinishView({ session, code }: { session: Session; code: string }) {
                         </span>
                         {fn.in_app && (
                           <span className="text-slate-500">
-                            ({inAppCount}人)
+                            ({inAppCount}<ruby>人<rt>にん</rt></ruby>)
                           </span>
                         )}
                         {!fn.in_app && (
                           <span className="text-[10px] text-slate-400">
-                            現場担当
+                            きょうは おやすみ
                           </span>
                         )}
                       </div>
                       <p className="mt-0.5 text-slate-600">
-                        {fn.responsibility}
+                        <RubyText text={fn.responsibility} />
                       </p>
                     </div>
                   </li>
@@ -261,7 +263,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
           <StatCard
             label="なかま"
             value={participants.length}
-            unit="人"
+            unit="にん"
             color="blue"
           />
         </section>
@@ -302,7 +304,9 @@ function FinishView({ session, code }: { session: Session; code: string }) {
                       ? `${roleDone}/${roleSteps.length}`
                       : "—"}
                   </p>
-                  <p className="text-xs text-slate-500">{rolePeople}人</p>
+                  <p className="text-xs text-slate-500">
+                    {rolePeople}<ruby>人<rt>にん</rt></ruby>
+                  </p>
                   {roleStuck > 0 && (
                     <p className="text-xs text-amber-700">⚠{roleStuck}</p>
                   )}
@@ -325,7 +329,9 @@ function FinishView({ session, code }: { session: Session; code: string }) {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <p className="text-sm font-semibold text-amber-900">
-                      {item.step?.title ?? item.troubleLabel ?? "—"}
+                      <RubyText
+                        text={item.step?.title ?? item.troubleLabel ?? "—"}
+                      />
                     </p>
                     <span className="flex-shrink-0 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-bold text-amber-800">
                       こまった {item.count}かい
@@ -333,7 +339,7 @@ function FinishView({ session, code }: { session: Session; code: string }) {
                   </div>
                   {item.troubleLabel && (
                     <p className="mt-1 text-xs text-amber-700">
-                      りゆう: {item.troubleLabel}
+                      りゆう: <RubyText text={item.troubleLabel} />
                     </p>
                   )}
                   <p className="mt-0.5 text-xs text-amber-600">
@@ -367,11 +373,12 @@ function FinishView({ session, code }: { session: Session; code: string }) {
         <section className="mt-8 px-5">
           <div className="rounded-lg bg-orange-100 p-4 text-center">
             <p className="text-sm font-bold text-orange-900">
-              🎉 きょうの 体験は ここまで!
+              🎉 きょうの <ruby>体験<rt>たいけん</rt></ruby>は ここまで!
             </p>
             <p className="mt-2 text-xs leading-relaxed text-orange-800">
-              ほんものの 災害のときは、おとなや まちの人と いっしょに
-              うごこう。きょう おぼえたことを かぞくに はなしてみてね。
+              ほんものの <ruby>災害<rt>さいがい</rt></ruby>のときは、おとなや
+              まちの <ruby>人<rt>ひと</rt></ruby>と いっしょにうごこう。 きょう
+              おぼえたことを かぞくに はなしてみてね。
             </p>
           </div>
         </section>

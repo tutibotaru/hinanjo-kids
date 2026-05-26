@@ -9,6 +9,8 @@ import { useParticipants } from "@/lib/hooks/useParticipants";
 import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
+import RubyText from "@/components/ruby-text";
+import { stripRuby } from "@/lib/ruby";
 import stepsData from "@/data/steps.json";
 import type { StepStatus } from "@/lib/types/database";
 
@@ -297,11 +299,11 @@ function MissionView({
                 {participant.nickname} さん / {role.name}
               </p>
               <p className="text-sm text-slate-500">
-                なかま {sameRoleCount}人 / {session.name}({code})
+                なかま {sameRoleCount}<ruby>人<rt>にん</rt></ruby> / {session.name}({code})
               </p>
               <p className="mt-0.5 text-xs leading-snug text-slate-400">
                 ほかのチーム {otherSummary.activeBands}/
-                {otherSummary.totalOthers}チーム ぜんぶで{otherSummary.people}人
+                {otherSummary.totalOthers}チーム ぜんぶで{otherSummary.people}<ruby>人<rt>にん</rt></ruby>
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col gap-1">
@@ -318,7 +320,7 @@ function MissionView({
                 style={{ minHeight: 40 }}
                 className="flex items-center justify-center rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
               >
-                役割
+                やくわり
               </Link>
             </div>
           </div>
@@ -328,7 +330,7 @@ function MissionView({
           <div className="flex items-baseline justify-between text-xs text-slate-600">
             <span>フェーズ {session.phase}</span>
             <span>
-              {completedCount} / {totalForRole} 完了
+              {completedCount} / {totalForRole} できた
             </span>
           </div>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200">
@@ -371,12 +373,12 @@ function MissionView({
         {totalForRole === 0 ? (
           <section className="px-5 py-16 text-center">
             <h1 className="text-xl font-bold text-slate-900">
-              ステップ準備中
+              これから はじまるよ
             </h1>
             <p className="mt-3 text-sm text-slate-600">
-              「{role.name}」のステップは現在準備中です。
+              「{role.name}」のステップは まだ じゅんびちゅう。
               <br />
-              データは <code className="text-xs">data/steps.json</code> から読まれます。
+              ちょっと まっててね。
             </p>
           </section>
         ) : !current ? (
@@ -403,11 +405,11 @@ function MissionView({
                 : "いま やること"}
             </div>
             <h1 className="mt-3 text-2xl font-bold leading-snug text-slate-900">
-              {current.step.title}
+              <RubyText text={current.step.title} />
             </h1>
             <p className="mt-1 text-xs text-slate-500">
-              ステップ {currentPosition} / 全 {totalForRole} ・ 目安{" "}
-              {current.step.duration_minutes} 分
+              ステップ {currentPosition} / ぜんぶで {totalForRole} ・ めやす{" "}
+              {current.step.duration_minutes} <ruby>分<rt>ふん</rt></ruby>
             </p>
 
             <ol className="mt-6 space-y-3">
@@ -420,7 +422,7 @@ function MissionView({
                     {i + 1}
                   </span>
                   <p className="text-sm leading-relaxed text-slate-800">
-                    {instr}
+                    <RubyText text={instr} />
                   </p>
                 </li>
               ))}
@@ -429,7 +431,7 @@ function MissionView({
             <div className="mt-6 rounded-lg border border-orange-200 bg-orange-50 p-3">
               <p className="text-xs font-semibold text-orange-700">できたサイン</p>
               <p className="mt-1 text-sm text-orange-900">
-                {current.step.completion_condition}
+                <RubyText text={current.step.completion_condition} />
               </p>
             </div>
 
@@ -443,15 +445,17 @@ function MissionView({
                     だいじなこと
                   </p>
                   <p className="mt-1 text-sm text-sky-900">
-                    {current.step.point}
+                    <RubyText text={current.step.point} />
                   </p>
                 </div>
               </div>
             )}
 
             <p className="mt-4 text-[10px] leading-relaxed text-slate-400">
-              ※ これは 防災を まなぶための 体験です。ほんものの 災害のときは、
-              おとなや まちの人の しじを いちばんに きいてね。
+              ※ これは <ruby>防災<rt>ぼうさい</rt></ruby>を まなぶための{" "}
+              <ruby>体験<rt>たいけん</rt></ruby>です。ほんものの{" "}
+              <ruby>災害<rt>さいがい</rt></ruby>のときは、おとなや まちの{" "}
+              <ruby>人<rt>ひと</rt></ruby>の しじを いちばんに きいてね。
             </p>
 
             {actionError && (
@@ -473,7 +477,7 @@ function MissionView({
               type="button"
               onClick={handleDone}
               disabled={acting}
-              aria-label={`「${current.step.title}」が できたよ`}
+              aria-label={`「${stripRuby(current.step.title)}」が できたよ`}
               style={{ minHeight: 52 }}
               className="w-full rounded-lg bg-orange-600 px-4 py-3 text-base font-bold text-white shadow-sm transition-colors hover:bg-orange-700 active:bg-orange-800 focus-visible:ring-4 focus-visible:ring-orange-300 disabled:opacity-50"
             >
@@ -494,7 +498,7 @@ function MissionView({
                 type="button"
                 onClick={handleSkip}
                 disabled={acting}
-                aria-label={`「${current.step.title}」を とばして つぎへ`}
+                aria-label={`「${stripRuby(current.step.title)}」を とばして つぎへ`}
                 style={{ minHeight: 48 }}
                 className="flex-1 rounded-lg border-2 border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:border-slate-500 focus-visible:ring-4 focus-visible:ring-slate-200 disabled:opacity-50"
               >
@@ -509,10 +513,10 @@ function MissionView({
         <div className="fixed inset-0 z-30 flex items-end justify-center bg-slate-900/50 sm:items-center">
           <div className="w-full max-w-md rounded-t-2xl bg-white p-5 shadow-lg sm:rounded-2xl">
             <h2 className="text-lg font-bold text-slate-900">
-              何が困っていますか?
+              なにが こまっている?
             </h2>
             <p className="mt-1 text-xs text-slate-500">
-              1つえらんで報告すると、ヘルプを呼べます。
+              1つ えらんで つたえると、ヘルプを よべるよ。
             </p>
 
             <ul className="mt-4 space-y-2">
@@ -525,8 +529,12 @@ function MissionView({
                     style={{ minHeight: 56 }}
                     className="w-full rounded-lg border-2 border-slate-200 bg-white p-3 text-left transition-colors hover:border-amber-500 hover:bg-amber-50 disabled:opacity-50"
                   >
-                    <p className="text-sm font-bold text-slate-900">{t.label}</p>
-                    <p className="mt-1 text-xs text-slate-500">→ {t.action}</p>
+                    <p className="text-sm font-bold text-slate-900">
+                      <RubyText text={t.label} />
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500">
+                      → <RubyText text={t.action} />
+                    </p>
                   </button>
                 </li>
               ))}
