@@ -3,10 +3,14 @@
 // 将来は `supabase gen types typescript` での自動生成に置き換える。
 
 export type Phase = 0 | 1 | 2;
-export type Mode = "training" | "production";
+// "paused" は migration 009 でリーダーの緊急停止用に追加。
+// 既存の CHECK 制約はテキスト型なので任意の値を取れる。
+export type Mode = "training" | "production" | "paused";
+export type AudienceMode = "family" | "kids";
 export type RoleId = "general-affairs" | "facility" | "information";
 export type StepStatus = "done" | "skipped" | "stuck";
-export type PostType = "trouble" | "finding";
+// "reflection" は finish のふりかえり投稿、 "stamp" は将来の予約枠 (009)
+export type PostType = "trouble" | "finding" | "reflection" | "stamp";
 
 export type Session = {
   id: string;
@@ -14,6 +18,7 @@ export type Session = {
   qr_code: string;
   phase: Phase;
   mode: Mode;
+  audience_mode: AudienceMode;
   created_at: string;
 };
 

@@ -10,7 +10,9 @@ import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import FuriganaToggle from "@/components/furigana-toggle";
+import PausedOverlay from "@/components/paused-overlay";
 import RubyText from "@/components/ruby-text";
+import { useSession } from "@/lib/hooks/useSession";
 import stepsData from "@/data/steps.json";
 
 type Session = {
@@ -108,6 +110,8 @@ export default function BoardPage() {
 function BoardView({ session, code }: { session: Session; code: string }) {
   const { byStepId } = useStepProgress(session.id);
   const { participants } = useParticipants(session.id);
+  const { session: liveSession } = useSession(session.id);
+  const paused = liveSession?.mode === "paused";
 
   // WHY: 取消は他人の完了も消せる破壊操作。1タップ誤爆を防ぐため
   // 「1回目で対象を armed、2回目で実行」の2段階にする(リセットと同じ作法)。
@@ -356,6 +360,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
       </div>
 
       <BottomNav code={code} sessionId={session.id} />
+      <PausedOverlay visible={paused} sessionName={session.name} />
     </main>
   );
 }

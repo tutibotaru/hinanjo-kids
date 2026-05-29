@@ -8,13 +8,17 @@ import { useStepProgress } from "@/lib/hooks/useStepProgress";
 import { useParticipants } from "@/lib/hooks/useParticipants";
 import RubyText from "@/components/ruby-text";
 import FuriganaToggle from "@/components/furigana-toggle";
+import PausedOverlay from "@/components/paused-overlay";
+import { useSession } from "@/lib/hooks/useSession";
 import stepsData from "@/data/steps.json";
+import { phrases, normalizeAudienceMode } from "@/lib/audience";
 
 type Session = {
   id: string;
   name: string;
   qr_code: string;
   phase: number;
+  audience_mode: string;
   created_at: string;
 };
 type Role = {
@@ -68,14 +72,17 @@ function troubleHits(p: { stuck_count?: number; status: string }): number {
 export default function FinishPage() {
   const params = useParams<{ code: string }>();
   const router = useRouter();
-  const [ctx, setCtx] = useState<{ session: Session; code: string } | null>(
-    null,
-  );
+  const [ctx, setCtx] = useState<{
+    session: Session;
+    code: string;
+    participantId: string | null;
+  } | null>(null);
 
   useEffect(() => {
     async function load() {
       const code = params.code.toUpperCase();
       const raw = localStorage.getItem(`hinanjo:participant:${code}`);
+      let participantId: string | null = null;
       if (!raw) {
         router.replace(`/s/${code}/nickname`);
         return;
@@ -83,6 +90,7 @@ export default function FinishPage() {
       try {
         const parsed = JSON.parse(raw) as StoredParticipant;
         if (!parsed.id) throw new Error();
+        participantId = parsed.id;
       } catch {
         router.replace(`/s/${code}/nickname`);
         return;
@@ -91,14 +99,14 @@ export default function FinishPage() {
       const supabase = createClient();
       const { data: session } = await supabase
         .from("sessions")
-        .select("id, name, qr_code, phase, created_at")
+        .select("id, name, qr_code, phase, audience_mode, created_at")
         .eq("qr_code", code)
         .maybeSingle();
       if (!session) {
         router.replace("/");
         return;
       }
-      setCtx({ session: session as Session, code });
+      setCtx({ session: session as Session, code, participantId });
     }
     load();
   }, [params.code, router]);
@@ -106,16 +114,36 @@ export default function FinishPage() {
   if (!ctx) {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
-        <p className="mx-auto max-w-md text-sm text-slate-500">読み込み中…</p>
+        <p className="mx-auto max-w-md text-sm text-slate-500">
+          よみこみちゅう…
+        </p>
       </main>
     );
   }
-  return <FinishView session={ctx.session} code={ctx.code} />;
+  return (
+    <FinishView
+      session={ctx.session}
+      code={ctx.code}
+      participantId={ctx.participantId}
+    />
+  );
 }
 
-function FinishView({ session, code }: { session: Session; code: string }) {
+function FinishView({
+  session,
+  code,
+  participantId,
+}: {
+  session: Session;
+  code: string;
+  participantId: string | null;
+}) {
   const { progress } = useStepProgress(session.id);
   const { participants } = useParticipants(session.id);
+  const { session: liveSession } = useSession(session.id);
+  const paused = liveSession?.mode === "paused";
+  const audience = normalizeAudienceMode(session.audience_mode);
+  const ph = phrases(audience);
 
   const roles = stepsData.roles as Role[];
   const allSteps = stepsData.steps as Step[];
@@ -374,18 +402,26 @@ function FinishView({ session, code }: { session: Session; code: string }) {
           </p>
         </section>
 
+        <ReflectionForm
+          sessionId={session.id}
+          participantId={participantId}
+        />
+
         <section className="mt-8 px-5">
           <div className="rounded-lg bg-orange-100 p-4 text-center">
             <p className="text-sm font-bold text-orange-900">
               🎉 きょうの <ruby>体験<rt>たいけん</rt></ruby>は ここまで!
             </p>
             <p className="mt-2 text-xs leading-relaxed text-orange-800">
-              ほんものの <ruby>災害<rt>さいがい</rt></ruby>のときは、おとなや
-              まちの <ruby>人<rt>ひと</rt></ruby>と いっしょにうごこう。 きょう
-              おぼえたことを かぞくに はなしてみてね。
+              ほんものの <ruby>災害<rt>さいがい</rt></ruby>のときは、{ph.emergencyAuthority}
+              と いっしょにうごこう。 きょう おぼえたことを{" "}
+              {audience === "kids" ? "ともだちや かぞく" : "かぞく"}に
+              はなしてみてね。
             </p>
           </div>
         </section>
+
+        <PausedOverlay visible={paused} sessionName={session.name} />
 
         <div className="mt-8 flex flex-col gap-2 px-5">
           <Link
@@ -415,6 +451,96 @@ function FinishView({ session, code }: { session: Session; code: string }) {
         </div>
       </div>
     </main>
+  );
+}
+
+// 「きょう おぼえたこと」 を 1〜2 文で書いて投稿する欄。
+// shared_posts に type='reflection' で保存して、 ひろば と posts ページの
+// timeline でも見返せるようにする(ふりかえりは キャンプ事業の学習効果の核)。
+function ReflectionForm({
+  sessionId,
+  participantId,
+}: {
+  sessionId: string;
+  participantId: string | null;
+}) {
+  const [content, setContent] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = content.trim();
+    if (!trimmed) {
+      setError("ひとことでも いいから かいてね");
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    const supabase = createClient();
+    const { error: insertError } = await supabase
+      .from("shared_posts")
+      .insert({
+        session_id: sessionId,
+        participant_id: participantId,
+        content: trimmed,
+        photo_url: null,
+        type: "reflection",
+      });
+    setSubmitting(false);
+    if (insertError) {
+      setError("おくれませんでした。もういちど ためしてね");
+      return;
+    }
+    setContent("");
+    setSent(true);
+  }
+
+  return (
+    <section className="mt-6 px-5">
+      <div className="rounded-lg border border-sky-200 bg-sky-50 p-4">
+        <h2 className="text-sm font-bold text-sky-900">
+          📝 きょう おぼえたこと(ふりかえり)
+        </h2>
+        <p className="mt-1 text-xs leading-relaxed text-sky-700">
+          ひとつだけ えらんで かいてみよう。 もちかえりたい こと や、
+          つぎ おしえたい こと。 ひろばに のこるよ。
+        </p>
+        {sent ? (
+          <p className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-800">
+            ✓ おくったよ! いいふりかえりだね。
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="mt-3 space-y-2">
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="れい: みずを はやく くばるのが むずかしかった"
+              rows={3}
+              maxLength={300}
+              className="w-full resize-none rounded-md border border-sky-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30"
+            />
+            {error && (
+              <p
+                role="alert"
+                className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700"
+              >
+                {error}
+              </p>
+            )}
+            <button
+              type="submit"
+              disabled={submitting}
+              style={{ minHeight: 44 }}
+              className="w-full rounded-md bg-sky-600 px-4 py-2 text-sm font-bold text-white hover:bg-sky-700 active:bg-sky-800 disabled:opacity-50"
+            >
+              {submitting ? "おくっているちゅう…" : "ふりかえりを おくる"}
+            </button>
+          </form>
+        )}
+      </div>
+    </section>
   );
 }
 

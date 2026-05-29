@@ -108,7 +108,61 @@
 
 ---
 
-## Phase 5 以降の候補
+## Phase 5 完了内容(2026-05-27)— JC 防災キャンプ事業対応
+
+親子前提から「子どもだけ + リーダー(おとな)運営」 への汎用化。
+JC(青年会議所)の福地 ぼうさいキャンプを 想定。
+
+### A. audience_mode 追加
+- `migrations/009_camp_mode.sql`: `sessions.audience_mode TEXT NOT NULL DEFAULT
+  'family' CHECK IN ('family', 'kids')`
+- `lib/audience.ts`: family / kids ごとの文言テーブル (`phrases(mode)`)。
+  「おうちの 人」 → 「リーダー」 などを切替
+- `app/admin/new/page.tsx` に 親子/子どもだけ のラジオ追加
+- finish / certificate で audience_mode を session から取得して文言切替
+
+### B. 共用端末「📱 こうたい」ボタン
+- `mission` ヘッダーに、 1 タップで localStorage を消して /nickname に戻る
+  ボタンを追加。 班で 1 台のタブレットを順に渡す運用に対応。
+- DB の participant 行は消さないので、 各自の進捗・困った履歴は保持される。
+
+### C. 班別ダッシュボード
+- `manage` パネルに `<TeamDashboard />` を追加。
+- 各班の 完了率を 進捗バーで表示し、 困った件数が 3 以上 / 進行中の
+  困った がある班は赤に、 50% 未満は黄色に色分け。
+- リーダーが「どの班に介入すべきか」が一目で分かる。
+
+### D. 一斉ストップ + PausedOverlay
+- `migrations/009`: `sessions.mode` に `'paused'` 値を許容
+  (元々 CHECK 制約なしのカラムなので追加なし)
+- `manage` に 「⏸ いっせいストップ / ▶ さいかい」 ボタン
+- `components/paused-overlay.tsx`: mode === 'paused' のとき 全画面に
+  「いったん てを とめよう」 のオーバーレイを表示し、 操作不能化
+- mission / board / posts / finish で `useSession` (Realtime) と組み合わせ、
+  リーダーが押した瞬間に全端末で 反映される
+
+### E. ふりかえり投稿
+- `migrations/009`: `shared_posts.type` に `'reflection'`, `'stamp'` を許容
+- `finish` 画面に `<ReflectionForm />`: 「きょう おぼえたこと」 を
+  1 タップで送信
+- `posts` タイムラインで `type='reflection'` は 水色バッジで強調表示
+- キャンプ事業の学習効果(ふりかえりが核)に応える
+
+### F. 主催団体可変
+- `lib/brand.ts`: `NEXT_PUBLIC_BRAND_NAME` / `_SHORT` / `_HOST` で
+  アプリ名・修了証フッターを 環境変数差し替え可能に
+- `app/layout.tsx` の metadata と `certificate` 描画で BRAND を参照
+- Vercel 環境ごとに 主催団体名を分けてマルチテナント運用できる
+
+### G. JC 福地 サンプルセッション
+- `sessions` に `qr_code='JCKIDS', audience_mode='kids'` で
+  「福地JC ぼうさいキャンプ(サンプル)」 を常設
+- トップ画面に DEMO01 (おやこ) と JCKIDS (こどもだけ) の
+  2 つの 体験入口を 並べる
+
+---
+
+## Phase 6 以降の候補
 
 ### D. 親子セット参加機能
 - 受付時に「親子ペア」として登録
@@ -149,7 +203,13 @@
 - 006 roles_expanded(本家用の7値CHECKを継承)
 - 007 anon_auth_rls(匿名認証+per-session RLS)
 - 008 kids_roles(子ども版 4 班 ID を CHECK 制約に追加。 Phase 4 で適用)
+- 009 camp_mode(`sessions.audience_mode` 追加 + `shared_posts.type` に
+  `reflection` / `stamp` 追加。 Phase 5 で適用)
 - ※ anon ポリシー削除(`007` 末尾の 008 ひな形)はまだ未適用(本家と同じく)
+
+### サンプルセッション(本番DBに常設)
+- DEMO01 family モード「サンプル体験会場(まず試してみる)」
+- JCKIDS kids モード「福地JC ぼうさいキャンプ(サンプル)」
 
 ### 既知のセキュリティアドバイザー警告
 - `rls_policy_always_true` 系(007 適用後も一部残る)

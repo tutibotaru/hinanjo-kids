@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import FuriganaToggle from "@/components/furigana-toggle";
+import { BRAND } from "@/lib/brand";
 
 export default function Home() {
   return (
@@ -73,9 +74,7 @@ function HomeForm() {
             📣 たいけんキャンプ<ruby>版<rt>ばん</rt></ruby>
           </div>
           <p className="text-xs font-semibold tracking-widest text-orange-700">
-            <ruby>親子<rt>おやこ</rt></ruby>で{" "}
-            <ruby>避難所<rt>ひなんじょ</rt></ruby>
-            <ruby>体験<rt>たいけん</rt></ruby>
+            {BRAND.name}
           </p>
           <h1 className="mt-2 text-3xl font-bold text-slate-900">
             いっしょに <ruby>参加<rt>さんか</rt></ruby>
@@ -146,18 +145,28 @@ function HomeForm() {
             🌟 はじめての <ruby>人<rt>ひと</rt></ruby>は こちらから
           </p>
           <p className="mt-1 text-xs leading-relaxed text-orange-900">
-            たいけんかいじょう「DEMO01」を すぐ ためせるよ。
+            たいけんかいじょうを すぐ ためせるよ。
             ほかの <ruby>人<rt>ひと</rt></ruby>も さわっているかも しれないけど、
             たいけんようだから じゆうに さわってOK!
           </p>
-          <Link
-            href="/?code=DEMO01"
-            onClick={() => setCode("DEMO01")}
-            style={{ minHeight: 48 }}
-            className="mt-3 flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
-          >
-            🎯 たいけんかいじょう「DEMO01」を ためす
-          </Link>
+          <div className="mt-3 flex flex-col gap-2">
+            <Link
+              href="/?code=DEMO01"
+              onClick={() => setCode("DEMO01")}
+              style={{ minHeight: 48 }}
+              className="flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
+            >
+              👨‍👩‍👧 おやこモードの サンプル(DEMO01)
+            </Link>
+            <Link
+              href="/?code=JCKIDS"
+              onClick={() => setCode("JCKIDS")}
+              style={{ minHeight: 48 }}
+              className="flex items-center justify-center rounded-lg border-2 border-orange-500 bg-white px-4 py-2 text-sm font-bold text-orange-700 hover:bg-orange-50 active:bg-orange-100"
+            >
+              🏕 こどもだけ + リーダー モード(JCKIDS)
+            </Link>
+          </div>
         </section>
 
         <section className="mt-4 rounded-lg border border-slate-200 bg-white p-4">

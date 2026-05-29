@@ -11,6 +11,8 @@ import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import RubyText from "@/components/ruby-text";
 import FuriganaToggle from "@/components/furigana-toggle";
+import PausedOverlay from "@/components/paused-overlay";
+import { useSession } from "@/lib/hooks/useSession";
 import { stripRuby } from "@/lib/ruby";
 import stepsData from "@/data/steps.json";
 import type { StepStatus } from "@/lib/types/database";
@@ -152,6 +154,8 @@ function MissionView({
 
   const { byStepId } = useStepProgress(session.id);
   const { participants } = useParticipants(session.id);
+  const { session: liveSession } = useSession(session.id);
+  const paused = liveSession?.mode === "paused";
 
   const myRoleSteps = useMemo(() => {
     const all = stepsData.steps as Step[];
@@ -326,6 +330,26 @@ function MissionView({
               >
                 やくわり
               </Link>
+              {/* 共用端末で次の子に渡す:localStorage を消して /nickname に戻すだけ。
+                  participant 行は DB に残るので進捗データは保持される。 */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "つぎの ひとに わたす? あなたの できた・こまったは のこるよ。",
+                    )
+                  ) {
+                    localStorage.removeItem(`hinanjo:participant:${code}`);
+                    window.location.href = `/s/${code}/nickname`;
+                  }
+                }}
+                style={{ minHeight: 40 }}
+                className="flex items-center justify-center rounded-md border border-orange-300 bg-orange-50 px-3 text-xs font-semibold text-orange-700 hover:bg-orange-100 active:bg-orange-200"
+                aria-label="つぎの ひとに わたす"
+              >
+                📱 こうたい
+              </button>
             </div>
           </div>
         </header>
@@ -557,6 +581,7 @@ function MissionView({
       )}
 
       <BottomNav code={code} sessionId={session.id} />
+      <PausedOverlay visible={paused} sessionName={session.name} />
     </main>
   );
 }

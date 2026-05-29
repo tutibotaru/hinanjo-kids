@@ -1,10 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { createClient } from "@/lib/supabase/client";
+import { useStepProgress } from "@/lib/hooks/useStepProgress";
+import { useParticipants } from "@/lib/hooks/useParticipants";
+import stepsData from "@/data/steps.json";
+import type { StepProgress } from "@/lib/types/database";
+
+type DashboardRole = {
+  id: string;
+  name: string;
+  color: string;
+};
+type DashboardStep = {
+  id: string;
+  role: string;
+  phase: number;
+};
 
 type Session = {
   id: string;
@@ -147,6 +162,31 @@ export default function ManagePage() {
     }
     await refresh();
     setMsg(next === "training" ? "たいけんモードに したよ。" : "ほんばんモードに したよ。");
+  }
+
+  // いっせいストップ:全端末に PausedOverlay を出して操作を止める。
+  // 復帰は常に training に戻す(イベント中なので production には戻さない)。
+  async function togglePaused() {
+    if (!session) return;
+    const next = session.mode === "paused" ? "training" : "paused";
+    setBusy(true);
+    setMsg(null);
+    const supabase = createClient();
+    const { error } = await supabase
+      .from("sessions")
+      .update({ mode: next })
+      .eq("id", session.id);
+    setBusy(false);
+    if (error) {
+      setMsg("ストップの きりかえに しっぱいしたよ。");
+      return;
+    }
+    await refresh();
+    setMsg(
+      next === "paused"
+        ? "ぜんいんの がめんを ストップしたよ。"
+        : "さいかいしたよ。",
+    );
   }
 
   async function resetProgress() {
@@ -346,13 +386,46 @@ export default function ManagePage() {
             <button
               type="button"
               onClick={toggleMode}
-              disabled={busy}
+              disabled={busy || session.mode === "paused"}
               style={{ minHeight: 48 }}
               className="mt-3 w-full rounded-lg border-2 border-slate-300 bg-white text-sm font-semibold text-slate-700 disabled:opacity-40"
             >
-              {session.mode === "training"
-                ? "ほんばんモードに きりかえる"
-                : "たいけんモードに きりかえる"}
+              {session.mode === "paused"
+                ? "ストップちゅう(さきに さいかいしてね)"
+                : session.mode === "training"
+                  ? "ほんばんモードに きりかえる"
+                  : "たいけんモードに きりかえる"}
+            </button>
+          </section>
+
+          <section
+            className={`rounded-lg border p-4 ${
+              session.mode === "paused"
+                ? "border-amber-300 bg-amber-50"
+                : "border-slate-200 bg-white"
+            }`}
+          >
+            <h2 className="text-sm font-bold text-slate-900">
+              ⏸ いっせい ストップ
+            </h2>
+            <p className="mt-1 text-xs text-slate-500">
+              ぜんいんの がめんを いったん とめて、リーダーの ところに あつめるよ。
+              さいかい するまで みんなは そうさ できない。
+            </p>
+            <button
+              type="button"
+              onClick={togglePaused}
+              disabled={busy}
+              style={{ minHeight: 48 }}
+              className={`mt-3 w-full rounded-lg text-sm font-bold text-white disabled:opacity-40 ${
+                session.mode === "paused"
+                  ? "bg-orange-600 hover:bg-orange-700"
+                  : "bg-amber-500 hover:bg-amber-600"
+              }`}
+            >
+              {session.mode === "paused"
+                ? "▶ さいかい する"
+                : "⏸ いっせい ストップ"}
             </button>
           </section>
 
@@ -393,6 +466,11 @@ export default function ManagePage() {
             </div>
           </section>
 
+          <TeamDashboard
+            sessionId={session.id}
+            phase={session.phase}
+          />
+
           <section className="rounded-lg border border-rose-200 bg-rose-50 p-4">
             <h2 className="text-sm font-bold text-rose-900">
               ぜんぶ もとに もどす(やりなおし)
@@ -430,5 +508,116 @@ export default function ManagePage() {
         </div>
       </div>
     </main>
+  );
+}
+
+// 班別ダッシュボード:各班の 人数・できた率・困った件数を 1 行で見える化。
+// リーダーがどの班に介入すべきかを 一目で判断できるよう、 困った件数が
+// 多い班は赤、 進捗が遅れている班は黄色で色分けする。
+function TeamDashboard({
+  sessionId,
+  phase,
+}: {
+  sessionId: string;
+  phase: number;
+}) {
+  const { progress } = useStepProgress(sessionId);
+  const { participants } = useParticipants(sessionId);
+  const roles = stepsData.roles as DashboardRole[];
+  const allSteps = stepsData.steps as DashboardStep[];
+
+  const teamStats = useMemo(() => {
+    return roles.map((role) => {
+      const roleSteps = allSteps.filter(
+        (s) => s.role === role.id && s.phase <= phase,
+      );
+      const stepIds = new Set(roleSteps.map((s) => s.id));
+      const rolePeople = participants.filter((p) => p.role === role.id);
+      const roleProgress = progress.filter(
+        (p: StepProgress) => stepIds.has(p.step_id),
+      );
+      const done = roleProgress.filter(
+        (p) => p.status === "done" || p.status === "skipped",
+      ).length;
+      const stuck = roleProgress.filter((p) => p.status === "stuck").length;
+      const stuckHits = roleProgress.reduce(
+        (a, p) => a + (p.stuck_count ?? (p.status === "stuck" ? 1 : 0)),
+        0,
+      );
+      const total = roleSteps.length;
+      const ratio = total > 0 ? done / total : 0;
+      return {
+        role,
+        people: rolePeople.length,
+        done,
+        total,
+        ratio,
+        stuckHits,
+        stuckActive: stuck,
+      };
+    });
+  }, [roles, allSteps, participants, progress, phase]);
+
+  const totalDone = teamStats.reduce((a, t) => a + t.done, 0);
+  const totalSteps = teamStats.reduce((a, t) => a + t.total, 0);
+  const totalStuckHits = teamStats.reduce((a, t) => a + t.stuckHits, 0);
+
+  return (
+    <section className="rounded-lg border border-slate-200 bg-white p-4">
+      <h2 className="text-sm font-bold text-slate-900">
+        班別 ダッシュボード
+      </h2>
+      <p className="mt-1 text-xs text-slate-500">
+        いまの 全体: {totalDone} / {totalSteps} ステップ できた・
+        こまった合計 {totalStuckHits} 件。
+      </p>
+      <ul className="mt-3 divide-y divide-slate-100">
+        {teamStats.map((t) => {
+          const isSlow = t.ratio < 0.5 && t.total > 0;
+          const isInTrouble = t.stuckHits >= 3 || t.stuckActive > 0;
+          return (
+            <li key={t.role.id} className="flex items-center gap-3 py-2">
+              <span
+                aria-hidden
+                className="inline-block h-3 w-3 flex-shrink-0 rounded-full"
+                style={{ backgroundColor: t.role.color }}
+              />
+              <div className="flex-1">
+                <p className="text-sm font-bold text-slate-900">{t.role.name}</p>
+                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-200">
+                  <div
+                    className={`h-full transition-all ${
+                      isInTrouble
+                        ? "bg-rose-500"
+                        : isSlow
+                          ? "bg-amber-500"
+                          : "bg-emerald-500"
+                    }`}
+                    style={{ width: `${Math.round(t.ratio * 100)}%` }}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-shrink-0 flex-col items-end text-xs">
+                <span className="font-semibold text-slate-700">
+                  {t.done}/{t.total}
+                </span>
+                <span className="text-[10px] text-slate-500">
+                  なかま {t.people}人
+                </span>
+                {(t.stuckActive > 0 || t.stuckHits >= 3) && (
+                  <span className="mt-0.5 rounded-full bg-rose-100 px-1.5 py-0.5 text-[10px] font-bold text-rose-700">
+                    ⚠ こまった {t.stuckHits}
+                  </span>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-3 text-[10px] leading-relaxed text-slate-400">
+        🟢 順調 / 🟡 半分以下 / 🔴 こまった発生 or 連続3件以上。
+        遅れている班に リーダーが 声かけに 行こう。
+      </p>
+    </section>
   );
 }

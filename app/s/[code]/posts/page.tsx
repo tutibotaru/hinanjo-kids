@@ -9,6 +9,8 @@ import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import FuriganaToggle from "@/components/furigana-toggle";
+import PausedOverlay from "@/components/paused-overlay";
+import { useSession } from "@/lib/hooks/useSession";
 import type { SharedPost, PostType } from "@/lib/types/database";
 
 type Session = {
@@ -104,6 +106,8 @@ function PostsView({
 }) {
   const { posts } = useSharedPosts(session.id);
   const { participants } = useParticipants(session.id);
+  const { session: liveSession } = useSession(session.id);
+  const paused = liveSession?.mode === "paused";
 
   const nameById = useMemo(() => {
     const m = new Map<string, string>();
@@ -142,6 +146,7 @@ function PostsView({
       </div>
 
       <BottomNav code={code} sessionId={session.id} />
+      <PausedOverlay visible={paused} sessionName={session.name} />
     </main>
   );
 }
@@ -349,10 +354,16 @@ function Timeline({
                 className={`rounded px-1.5 py-0.5 font-bold ${
                   post.type === "trouble"
                     ? "bg-amber-100 text-amber-800"
-                    : "bg-orange-100 text-orange-800"
+                    : post.type === "reflection"
+                      ? "bg-sky-100 text-sky-800"
+                      : "bg-orange-100 text-orange-800"
                 }`}
               >
-                {post.type === "trouble" ? "こまった" : "みつけた"}
+                {post.type === "trouble"
+                  ? "こまった"
+                  : post.type === "reflection"
+                    ? "ふりかえり"
+                    : "みつけた"}
               </span>
               <span className="font-semibold text-slate-900">{author}</span>
               <span className="text-slate-400">{timeAgo(post.created_at)}</span>

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { AuthGate } from "@/components/auth-gate";
+import { BRAND } from "@/lib/brand";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,9 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "親子で避難所体験",
-  description:
-    "親子で楽しく学ぶ避難所運営の体験キャンプ用アプリ。QRを読むだけで、役割を決めて、ステップに沿って避難所を立ち上げてみよう。",
+  title: BRAND.name,
+  description: `${BRAND.name} は QR を読むだけで 役割を決めて ステップに沿って 避難所を 立ち上げる 体験キャンプ用アプリ。`,
   manifest: "/manifest.json",
   icons: {
     icon: "/icon.svg",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: "避難所体験",
+    title: BRAND.short,
     statusBarStyle: "default",
   },
 };

@@ -20,6 +20,9 @@ export default function AdminNewPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [code, setCode] = useState(generateCode());
+  // 親子(family) or 子どもだけ + リーダー(kids)。
+  // JC キャンプ等で kids を選ぶと、 文言と finish の安全注意が切り替わる。
+  const [audienceMode, setAudienceMode] = useState<"family" | "kids">("family");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   // WHY: /admin/new は URL 直叩きで誰でもセッション作成可能だった
@@ -85,7 +88,11 @@ export default function AdminNewPage() {
     const supabase = createClient();
     const { error: insertError } = await supabase
       .from("sessions")
-      .insert({ name: trimmedName, qr_code: trimmedCode });
+      .insert({
+        name: trimmedName,
+        qr_code: trimmedCode,
+        audience_mode: audienceMode,
+      });
 
     if (insertError) {
       setSubmitting(false);
@@ -246,6 +253,54 @@ export default function AdminNewPage() {
               紛らわしい文字 (0/O/1/I/L) は除外しています。
             </p>
           </div>
+
+          <fieldset>
+            <legend className="block text-sm font-semibold text-slate-700">
+              参加するのは
+            </legend>
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <label
+                className={`flex cursor-pointer flex-col gap-1 rounded-lg border-2 px-3 py-2 text-sm ${
+                  audienceMode === "family"
+                    ? "border-orange-500 bg-orange-50"
+                    : "border-slate-200 bg-white"
+                }`}
+              >
+                <span className="font-bold text-slate-900">親子ペア</span>
+                <span className="text-[10px] leading-snug text-slate-500">
+                  おうちの 人と 子どもが いっしょに 体験
+                </span>
+                <input
+                  type="radio"
+                  name="audience_mode"
+                  value="family"
+                  checked={audienceMode === "family"}
+                  onChange={() => setAudienceMode("family")}
+                  className="sr-only"
+                />
+              </label>
+              <label
+                className={`flex cursor-pointer flex-col gap-1 rounded-lg border-2 px-3 py-2 text-sm ${
+                  audienceMode === "kids"
+                    ? "border-orange-500 bg-orange-50"
+                    : "border-slate-200 bg-white"
+                }`}
+              >
+                <span className="font-bold text-slate-900">子どもだけ</span>
+                <span className="text-[10px] leading-snug text-slate-500">
+                  JC キャンプ等。 リーダー(大人)が運営
+                </span>
+                <input
+                  type="radio"
+                  name="audience_mode"
+                  value="kids"
+                  checked={audienceMode === "kids"}
+                  onChange={() => setAudienceMode("kids")}
+                  className="sr-only"
+                />
+              </label>
+            </div>
+          </fieldset>
 
           {error && (
             <p

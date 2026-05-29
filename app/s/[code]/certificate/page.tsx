@@ -7,6 +7,8 @@ import { createClient } from "@/lib/supabase/client";
 import { useStepProgress } from "@/lib/hooks/useStepProgress";
 import { useParticipants } from "@/lib/hooks/useParticipants";
 import stepsData from "@/data/steps.json";
+import { BRAND } from "@/lib/brand";
+import { phrases, normalizeAudienceMode } from "@/lib/audience";
 
 type Session = {
   id: string;
@@ -14,6 +16,7 @@ type Session = {
   qr_code: string;
   phase: number;
   mode: string;
+  audience_mode: string;
 };
 type Role = {
   id: string;
@@ -61,7 +64,7 @@ export default function CertificatePage() {
       const [sessionRes, participantRes] = await Promise.all([
         supabase
           .from("sessions")
-          .select("id, name, qr_code, phase, mode")
+          .select("id, name, qr_code, phase, mode, audience_mode")
           .eq("qr_code", code)
           .maybeSingle(),
         supabase
@@ -127,6 +130,8 @@ function CertificateView({
 }) {
   const { progress } = useStepProgress(session.id);
   const { participants } = useParticipants(session.id);
+  const audience = normalizeAudienceMode(session.audience_mode);
+  const ph = phrases(audience);
 
   const allSteps = stepsData.steps as Step[];
   const stepsInPhase = allSteps.filter((s) => s.phase <= session.phase);
@@ -190,7 +195,7 @@ function CertificateView({
             {/* リボン風タイトル */}
             <header className="text-center">
               <p className="text-xs font-semibold tracking-widest text-orange-700">
-                おやこで ひなんじょ たいけん
+                {ph.brandCertificateLine}
               </p>
               <h1 className="mt-3 text-4xl font-bold tracking-wider text-orange-900 sm:text-5xl">
                 しゅうりょうしょう
@@ -268,10 +273,8 @@ function CertificateView({
               </div>
               <div className="text-right">
                 <p className="font-semibold text-slate-700">{todayLabel()}</p>
-                <p className="mt-1">おやこで ひなんじょ たいけん</p>
-                <p className="text-[10px] text-slate-400">
-                  hinanjo-kids.vercel.app
-                </p>
+                <p className="mt-1">{BRAND.name}</p>
+                <p className="text-[10px] text-slate-400">{BRAND.host}</p>
               </div>
             </footer>
 
