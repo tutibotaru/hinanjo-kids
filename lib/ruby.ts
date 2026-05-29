@@ -21,7 +21,11 @@ export type RubyToken =
 // グローバル RegExp を毎回新規生成して lastIndex 副作用を避ける。
 const RUBY_RE_SRC = "\\{([^{|}]+)\\|([^{|}]+)\\}";
 
-export function parseRuby(text: string): RubyToken[] {
+export function parseRuby(text: string | null | undefined): RubyToken[] {
+  // 型契約上 string だが、 supabase 由来の optional フィールド(trouble_label
+  // 等)が null で渡ることがある。 React は false/null を描画しないが、
+  // 直接 .matchAll 等を呼ぶとここで TypeError になるのでガードする。
+  if (!text) return [];
   const tokens: RubyToken[] = [];
   const re = new RegExp(RUBY_RE_SRC, "g");
   let lastIndex = 0;
@@ -41,6 +45,7 @@ export function parseRuby(text: string): RubyToken[] {
 }
 
 // 記法を取り除いて素のテキストだけ返す(aria-label や検索用に使う)。
-export function stripRuby(text: string): string {
+export function stripRuby(text: string | null | undefined): string {
+  if (!text) return "";
   return text.replace(new RegExp(RUBY_RE_SRC, "g"), (_m, base) => base);
 }

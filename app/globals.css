@@ -42,9 +42,11 @@ ruby rt {
   user-select: none;
 }
 
-/* ふりがな OFF モード(FuriganaToggle 経由で body[data-furigana="off"])。
-   直接書いた <ruby> も RubyText も一括で漢字だけ表示にする。 */
-body[data-furigana="off"] ruby rt {
+/* ふりがな OFF モード(FuriganaToggle 経由で html[data-furigana="off"])。
+   直接書いた <ruby> も RubyText も一括で漢字だけ表示にする。
+   layout.tsx の <head> 内 blocking script で paint 前に属性をセットして
+   いるため、 OFF ユーザーには ruby が一瞬も表示されない。 */
+html[data-furigana="off"] ruby rt {
   display: none;
 }
 

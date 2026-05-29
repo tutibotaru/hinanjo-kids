@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useSharedPosts } from "@/lib/hooks/useSharedPosts";
@@ -157,8 +157,14 @@ function ComposeForm({
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // WHY useRef: setSubmitting(true) は次レンダーまで反映されないので
+  // 連続タップ時に submitting=false のまま 2 件 send() が走ってしまう。
+  // ref ベースの inflight フラグで同期的に重複を弾く。
+  const inflightRef = useRef(false);
 
   async function send(payload: { content: string; type: PostType }) {
+    if (inflightRef.current) return null;
+    inflightRef.current = true;
     setSubmitting(true);
     setError(null);
     const supabase = createClient();
@@ -170,6 +176,7 @@ function ComposeForm({
       type: payload.type,
     });
     setSubmitting(false);
+    inflightRef.current = false;
     return insertError;
   }
 
@@ -189,7 +196,6 @@ function ComposeForm({
   }
 
   async function handleStamp(emoji: string, label: string, t: PostType) {
-    if (submitting) return;
     const err = await send({ content: `${emoji} ${label}`, type: t });
     if (err) setError("おくれませんでした。もういちど ためしてね");
   }
@@ -328,9 +334,11 @@ function Timeline({
           ? (nameById.get(post.participant_id) ?? "だれか")
           : "とくめい";
         // 絵文字スタンプかどうかで見た目を変える(スタンプは絵文字を大きく)。
-        // \p{...} 正規表現は tsconfig の target が ES5 なので避け、
-        // STAMPS の絵文字リストで前方一致判定する。
-        const isStamp = STAMPS.some((s) => post.content.startsWith(s.emoji));
+        // 自由テキストで先頭に絵文字を使った投稿まで巨大化してしまわないよう、
+        // 「STAMPS で定義した emoji + label 完全一致」のときだけスタンプ扱い。
+        const isStamp = STAMPS.some(
+          (s) => post.content === `${s.emoji} ${s.label}`,
+        );
         return (
           <li
             key={post.id}

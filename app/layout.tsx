@@ -37,6 +37,12 @@ export const viewport: Viewport = {
   themeColor: "#F97316",
 };
 
+// ふりがな OFF を選んでいたユーザーが、ページ遷移するたびに ruby が一瞬
+// 見えてから消える FOUC を防ぐためのスクリプト。 React が hydrate する前
+// (paint より前) に localStorage を読んで html[data-furigana] を確定させる。
+// try/catch で SSR / プライベートモード等の失敗時もアプリは止めない。
+const NO_FOUC_SCRIPT = `(function(){try{var v=localStorage.getItem('hinanjo:furigana');if(v==='off'){document.documentElement.setAttribute('data-furigana','off');}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,6 +50,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: NO_FOUC_SCRIPT }} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -66,7 +66,7 @@ export default function CertificatePage() {
           .maybeSingle(),
         supabase
           .from("participants")
-          .select("nickname, role")
+          .select("nickname, role, session_id")
           .eq("id", stored.id)
           .maybeSingle(),
       ]);
@@ -75,13 +75,22 @@ export default function CertificatePage() {
         router.replace("/");
         return;
       }
-      const roleId = participantRes.data?.role ?? null;
+      // 別 session の participant id が localStorage に紛れ込んでいた場合は、
+      // この session の参加者ではないので nickname 入力からやり直してもらう。
+      if (
+        !participantRes.data ||
+        participantRes.data.session_id !== sessionRes.data.id
+      ) {
+        router.replace(`/s/${code}/nickname`);
+        return;
+      }
+      const roleId = participantRes.data.role;
       const roles = stepsData.roles as Role[];
       const role = roleId ? (roles.find((r) => r.id === roleId) ?? null) : null;
 
       setCtx({
         session: sessionRes.data as Session,
-        nickname: participantRes.data?.nickname ?? stored.nickname,
+        nickname: participantRes.data.nickname ?? stored.nickname,
         role,
         participantId: stored.id,
         code,
@@ -121,14 +130,21 @@ function CertificateView({
 
   const allSteps = stepsData.steps as Step[];
   const stepsInPhase = allSteps.filter((s) => s.phase <= session.phase);
-  const totalSteps = stepsInPhase.length;
+  // 「あなたが担当したぶん」の母数。自分の班のステップに限定する。
+  // 役割未選択(通常はリダイレクトで除外される)時は全体ステップに fallback。
+  const myRoleSteps = role
+    ? stepsInPhase.filter((s) => s.role === role.id)
+    : stepsInPhase;
+  const totalSteps = myRoleSteps.length;
+  const myRoleStepIds = new Set(myRoleSteps.map((s) => s.id));
   const stepIdsInPhase = new Set(stepsInPhase.map((s) => s.id));
   const myDoneCount = progress.filter(
     (p) =>
       p.participant_id === participantId &&
-      stepIdsInPhase.has(p.step_id) &&
+      myRoleStepIds.has(p.step_id) &&
       (p.status === "done" || p.status === "skipped"),
   ).length;
+  // 全体達成数は会場全体で何ステップ進んだかの統計。班によらず合計。
   const totalDone = progress.filter(
     (p) =>
       stepIdsInPhase.has(p.step_id) &&

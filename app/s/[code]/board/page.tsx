@@ -317,7 +317,10 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                             )}
                             {p?.status === "stuck" && (
                               <p className="mt-0.5 text-xs text-amber-700">
-                                ⚠ {p.trouble_label}
+                                ⚠{" "}
+                                {p.trouble_label && (
+                                  <RubyText text={p.trouble_label} />
+                                )}
                                 {nickname ? ` (${nickname} さん)` : ""}
                               </p>
                             )}

@@ -198,6 +198,10 @@ foreach ($r in $rules) {
 $evaluator = { param($m) $origComment }
 $text = [regex]::Replace($text, $commentPtn, $evaluator)
 
-Set-Content -Path $file -Value $text -Encoding utf8 -NoNewline
+# PowerShell 5.1 の Set-Content -Encoding utf8 は UTF-8 BOM 付きで書き出すため、
+# Node などの厳格な JSON パーサが BOM を Unexpected token として弾いてしまう。
+# ここは BOM なしで書き出すために .NET API を直接使う。
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($file, $text, $utf8NoBom)
 
 Write-Host "Done. Re-check the file for missed kanji."

@@ -138,7 +138,7 @@ export default function RolePage() {
   if (!stored) {
     return (
       <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
-        <p className="mx-auto max-w-md text-sm text-slate-500">読み込み中…</p>
+        <p className="mx-auto max-w-md text-sm text-slate-500">よみこみちゅう…</p>
       </main>
     );
   }
@@ -169,7 +169,7 @@ export default function RolePage() {
       .eq("id", stored.id);
     if (updateError) {
       setSaving(false);
-      setError("通信エラーが発生しました。もう一度お試しください。");
+      setError("つうしんエラー。もういちど ためしてね");
       return;
     }
     router.push(`/s/${code}/mission`);
