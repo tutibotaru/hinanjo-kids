@@ -50,7 +50,7 @@ html[data-furigana="off"] ruby rt {
   display: none;
 }
 
-/* 修了証(/s/[code]/certificate)印刷用のスタイル。
+/* 修了証(/s/[code]/certificate)・ハンドアウト(/print)印刷用スタイル。
    ヘッダー/ナビゲーション類は print:hidden で個別に消し、
    ここでは余白と背景を A4 印刷に最適化する。 */
 @media print {
@@ -60,5 +60,15 @@ html[data-furigana="off"] ruby rt {
   }
   body {
     background: #ffffff !important;
+  }
+  /* 役割カードは 1 班ごとに改ページ。 最後の班だけ break しない。 */
+  .role-handout.page-break-after {
+    page-break-after: always;
+    break-after: page;
+  }
+  /* 印刷時に 役割カード内が ページ途中で切れないようにする(可能な範囲)。 */
+  .role-handout {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }

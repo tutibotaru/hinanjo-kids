@@ -321,7 +321,13 @@ export default function AdminNewPage() {
           </button>
         </form>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 flex flex-col items-center gap-2 text-center">
+          <Link
+            href="/print"
+            className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            🖨 やくわりカード(A4)を 印刷する
+          </Link>
           <Link href="/" className="text-sm text-slate-500 underline">
             ← トップに戻る
           </Link>

@@ -214,6 +214,14 @@ function HomeForm() {
             ➕ <ruby>新<rt>あたら</rt></ruby>しい たいけんかいじょうを{" "}
             <ruby>作<rt>つく</rt></ruby>る(<ruby>主催者<rt>しゅさいしゃ</rt></ruby>むけ)
           </Link>
+          <Link
+            href="/print"
+            style={{ minHeight: 48 }}
+            className="mt-2 flex items-center justify-center rounded-lg border-2 border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
+          >
+            🖨 やくわりカード(A4 ハンドアウト)を{" "}
+            <ruby>印刷<rt>いんさつ</rt></ruby>する
+          </Link>
         </section>
 
         <footer className="mt-10 border-t border-slate-200 pt-6 text-xs text-slate-500">
