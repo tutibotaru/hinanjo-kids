@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  受付用 A3 ポスターテンプレ
+  ============================
+  使い方:
+  1. このファイルをコピーして poster.svg にする
+  2. 下記 EDIT-HERE マーカーの文字列を 差し替える
+  3. {QR-PLACEHOLDER} のところに QR コード画像を <image href="..."> で 挿入
+     または /admin/qr?code=XXXX のページの QR を スクショして 貼る
+  4. ブラウザで開いて 印刷 → A3 紙 / PDF 保存
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="297mm"
+  height="420mm"
+  viewBox="0 0 1190 1684"
+  role="img"
+  aria-label="受付ポスター"
+>
+  <!-- 背景 -->
+  <rect width="1190" height="1684" fill="#FFF7ED" />
+
+  <!-- 上部オレンジ帯 -->
+  <rect x="0" y="0" width="1190" height="180" fill="#F97316" />
+  <text
+    x="595"
+    y="115"
+    text-anchor="middle"
+    font-family="sans-serif"
+    font-size="84"
+    font-weight="bold"
+    fill="#FFFFFF"
+  >
+    📣 ぼうさい たいけん うけつけ
+  </text>
+
+  <!-- イベント名 (EDIT-HERE) -->
+  <text
+    x="595"
+    y="280"
+    text-anchor="middle"
+    font-family="sans-serif"
+    font-size="56"
+    font-weight="bold"
+    fill="#9A3412"
+  >
+    福地JC ぼうさいキッズキャンプ
+  </text>
+
+  <!-- 開催日 (EDIT-HERE) -->
+  <text
+    x="595"
+    y="350"
+    text-anchor="middle"
+    font-family="sans-serif"
+    font-size="36"
+    fill="#7C2D12"
+  >
+    2026年 6月6日(土) 10:00 〜 12:00
+  </text>
+
+  <!-- 大きな STEP 案内 -->
+  <g transform="translate(120, 430)">
+    <rect width="950" height="120" rx="16" fill="#FFFFFF" stroke="#FED7AA" stroke-width="4" />
+    <text x="50" y="80" font-family="sans-serif" font-size="56" font-weight="bold" fill="#9A3412">
+      ① スマホで QR を よみとってね
+    </text>
+  </g>
+
+  <!-- QR コード 領域 (EDIT-HERE: ここに QR を貼る) -->
+  <g transform="translate(395, 600)">
+    <rect width="400" height="400" fill="#FFFFFF" stroke="#9A3412" stroke-width="6" />
+    <text x="200" y="200" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#9A3412">
+      ここに QR を はる
+    </text>
+    <text x="200" y="240" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#9A3412">
+      /admin/qr?code=XXXXXX
+    </text>
+    <text x="200" y="280" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#9A3412">
+      のページから 印刷して 貼る
+    </text>
+  </g>
+
+  <!-- 参加コード (大文字) -->
+  <g transform="translate(120, 1050)">
+    <rect width="950" height="120" rx="16" fill="#FFFFFF" stroke="#FED7AA" stroke-width="4" />
+    <text x="50" y="80" font-family="sans-serif" font-size="40" font-weight="bold" fill="#9A3412">
+      ② コード:
+    </text>
+    <!-- 参加コード (EDIT-HERE) -->
+    <text x="320" y="90" font-family="monospace" font-size="72" font-weight="bold" fill="#F97316">
+      JCKIDS
+    </text>
+    <text x="780" y="90" font-family="sans-serif" font-size="28" fill="#9A3412">
+      (QR が 読めないときは こちらを 入力)
+    </text>
+  </g>
+
+  <!-- URL -->
+  <text
+    x="595"
+    y="1240"
+    text-anchor="middle"
+    font-family="monospace"
+    font-size="28"
+    fill="#7C2D12"
+  >
+    https://hinanjo-kids.vercel.app
+  </text>
+
+  <!-- 注意書き -->
+  <g transform="translate(120, 1300)">
+    <rect width="950" height="220" rx="16" fill="#FEF3C7" />
+    <text x="50" y="60" font-family="sans-serif" font-size="32" font-weight="bold" fill="#92400E">
+      ⚠ うけつけ で きく ことが あるよ
+    </text>
+    <text x="50" y="105" font-family="sans-serif" font-size="26" fill="#78350F">
+      ・ ニックネーム を きめる (ほんみょうじゃなくて OK!)
+    </text>
+    <text x="50" y="140" font-family="sans-serif" font-size="26" fill="#78350F">
+      ・ どの チーム(やくわり)に なりたいか
+    </text>
+    <text x="50" y="175" font-family="sans-serif" font-size="26" fill="#78350F">
+      ・ こまったら リーダーに きいてね
+    </text>
+  </g>
+
+  <!-- 下部 -->
+  <text
+    x="595"
+    y="1620"
+    text-anchor="middle"
+    font-family="sans-serif"
+    font-size="24"
+    fill="#9A3412"
+  >
+    主催: 福地JC / 協力: 高梁市 危機管理課
+  </text>
+</svg>

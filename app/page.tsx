@@ -169,6 +169,27 @@ function HomeForm() {
           </div>
         </section>
 
+        {/* 当日 リーダーが すぐ manage に飛べるよう、 大きな ショートカットを置く。
+            参加コードを 知っていれば 直接 /s/{コード}/manage に行ける構成。 */}
+        <section className="mt-4 rounded-lg border-2 border-slate-700 bg-slate-800 p-4 text-white">
+          <p className="text-xs font-semibold text-slate-300">
+            🛡 リーダー・うんえいの 方は こちら
+          </p>
+          <p className="mt-1 text-xs leading-relaxed text-slate-300">
+            さんかコードを いれて 「いっしょに さんか」 を おすと、
+            ニックネームの あとに リーダーパネルに いけるよ。
+            <br />
+            まだ かいじょうが ない場合は ↓
+          </p>
+          <Link
+            href="/admin/new"
+            style={{ minHeight: 48 }}
+            className="mt-3 flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-bold text-white hover:bg-orange-700 active:bg-orange-800"
+          >
+            ➕ あたらしい かいじょうを つくる
+          </Link>
+        </section>
+
         <section className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
           <p className="text-xs font-semibold text-slate-700">
             たいけんキャンプを <ruby>主催<rt>しゅさい</rt></ruby>する
@@ -191,7 +212,7 @@ function HomeForm() {
             className="mt-3 flex items-center justify-center rounded-lg border-2 border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50"
           >
             ➕ <ruby>新<rt>あたら</rt></ruby>しい たいけんかいじょうを{" "}
-            <ruby>作<rt>つく</rt></ruby>る
+            <ruby>作<rt>つく</rt></ruby>る(<ruby>主催者<rt>しゅさいしゃ</rt></ruby>むけ)
           </Link>
         </section>
 
