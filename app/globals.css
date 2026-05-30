@@ -50,25 +50,27 @@ html[data-furigana="off"] ruby rt {
   display: none;
 }
 
-/* 修了証(/s/[code]/certificate)・ハンドアウト(/print)印刷用スタイル。
+/* 修了証(/s/[code]/certificate)・ミッションカード(/print)の A4 印刷用スタイル。
    ヘッダー/ナビゲーション類は print:hidden で個別に消し、
    ここでは余白と背景を A4 印刷に最適化する。 */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 12mm;
+    /* /print は紙面いっぱいに使いたいので余白を狭める。 修了証も問題なし。 */
+    margin: 8mm;
   }
   body {
     background: #ffffff !important;
   }
-  /* 役割カードは 1 班ごとに改ページ。 最後の班だけ break しない。 */
-  .role-handout.page-break-after {
+  /* 1 ミッション = A4 1 ページ。 最後だけは break-after しない。 */
+  .mission-card {
     page-break-after: always;
     break-after: page;
-  }
-  /* 印刷時に 役割カード内が ページ途中で切れないようにする(可能な範囲)。 */
-  .role-handout {
     page-break-inside: avoid;
     break-inside: avoid;
+  }
+  .mission-card:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 }
