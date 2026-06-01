@@ -31,7 +31,7 @@ VALUES (
   'FKJ606',                         -- ← 確定した参加コード(英大文字+数字)
   'kids',
   'training',
-  0
+  1   -- ← phase=1: 全フェーズ開放(A1=完全自走)。0だとリーダーのフェーズ操作が必要になる
 )
 ON CONFLICT (qr_code) DO UPDATE
 SET name = EXCLUDED.name,
