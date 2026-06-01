@@ -126,7 +126,8 @@ export default function NicknameForm({
           className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-lg text-slate-900 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/30"
         />
         <p className="mt-1 text-xs text-slate-500">
-          ほかの さんかしゃに みえる なまえだよ。 ほんみょうじゃなくてOK。
+          ほかの さんかしゃに みえる なまえだよ。 ほんみょう・じゅうしょ・でんわは
+          かかないでね。 すきな ことばで OK!
         </p>
       </div>
 

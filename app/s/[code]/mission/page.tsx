@@ -14,6 +14,7 @@ import FuriganaToggle from "@/components/furigana-toggle";
 import PausedOverlay from "@/components/paused-overlay";
 import { useSession } from "@/lib/hooks/useSession";
 import { stripRuby } from "@/lib/ruby";
+import { phaseLabel } from "@/lib/phases";
 import stepsData from "@/data/steps.json";
 import type { StepStatus } from "@/lib/types/database";
 
@@ -356,7 +357,7 @@ function MissionView({
 
         <div className="bg-white px-5 py-3">
           <div className="flex items-baseline justify-between text-xs text-slate-600">
-            <span>フェーズ {session.phase}</span>
+            <span>いま:{phaseLabel(session.phase)}</span>
             <span>
               {completedCount} / {totalForRole} できた
             </span>

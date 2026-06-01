@@ -10,6 +10,7 @@ import BottomNav from "@/components/bottom-nav";
 import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import FuriganaToggle from "@/components/furigana-toggle";
+import { phaseLabel } from "@/lib/phases";
 import PausedOverlay from "@/components/paused-overlay";
 import RubyText from "@/components/ruby-text";
 import { useSession } from "@/lib/hooks/useSession";
@@ -151,7 +152,7 @@ function BoardView({ session, code }: { session: Session; code: string }) {
                 {session.name}
               </h1>
               <p className="mt-0.5 text-xs text-slate-500">
-                コード {code} / フェーズ {session.phase}
+                コード {code} / いま:{phaseLabel(session.phase)}
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col items-end gap-1 text-xs">

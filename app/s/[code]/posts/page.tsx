@@ -10,6 +10,7 @@ import TrainingBanner from "@/components/training-banner";
 import InviteButton from "@/components/invite-button";
 import FuriganaToggle from "@/components/furigana-toggle";
 import PausedOverlay from "@/components/paused-overlay";
+import { phaseLabel } from "@/lib/phases";
 import { useSession } from "@/lib/hooks/useSession";
 import type { SharedPost, PostType } from "@/lib/types/database";
 
@@ -129,7 +130,7 @@ function PostsView({
                 {session.name}
               </h1>
               <p className="mt-0.5 text-xs text-slate-500">
-                コード {code} / フェーズ {session.phase}
+                コード {code} / いま:{phaseLabel(session.phase)}
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col items-end gap-1">
