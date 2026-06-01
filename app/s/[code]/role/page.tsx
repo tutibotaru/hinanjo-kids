@@ -106,6 +106,7 @@ export default function RolePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [alreadyHasRole, setAlreadyHasRole] = useState(false);
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const code = params.code.toUpperCase();
@@ -132,6 +133,30 @@ export default function RolePage() {
       .maybeSingle()
       .then(({ data }) => {
         if (data?.role) setAlreadyHasRole(true);
+      });
+
+    // WHY: 役割の偏り(全員うけつけ/けが0人 等)を、指導なしでも自分で避けられるよう
+    // 各チームの現在人数を見せる。セッション→参加者をたどって役割ごとに集計。
+    supabase
+      .from("sessions")
+      .select("id")
+      .eq("qr_code", code)
+      .maybeSingle()
+      .then(({ data: sess }) => {
+        if (!sess?.id) return;
+        supabase
+          .from("participants")
+          .select("role")
+          .eq("session_id", sess.id)
+          .then(({ data: parts }) => {
+            if (!parts) return;
+            const tally: Record<string, number> = {};
+            for (const p of parts) {
+              const r = (p as { role: string | null }).role;
+              if (r) tally[r] = (tally[r] ?? 0) + 1;
+            }
+            setCounts(tally);
+          });
       });
   }, [params.code, router]);
 
@@ -257,6 +282,9 @@ export default function RolePage() {
     (a, b) => (scores[b.id] ?? 0) - (scores[a.id] ?? 0),
   );
   const topId = skipped ? null : sortedRoles[0].id;
+  const countValues = roles.map((r) => counts[r.id] ?? 0);
+  const maxCount = Math.max(0, ...countValues);
+  const minCount = countValues.length ? Math.min(...countValues) : 0;
 
   return (
     <main className="min-h-screen bg-slate-50 px-5 py-8 sm:px-8">
@@ -322,6 +350,16 @@ export default function RolePage() {
                     </div>
                     <p className="mt-1 text-xs text-slate-600">
                       <RubyText text={role.description} />
+                    </p>
+                    <p className="mt-1 text-xs font-bold text-slate-500">
+                      いま {counts[role.id] ?? 0}
+                      <RubyText text="{人|にん}" />
+                      {maxCount >= 2 &&
+                        (counts[role.id] ?? 0) === minCount && (
+                          <span className="ml-2 rounded bg-amber-100 px-1.5 py-0.5 text-amber-800">
+                            すくないよ
+                          </span>
+                        )}
                     </p>
                   </div>
                 </button>
