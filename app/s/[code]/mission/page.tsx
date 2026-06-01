@@ -152,6 +152,7 @@ function MissionView({
   const [actionError, setActionError] = useState<string | null>(null);
   const [showTrouble, setShowTrouble] = useState(false);
   const [acting, setActing] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { byStepId } = useStepProgress(session.id);
   const { participants } = useParticipants(session.id);
@@ -309,32 +310,42 @@ function MissionView({
                 {participant.nickname} さん / {role.name}
               </p>
               <p className="text-sm text-slate-500">
-                なかま {sameRoleCount}<ruby>人<rt>にん</rt></ruby> / {session.name}({code})
-              </p>
-              <p className="mt-0.5 text-xs leading-snug text-slate-400">
-                ほかのチーム {otherSummary.activeBands}/
-                {otherSummary.totalOthers}チーム ぜんぶで{otherSummary.people}<ruby>人<rt>にん</rt></ruby>
+                なかま {sameRoleCount}<ruby>人<rt>にん</rt></ruby>
               </p>
             </div>
             <div className="flex flex-shrink-0 flex-col gap-1">
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-1">
                 <FuriganaToggle />
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen((o) => !o)}
+                  aria-label="メニュー(しょうたい・なまえ・やくわり)"
+                  aria-expanded={menuOpen}
+                  style={{ minHeight: 40, minWidth: 44 }}
+                  className="flex items-center justify-center rounded-md border border-slate-200 bg-white text-lg font-bold text-slate-500 hover:bg-slate-50"
+                >
+                  ⋯
+                </button>
               </div>
-              <InviteButton code={code} />
-              <Link
-                href={`/s/${code}/nickname`}
-                style={{ minHeight: 40 }}
-                className="flex items-center justify-center rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
-              >
-                なまえ
-              </Link>
-              <Link
-                href={`/s/${code}/role`}
-                style={{ minHeight: 40 }}
-                className="flex items-center justify-center rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
-              >
-                やくわり
-              </Link>
+              {menuOpen && (
+                <div className="flex flex-col gap-1 rounded-lg border border-slate-200 bg-white p-1.5 shadow-md">
+                  <InviteButton code={code} />
+                  <Link
+                    href={`/s/${code}/nickname`}
+                    style={{ minHeight: 40 }}
+                    className="flex items-center justify-center rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                  >
+                    なまえをかえる
+                  </Link>
+                  <Link
+                    href={`/s/${code}/role`}
+                    style={{ minHeight: 40 }}
+                    className="flex items-center justify-center rounded-md border border-slate-200 px-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                  >
+                    やくわりをかえる
+                  </Link>
+                </div>
+              )}
               {/* 共用端末で次の子に渡す:localStorage を消して /nickname に戻すだけ。
                   participant 行は DB に残るので進捗データは保持される。 */}
               <button
@@ -471,19 +482,23 @@ function MissionView({
             </div>
 
             {current.step.point && (
-              <div className="mt-3 flex gap-2 rounded-lg border border-sky-200 bg-sky-50 p-3">
-                <span aria-hidden className="text-base leading-none">
-                  💡
-                </span>
-                <div>
-                  <p className="text-xs font-semibold text-sky-700">
-                    だいじなこと
-                  </p>
-                  <p className="mt-1 text-sm text-sky-900">
-                    <RubyText text={current.step.point} />
-                  </p>
-                </div>
-              </div>
+              <details
+                key={current.step.id}
+                className="mt-3 rounded-lg border border-sky-200 bg-sky-50 p-3"
+              >
+                <summary className="flex cursor-pointer list-none items-center gap-2 text-xs font-semibold text-sky-700 [&::-webkit-details-marker]:hidden">
+                  <span aria-hidden className="text-base leading-none">
+                    💡
+                  </span>
+                  だいじなこと
+                  <span className="ml-auto font-normal text-sky-500">
+                    くわしく ▼
+                  </span>
+                </summary>
+                <p className="mt-2 text-sm leading-relaxed text-sky-900">
+                  <RubyText text={current.step.point} />
+                </p>
+              </details>
             )}
 
             <p className="mt-4 text-[10px] leading-relaxed text-slate-400">

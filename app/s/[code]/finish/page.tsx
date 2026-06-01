@@ -225,10 +225,15 @@ function FinishView({
           <p className="mt-2 text-sm font-semibold text-orange-800">
             {doneCount} / {totalSteps} ステップ できたよ
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-slate-600">
-            {session.name}({code}) / かかった じかん {formatElapsed(elapsedMs)}
+          <p className="mt-3 text-xs text-slate-500">
+            かかった じかん {formatElapsed(elapsedMs)}
           </p>
         </header>
+
+        <details className="border-b border-slate-200 bg-white">
+          <summary className="cursor-pointer list-none px-5 py-3 text-center text-sm font-semibold text-slate-500 [&::-webkit-details-marker]:hidden">
+            くわしい けっかを みる ▼
+          </summary>
 
         {functions.length > 0 && (
           <section className="border-b border-slate-200 bg-white px-5 py-4">
@@ -401,6 +406,7 @@ function FinishView({
               : "こまったことは ほとんどなかったよ。すごい!"}
           </p>
         </section>
+        </details>
 
         <ReflectionForm
           sessionId={session.id}
