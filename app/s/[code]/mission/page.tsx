@@ -181,6 +181,10 @@ function MissionView({
 
   const current = queue[0] ?? null;
   const totalForRole = myRoleSteps.length;
+  // WHY: 全フェーズ開放(自走モード)では これ以上の フェーズが無いので、
+  // 完了時に「つぎを まってね」ではなく「ぜんぶ おしまい」を出す。
+  const isLastPhase =
+    session.phase >= Math.max(...(stepsData.steps as Step[]).map((s) => s.phase));
   const completedCount = useMemo(
     () =>
       myRoleSteps.filter((s) => {
@@ -414,10 +418,12 @@ function MissionView({
           <section className="px-5 py-16 text-center">
             <p className="text-5xl">🎉</p>
             <h1 className="mt-4 text-xl font-bold text-slate-900">
-              いまの ぶんは おしまい!
+              {isLastPhase ? "ぜんぶ おしまい!" : "いまの ぶんは おしまい!"}
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              つぎの ステップが はじまるまで まってね。
+              {isLastPhase
+                ? "よく がんばったね。おつかれさま!"
+                : "つぎの ステップが はじまるまで まってね。"}
             </p>
             <Link
               href={`/s/${code}/finish`}
