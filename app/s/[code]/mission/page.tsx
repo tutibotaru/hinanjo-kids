@@ -186,13 +186,20 @@ function MissionView({
   // 完了時に「つぎを まってね」ではなく「ぜんぶ おしまい」を出す。
   const isLastPhase =
     session.phase >= Math.max(...(stepsData.steps as Step[]).map((s) => s.phase));
-  const completedCount = useMemo(
+  // 進捗は「いまいるブロック(フェーズ)」単位で出す。全48中の◯より「このブロック◯/3」で達成感を。
+  const currentBlock = current ? current.step.phase : session.phase;
+  const blockSteps = useMemo(
+    () => myRoleSteps.filter((s) => s.phase === currentBlock),
+    [myRoleSteps, currentBlock],
+  );
+  const blockTotal = blockSteps.length;
+  const blockDone = useMemo(
     () =>
-      myRoleSteps.filter((s) => {
+      blockSteps.filter((s) => {
         const p = byStepId.get(s.id);
         return p && (p.status === "done" || p.status === "skipped");
       }).length,
-    [myRoleSteps, byStepId],
+    [blockSteps, byStepId],
   );
 
   const sameRoleCount = useMemo(
@@ -351,15 +358,15 @@ function MissionView({
           <div className="flex items-baseline justify-between text-xs text-slate-600">
             <span>いま:{phaseLabel(current ? current.step.phase : session.phase)}</span>
             <span>
-              {completedCount} / {totalForRole} できた
+              このブロック {blockDone} / {blockTotal}
             </span>
           </div>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200">
             <div
               className="h-full bg-orange-500 transition-all"
               style={{
-                width: totalForRole
-                  ? `${(completedCount / totalForRole) * 100}%`
+                width: blockTotal
+                  ? `${(blockDone / blockTotal) * 100}%`
                   : "0%",
               }}
             />
