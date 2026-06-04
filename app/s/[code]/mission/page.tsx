@@ -200,22 +200,6 @@ function MissionView({
     [participants, role.id],
   );
 
-  // 並行で動いている他の app-managed 班(自分以外)の合計人数と参加中の班数。
-  // 7班分を1行で並べると 360px 幅で3行に折返るため、合計だけを短く出し
-  // 「全班の中での自分の位置」を1行で伝える。詳細はボードに譲る。
-  const otherSummary = useMemo(() => {
-    const roles = stepsData.roles as Role[];
-    const others = roles.filter((r) => r.id !== role.id);
-    let people = 0;
-    let activeBands = 0;
-    others.forEach((r) => {
-      const c = participants.filter((p) => p.role === r.id).length;
-      people += c;
-      if (c > 0) activeBands += 1;
-    });
-    return { people, activeBands, totalOthers: others.length };
-  }, [participants, role.id]);
-
   // 現在ステップが「役割内で何番目か」(1始まり)。
   // 完了したものも含めた全体の中での位置を示すための数。
   const currentPosition = useMemo(() => {
