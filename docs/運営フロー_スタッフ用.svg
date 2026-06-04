@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 受付・運営スタッフ用 1枚フロー(A4縦)。4グループ自走・family・phase=1 前提。ブラウザで印刷。 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 840 1188" role="img" aria-label="運営フロー スタッフ用">
+  <rect width="840" height="1188" fill="#FFF7ED"/>
+
+  <!-- 帯 -->
+  <rect x="0" y="0" width="840" height="124" fill="#F97316"/>
+  <text x="420" y="60" text-anchor="middle" font-family="sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF">運営フロー(スタッフ用)</text>
+  <text x="420" y="98" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#FFF7ED">親子で避難所たいけん ・ 4グループ自走 ・ 約45分 ・ family</text>
+
+  <!-- ① 準備 -->
+  <rect x="48" y="140" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="180" r="26" fill="#F97316"/>
+  <text x="92" y="180" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">1</text>
+  <text x="132" y="188" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">準備(はじめる前)</text>
+  <text x="74" y="226" font-family="sans-serif" font-size="19" fill="#44403C">・各班の受付に QR掲示(A=橙 / B=青 / C=緑 / D=紫)を貼る</text>
+  <text x="74" y="252" font-family="sans-serif" font-size="19" fill="#B91C1C">・⚠ サンプル「JCKIDS」(無印)は デモ前にリセット</text>
+  <text x="74" y="278" font-family="sans-serif" font-size="19" fill="#44403C">・端末=1家族1台 / 役割の立て札・物資を用意</text>
+
+  <!-- ② 受付 -->
+  <rect x="48" y="297" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="337" r="26" fill="#FB923C"/>
+  <text x="92" y="337" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">2</text>
+  <text x="132" y="345" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">受付(13:30〜)</text>
+  <text x="74" y="383" font-family="sans-serif" font-size="19" fill="#44403C">・家族を自分の班へ → QRをスマホで読む(アプリ不要)</text>
+  <text x="74" y="409" font-family="sans-serif" font-size="19" fill="#44403C">・ニックネーム(本名・住所はNG)→「亜あ」でふりがな</text>
+  <text x="74" y="435" font-family="sans-serif" font-size="19" fill="#44403C">・役割選びまで進めておくと、開始がスムーズ</text>
+
+  <!-- ③ 役割わけ -->
+  <rect x="48" y="454" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="494" r="26" fill="#F59E0B"/>
+  <text x="92" y="494" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">3</text>
+  <text x="132" y="502" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">役割わけ(4チーム)</text>
+  <text x="74" y="540" font-family="sans-serif" font-size="19" fill="#44403C">・4問 → おすすめ＋「いま◯人 / すくないよ」が出る</text>
+  <text x="74" y="566" font-family="sans-serif" font-size="19" fill="#44403C">・受付・部屋づくり・食料と水・ケガ対応 の4つを埋める</text>
+  <text x="74" y="592" font-family="sans-serif" font-size="19" fill="#44403C">・各班 ≒4家族で「1家族1役割」が理想。偏れば声かけ</text>
+
+  <!-- ④ 体験 -->
+  <rect x="48" y="611" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="651" r="26" fill="#F97316"/>
+  <text x="92" y="651" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">4</text>
+  <text x="132" y="659" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">体験(約45分・自走)</text>
+  <text x="74" y="697" font-family="sans-serif" font-size="19" fill="#44403C">・phase=1で全ステップ開放。各自のペースで進む</text>
+  <text x="74" y="723" font-family="sans-serif" font-size="19" fill="#44403C">・「できた / こまった / とばす」だけ。フェーズ操作は不要</text>
+  <text x="74" y="749" font-family="sans-serif" font-size="19" fill="#44403C">・スタッフは見守り中心(L0)。やってあげすぎない</text>
+
+  <!-- ⑤ 困った対応 -->
+  <rect x="48" y="768" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="808" r="26" fill="#FB923C"/>
+  <text x="92" y="808" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">5</text>
+  <text x="132" y="816" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">困った対応</text>
+  <text x="74" y="854" font-family="sans-serif" font-size="19" fill="#44403C">・子は「こまった」→ ヒント表示＆ボードに反映</text>
+  <text x="74" y="880" font-family="sans-serif" font-size="19" fill="#44403C">・第一の頼りは「おとな(保護者)」</text>
+  <text x="74" y="906" font-family="sans-serif" font-size="19" fill="#44403C">・危険/全体説明は 各班 /manage の「一斉ストップ」(任意)</text>
+
+  <!-- ⑥ しめ -->
+  <rect x="48" y="925" width="744" height="120" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
+  <circle cx="92" cy="965" r="26" fill="#F59E0B"/>
+  <text x="92" y="965" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">6</text>
+  <text x="132" y="973" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">しめ</text>
+  <text x="74" y="1011" font-family="sans-serif" font-size="19" fill="#44403C">・「ぜんぶおしまい」→ ⭐おつかれ → 修了証を印刷</text>
+  <text x="74" y="1037" font-family="sans-serif" font-size="19" fill="#44403C">・「ひろば」に “きょう覚えたこと” を一言</text>
+
+  <!-- フッター -->
+  <rect x="48" y="1066" width="744" height="94" rx="12" fill="#FEF3C7"/>
+  <text x="72" y="1098" font-family="sans-serif" font-size="19" font-weight="bold" fill="#78350F">参加 https://hinanjo-kids.vercel.app ・ 各班コード JCKIDSA〜D</text>
+  <text x="72" y="1126" font-family="sans-serif" font-size="17" fill="#78350F">アプリの「リーダー」=子どもが決めるチームリーダー(運営者ではない)</text>
+  <text x="72" y="1150" font-family="sans-serif" font-size="17" fill="#78350F">「おとな」=保護者 ／ 本物の災害時は おとな・まちの人の指示が最優先</text>
+</svg>

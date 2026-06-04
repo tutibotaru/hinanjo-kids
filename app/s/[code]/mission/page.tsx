@@ -372,7 +372,7 @@ function MissionView({
 
         <div className="bg-white px-5 py-3">
           <div className="flex items-baseline justify-between text-xs text-slate-600">
-            <span>いま:{phaseLabel(session.phase)}</span>
+            <span>いま:{phaseLabel(current ? current.step.phase : session.phase)}</span>
             <span>
               {completedCount} / {totalForRole} できた
             </span>

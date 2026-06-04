@@ -1,621 +1,382 @@
 {
-  "$schema_version": "1.0-kids",
-  "_comment": "親子で避難所体験(子ども向け簡略版)。本家hinanjo-appの7班×4phase=116ステップを、4班×2phase=28ステップに圧縮し、文体を小3-4年生レベル+絵本トーンにリライト。",
+  "$schema_version": "2.0-kids-camp",
+  "_comment": "親子で避難所体験(子ども向け)。2026-06-06〜07 高梁JC防災キャンプの実スケジュールに合わせ、4役割(そうむ/しせつ/みずたべもの/けんこう)×4ブロック(せつえい/ごはん/よる/あさ)で再設計。資材=折りたたみベッド・パーテーション・毛布・新聞紙・非接触体温計・屋内テント(各班1=更衣室等)・紙の印刷物・ホワイトボード(各班1)。火と包丁は大人のみ。役割IDは旧版を維持(uketsuke=そうむ/oheya=しせつ/monosuke=みずたべもの/kyugo=けんこう)。phase=3で全開放=自分のペース運用。",
 
   "functions": [
-    { "id": "uketsuke",  "name": "うけつけ",       "short_name": "うけつけ", "responsibility": "{入口|いりぐち}でお{客|きゃく}さんをむかえて、なまえをきくチーム。",                  "examples": ["つくえをおく", "なまえをかく", "こえをかける"], "in_app": true, "color": "#FB923C" },
-    { "id": "oheya",     "name": "おへやづくり",   "short_name": "おへや",   "responsibility": "ねる{場所|ばしょ}・トイレ・あぶないところを{見|み}るチーム。",                "examples": ["あぶなくないかみる", "ねるばしょをきめる", "トイレのかんばん"], "in_app": true, "color": "#F59E0B" },
-    { "id": "monosuke",  "name": "たべものとみず", "short_name": "たべもの", "responsibility": "みず・たべもの・ふとんを みんなにくばるチーム。",              "examples": ["そうこをあける", "ふとんをくばる", "みずをわける"], "in_app": true, "color": "#38BDF8" },
-    { "id": "kyugo",     "name": "けが・びょうき", "short_name": "けが",     "responsibility": "ねつをはかったり、ぐあいわるい{人|ひと}をみるチーム。",              "examples": ["ねつをはかる", "きゅうごのへやをつくる", "てをあらうばしょ"], "in_app": true, "color": "#F87171" }
+    { "id": "uketsuke", "name": "そうむ",       "short_name": "そうむ",   "responsibility": "リーダーと ふくリーダーで、本部から みんなを まとめる チーム。", "examples": ["リーダーをきめる", "ホワイトボードに書く", "点呼する"], "in_app": true, "color": "#FB923C" },
+    { "id": "oheya",    "name": "しせつ",       "short_name": "しせつ",   "responsibility": "あんぜんを みて、パーテーションと ベッドで ねる場所を つくる チーム。", "examples": ["あんぜんかくにん", "パーテーション設営", "ベッド組み立て"], "in_app": true, "color": "#F59E0B" },
+    { "id": "monosuke", "name": "みずとたべもの", "short_name": "たべもの", "responsibility": "水と 食べ物を うけとって、みんなに 配る チーム。", "examples": ["物資を数える", "ポリ袋ごはんの準備", "配ぜん"], "in_app": true, "color": "#38BDF8" },
+    { "id": "kyugo",    "name": "けんこう",     "short_name": "けんこう", "responsibility": "体温を はかって、みんなの 体調を みまもる チーム。", "examples": ["体温をはかる", "手あらい場所", "体調チェック"], "in_app": true, "color": "#F87171" }
   ],
 
   "roles": [
-    { "id": "uketsuke", "name": "うけつけ",       "short_name": "うけつけ", "description": "{入口|いりぐち}でお{客|きゃく}さんを むかえる{人|ひと}", "mission": "{入口|いりぐち}でみんなをむかえて、なまえをきいて、おうちのようにあんしんしてもらおう。", "color": "#FB923C", "appears_from_phase": 0 },
-    { "id": "oheya",    "name": "おへやづくり",   "short_name": "おへや",   "description": "ねるばしょとトイレを つくる{人|ひと}", "mission": "あぶないところがないかみて、ねるばしょを つくって、みんながやすめるようにしよう。", "color": "#F59E0B", "appears_from_phase": 0 },
-    { "id": "monosuke", "name": "たべものとみず", "short_name": "たべもの", "description": "たべものとみずを くばる{人|ひと}", "mission": "そうこをあけて、みずやたべものを とりだして、みんなにわけてあげよう。", "color": "#38BDF8", "appears_from_phase": 0 },
-    { "id": "kyugo",    "name": "けが・びょうき", "short_name": "けが",     "description": "けがやびょうきを みる{人|ひと}",   "mission": "ねつをはかったり、けがをした{人|ひと}をみつけて、おとなにつたえよう。", "color": "#F87171", "appears_from_phase": 0 }
+    { "id": "uketsuke", "name": "そうむ",       "short_name": "そうむ",   "description": "リーダー・ふくリーダー。本部で まとめる人", "mission": "リーダーと ふくリーダーを きめて、本部から みんなを まとめよう。", "color": "#FB923C", "appears_from_phase": 0 },
+    { "id": "oheya",    "name": "しせつ",       "short_name": "しせつ",   "description": "あんぜんを みて ねる場所を つくる人", "mission": "あぶないところを みて、パーテーションと ベッドで ねる場所を つくろう。", "color": "#F59E0B", "appears_from_phase": 0 },
+    { "id": "monosuke", "name": "みずとたべもの", "short_name": "たべもの", "description": "水と 食べ物を 配る人", "mission": "水と 食べ物を 数えて、よわい人から 順番に 配ろう。", "color": "#38BDF8", "appears_from_phase": 0 },
+    { "id": "kyugo",    "name": "けんこう",     "short_name": "けんこう", "description": "体温を はかり 体調を みる人", "mission": "体温を はかって、ぐあいの わるい人を 早く 見つけよう。", "color": "#F87171", "appears_from_phase": 0 }
   ],
 
   "phases": [
-    { "id": 0, "name": "はじめる", "label": "さいしょの15ふん" },
-    { "id": 1, "name": "ひらく",   "label": "つぎの30ぷん" }
+    { "id": 0, "name": "せつえい", "label": "ひなんじょを つくる" },
+    { "id": 1, "name": "ごはん",   "label": "スリッパと カレー" },
+    { "id": 2, "name": "よる",     "label": "ナイトと よる" },
+    { "id": 3, "name": "あさ",     "label": "あさ・かたづけ" }
   ],
 
   "steps": [
     {
-      "id": "uk-001",
-      "role": "uketsuke",
-      "phase": 0,
-      "order": 1,
-      "title": "うけつけのつくえをおく",
-      "duration_minutes": 2,
-      "instructions": [
-        "{入口|いりぐち}のちかくにつくえをおく",
-        "いすを2つならべる",
-        "『うけつけ』のかみをはる"
-      ],
-      "completion_condition": "つくえと『うけつけ』のかみが{入口|いりぐち}にある",
-      "point": "うけつけは『さいしょのおうち』みたいなところ。ここでみんなをむかえて、なまえをきくよ。{雨|あめ}にぬれないように、やねがあるところがいいね。つくえがなければ、いすを2つならべるだけでもだいじょうぶ!",
-      "troubles": [
-        { "label": "つくえがない",    "action": "いすを2つでだいじょうぶ" },
-        { "label": "ばしょがわからない", "action": "ちかくのおとなにきく" },
-        { "label": "ひとがたりない",   "action": "ともだちをよぶ" }
-      ],
+      "id": "uk-001", "role": "uketsuke", "phase": 0, "order": 1,
+      "title": "リーダーと ふくリーダーを きめる", "duration_minutes": 3,
+      "instructions": ["「だれが リーダーする?」と きく", "リーダーと ふくを 1人ずつ きめる", "紙の 名ふだを つける"],
+      "completion_condition": "リーダーと ふくリーダーが きまった",
+      "point": "リーダーは みんなを まとめる人、ふくは てつだう人。1人だと たいへんだから 2人で 手分けしよう。",
+      "troubles": [{ "label": "やる人が いない", "action": "じゃんけんで きめる" }, { "label": "けんかに なる", "action": "2人で リーダー" }, { "label": "やりたい人 が おおい", "action": "こうたいで やる" }],
       "depends_on": []
     },
     {
-      "id": "uk-002",
-      "role": "uketsuke",
-      "phase": 0,
-      "order": 2,
-      "title": "なまえをかくかみをじゅんびする",
-      "duration_minutes": 2,
-      "instructions": [
-        "かみとペンをつくえにおく",
-        "なまえ・かぞくの{人数|にんずう}をかくらん",
-        "ペンは{2本|にほん}いじょうじゅんびする"
-      ],
-      "completion_condition": "なまえをかくじゅんびができている",
-      "point": "なまえをかいてもらうと、だれがどこにいるかわかるよ。みんなが{安心|あんしん}して、{迷子|まいご}にもならない。{本名|ほんみょう}じゃなくて、よばれたい{名前|なまえ}(ニックネーム)でもだいじょうぶ。",
-      "troubles": [
-        { "label": "かみがない",      "action": "{白|しろ}いかみでもOK" },
-        { "label": "ペンが{1本|いっぽん}だけ",   "action": "じゅんばんにつかう" },
-        { "label": "かきたくない{人|ひと}",  "action": "むりにかかせない" }
-      ],
+      "id": "uk-002", "role": "uketsuke", "phase": 0, "order": 2,
+      "title": "ホワイトボードを「本部」に する", "duration_minutes": 3,
+      "instructions": ["日づけと 時こくを 書く", "班の 人数を 書く", "きょうの やることを 書く"],
+      "completion_condition": "ホワイトボードに 本部の じょうほうが ある",
+      "point": "本部の ボードを 見れば「いま 何を する?」が みんなに わかる。こまったら ここに あつまろう。",
+      "troubles": [{ "label": "何を 書く?", "action": "人数と やること" }, { "label": "ペンが ない", "action": "ちかくの おとなに" }, { "label": "字が にがて", "action": "ふくと いっしょに" }],
       "depends_on": ["uk-001"]
     },
     {
-      "id": "uk-003",
-      "role": "uketsuke",
-      "phase": 0,
-      "order": 3,
-      "title": "リーダーをひとりきめる",
-      "duration_minutes": 3,
-      "instructions": [
-        "「だれがリーダーする?」ときく",
-        "やってくれる{人|ひと}を{1人|ひとり}きめる",
-        "みんなに{名前|なまえ}をつたえる"
-      ],
-      "completion_condition": "リーダーの{名前|なまえ}がみんなにつたわった",
-      "point": "リーダーは『みんなをまとめる{人|ひと}』。むずかしい{決|き}めごとが{出|で}てきたとき、リーダーがきめる。{1人|ひとり}じゃたいへんだから、たすける{副|ふく}リーダーもいるといいね。",
-      "troubles": [
-        { "label": "やる{人|ひと}がいない",  "action": "じゃんけんできめる" },
-        { "label": "けんかになる",    "action": "{2人|ふたり}でリーダー" },
-        { "label": "おとなしか…",     "action": "おとなにたのむ" }
-      ],
+      "id": "uk-003", "role": "uketsuke", "phase": 0, "order": 3,
+      "title": "はいちを みんなで きめる", "duration_minutes": 5,
+      "instructions": ["大きな 紙(見取り図)を ひろげる", "ねる場所・通路・トイレ・救護を どこに するか 話す", "紙に かきこむ"],
+      "completion_condition": "班の はいちが 紙に きまった",
+      "point": "さいしょに「どこに 何を おくか」を きめると、せつえいが はやい。通路は 1メートル あけるのが やくそく。",
+      "troubles": [{ "label": "きまらない", "action": "多数決で きめる" }, { "label": "通路が ない", "action": "1れつ もどす" }, { "label": "もめる", "action": "ちかくの おとなに" }],
       "depends_on": ["uk-002"]
     },
-
     {
-      "id": "oh-001",
-      "role": "oheya",
-      "phase": 0,
-      "order": 1,
-      "title": "たてものがあぶなくないかみる",
-      "duration_minutes": 3,
-      "instructions": [
-        "{2人|ふたり}ペアで{中|なか}をあるく",
-        "かべ・てんじょう・ゆかをみる",
-        "ひびわれや{落|お}ちものがないかさがす"
-      ],
-      "completion_condition": "へやがあんぜんかどうかわかった",
-      "point": "じしんのあとは、たてものがこわれていることがあるよ。{1人|ひとり}じゃなくて{2人|ふたり}ペアでみるのが{大事|だいじ}。ひとつでも『あぶないかも?』と{思|おも}ったら、すぐにリーダーにつたえてね。",
-      "troubles": [
-        { "label": "{1人|ひとり}しかいない", "action": "おとなにいっしょに" },
-        { "label": "くらい",        "action": "ライトをもっていく" },
-        { "label": "こわい",        "action": "むりせず{外|そと}で{待|ま}つ" }
-      ],
-      "depends_on": []
+      "id": "uk-004", "role": "uketsuke", "phase": 0, "order": 4,
+      "title": "せいかつの ルールを きめて はる", "duration_minutes": 4,
+      "instructions": ["「しずかに する 時間」を きめる", "「ゆずりあう・土足きんし」を 書く", "見える ところに はる"],
+      "completion_condition": "ルールの 紙が はってある",
+      "point": "たくさんの 人が いっしょに すごすから、ルールが ないと こまる。みんなで きめた ルールは まもりやすい。",
+      "troubles": [{ "label": "何を きめる?", "action": "消灯・しずか・ゆずる" }, { "label": "はる所が ない", "action": "かべや 入口に" }, { "label": "まもらない人", "action": "やさしく つたえる" }],
+      "depends_on": ["uk-002"]
     },
     {
-      "id": "oh-002",
-      "role": "oheya",
-      "phase": 0,
-      "order": 2,
-      "title": "あぶないへやにはいれないようにする",
-      "duration_minutes": 3,
-      "instructions": [
-        "あぶないへやの{入口|いりぐち}にテープをはる",
-        "『はいらないで』のかみをはる",
-        "みんなにこえでつたえる"
-      ],
-      "completion_condition": "あぶないところがすぐわかるようになっている",
-      "point": "こえでつたえるだけだと、わすれられる。テープとかみで『{目|め}で{見|み}てわかる』ようにしよう。{子|こ}どもが{入|はい}っちゃわないように、おとなが{見|み}ていてもいいね。",
-      "troubles": [
-        { "label": "テープがない",  "action": "ひもやいすでかこむ" },
-        { "label": "かみがない",    "action": "{手|て}がきで『×』" },
-        { "label": "こわすつもり",  "action": "おとなにそうだん" }
-      ],
-      "depends_on": ["oh-001"]
+      "id": "uk-005", "role": "uketsuke", "phase": 1, "order": 5,
+      "title": "ごはんの 時間を 知らせる", "duration_minutes": 3,
+      "instructions": ["たべもの班に「いつ 配る?」と きく", "時こくを ボードに 書く", "みんなに「ごはんだよ」と 知らせる"],
+      "completion_condition": "ごはんの 時間が みんなに つたわった",
+      "point": "ごはんの 時間が わかると、みんな あんしんできる。よわい人から 先に、を わすれずに 伝えよう。",
+      "troubles": [{ "label": "まだ できない", "action": "「もうすこし」と 伝える" }, { "label": "聞こえない", "action": "ボードを 見せる" }, { "label": "ならばない", "action": "順番の 紙" }],
+      "depends_on": ["uk-002"]
     },
     {
-      "id": "oh-003",
-      "role": "oheya",
-      "phase": 0,
-      "order": 3,
-      "title": "でんき・みず・ガスをかくにん",
-      "duration_minutes": 2,
-      "instructions": [
-        "でんきのスイッチをおしてみる",
-        "じゃぐちをひねってみる",
-        "ガスのにおいがしないかかぐ"
-      ],
-      "completion_condition": "3つのじょうきょうがわかった",
-      "point": "ガスのにおいがしたら、ぜったいにスイッチをおさないで!ガスは{目|め}に{見|み}えないけど、{火|ひ}がつくとあぶないよ。すぐにまどをあけて、{外|そと}にでよう。",
-      "troubles": [
-        { "label": "ガスくさい",     "action": "すぐ{外|そと}に・おとなへ" },
-        { "label": "でんきつかない", "action": "ライトをじゅんび" },
-        { "label": "みずでない",    "action": "そなえのみずを" }
-      ],
-      "depends_on": ["oh-001"]
-    },
-
-    {
-      "id": "mo-001",
-      "role": "monosuke",
-      "phase": 0,
-      "order": 1,
-      "title": "そうこのばしょをかくにん",
-      "duration_minutes": 2,
-      "instructions": [
-        "{校舎図|こうしゃず}やかんばんをさがす",
-        "『そうこ』とかいてあるところをみつける",
-        "ばしょをかみにかく"
-      ],
-      "completion_condition": "そうこのばしょがメモにかかれた",
-      "point": "そうこには、みんなにくばる『みず・たべもの・ふとん』がはいっているよ。{場所|ばしょ}が{分|わ}かったら、すぐにあけないで、リーダーに『あけていい?』ってきこう。",
-      "troubles": [
-        { "label": "{図|ず}がない",   "action": "ちかくのおとなにきく" },
-        { "label": "ばしょふめい",  "action": "{学校|がっこう}じゅうをさがす" },
-        { "label": "{鍵|かぎ}がない", "action": "{次|つぎ}のステップへ" }
-      ],
-      "depends_on": []
-    },
-    {
-      "id": "mo-002",
-      "role": "monosuke",
-      "phase": 0,
-      "order": 2,
-      "title": "リーダーに『あけていい?』ときく",
-      "duration_minutes": 2,
-      "instructions": [
-        "リーダーをさがす",
-        "「そうこをあけていい?」ときく",
-        "OK が{出|で}るまでまつ"
-      ],
-      "completion_condition": "リーダーから OK or まつ のしじが{出|で}た",
-      "point": "そうこは みんなのもの。リーダーが「いまあける」とか「あとであける」を きめる。かってにあけると、ひつような{人|ひと}にとどかなくなっちゃう。",
-      "troubles": [
-        { "label": "リーダーがいそがしい", "action": "3{分|ぷん}まって{聞|き}く" },
-        { "label": "へんじがない",         "action": "{副|ふく}リーダーにきく" },
-        { "label": "OKが{出|で}ない",          "action": "ほかのことをやる" }
-      ],
-      "depends_on": ["mo-001"]
-    },
-    {
-      "id": "mo-003",
-      "role": "monosuke",
-      "phase": 0,
-      "order": 3,
-      "title": "みずがあるかかくにん",
-      "duration_minutes": 2,
-      "instructions": [
-        "そうこの{中|なか}をみる",
-        "ペットボトルやタンクをさがす",
-        "なんぼんあるかかぞえる"
-      ],
-      "completion_condition": "みずがなんぼんあるかわかった",
-      "point": "みずは、{人|ひと}がいきていくのにいちばんだいじ。{1人|ひとり}{1日|いちにち}3リットルくらいいる。たりるかな?たりなかったら、リーダーに『たりない!』ってつたえよう。",
-      "troubles": [
-        { "label": "みずがない",    "action": "ちかくのおとなにつたえる" },
-        { "label": "{古|ふる}いきが…",     "action": "おとなにみてもらう" },
-        { "label": "かぞえきれない", "action": "おおよそでOK" }
-      ],
-      "depends_on": ["mo-002"]
-    },
-
-    {
-      "id": "ky-001",
-      "role": "kyugo",
-      "phase": 0,
-      "order": 1,
-      "title": "ねつをはかるばしょをつくる",
-      "duration_minutes": 3,
-      "instructions": [
-        "{入口|いりぐち}の{手前|てまえ}につくえをおく",
-        "たいおんけいをだす",
-        "『ねつをはかる』のかみをはる"
-      ],
-      "completion_condition": "ねつをはかるばしょができた",
-      "point": "ねつがある{人|ひと}といっしょにすごすと、ほかの{人|ひと}もびょうきになっちゃう。さいしょにねつをはかって、ぐあいわるい{人|ひと}は べつのへやですごしてもらおう。",
-      "troubles": [
-        { "label": "たいおんけいなし", "action": "ほけんしつをさがす" },
-        { "label": "つくえなし",       "action": "ちいさなだいでOK" },
-        { "label": "ばしょなし",       "action": "{外|そと}でもいい" }
-      ],
-      "depends_on": []
-    },
-    {
-      "id": "ky-002",
-      "role": "kyugo",
-      "phase": 0,
-      "order": 2,
-      "title": "けがの{人|ひと}のへやをきめる",
-      "duration_minutes": 3,
-      "instructions": [
-        "しずかなへやをえらぶ",
-        "ふとんとみずをはこぶ",
-        "『きゅうご』のかみをはる"
-      ],
-      "completion_condition": "けがやびょうきの{人|ひと}を ねかせるばしょができた",
-      "point": "けがをした{人|ひと}が やすめる『じぶんのへや』みたいな しずかなばしょをつくろう。ふとんと みずがあれば、ねて{休|やす}めるよ。",
-      "troubles": [
-        { "label": "へやがない",    "action": "カーテンでかこむ" },
-        { "label": "ふとんがない",  "action": "ダンボールでOK" },
-        { "label": "しずかじゃない", "action": "ばしょをかえる" }
-      ],
-      "depends_on": []
-    },
-    {
-      "id": "ky-003",
-      "role": "kyugo",
-      "phase": 0,
-      "order": 3,
-      "title": "ますく・てぶくろをだす",
-      "duration_minutes": 2,
-      "instructions": [
-        "きゅうごばこをひらく",
-        "ますく10まいをそとに",
-        "てぶくろを5くみそとに"
-      ],
-      "completion_condition": "ますくとてぶくろがすぐつかえる",
-      "point": "けが{人|ひと}をたすけるとき、{自分|じぶん}のからだもまもるのがだいじ。ますくは{口|くち}から、てぶくろは{手|て}から、ばいきんがうつるのをふせぐよ。",
-      "troubles": [
-        { "label": "きゅうごばこなし", "action": "ほけんしつへ" },
-        { "label": "ますくたりない",   "action": "おとなにきく" },
-        { "label": "てぶくろなし",     "action": "ビニールぶくろでOK" }
-      ],
-      "depends_on": ["ky-002"]
-    },
-
-    {
-      "id": "uk-004",
-      "role": "uketsuke",
-      "phase": 1,
-      "order": 4,
-      "title": "さいしょのおきゃくさんをむかえる",
-      "duration_minutes": 3,
-      "instructions": [
-        "「いらっしゃい」とこえをかける",
-        "なまえをかみにかいてもらう",
-        "ねつをはかってもらう"
-      ],
-      "completion_condition": "{1人|ひとり}めのお{客|きゃく}さんの なまえがかみにある",
-      "point": "さいしょにくる{人|ひと}は、こわい{思|おも}いをしてきているかも。やさしいこえで「だいじょうぶ」とつたえると、おうちみたいにあんしんできる。ねつがある{人|ひと}は、きゅうごのへやへあんないしよう。",
-      "troubles": [
-        { "label": "おびえている",    "action": "ゆっくり、こえをかける" },
-        { "label": "なまえかけない", "action": "{代|か}わりにかいてあげる" },
-        { "label": "ねつがある",     "action": "きゅうごチームへ" }
-      ],
-      "depends_on": ["uk-003"]
-    },
-    {
-      "id": "uk-005",
-      "role": "uketsuke",
-      "phase": 1,
-      "order": 5,
-      "title": "あかちゃん・おとしよりはどこ?",
-      "duration_minutes": 3,
-      "instructions": [
-        "なまえをかくときにきく",
-        "「ちかくにあかちゃんいる?」",
-        "メモして おへやチームへ"
-      ],
-      "completion_condition": "おとしより・あかちゃんが{何人|なんにん}いるかわかった",
-      "point": "あかちゃんやおとしよりは、すこしべつのおへやがあったほうがいい。なきごえやよなかのトイレで、おとなりにめいわくがかからないように。せきの{近|ちか}くも、トイレの{近|ちか}くがおすすめ。",
-      "troubles": [
-        { "label": "{数|かず}がふえる",     "action": "メモにたしていく" },
-        { "label": "おへやがたりない", "action": "おとなにそうだん" },
-        { "label": "じょうほうちがう", "action": "あとでなおせばOK" }
-      ],
+      "id": "uk-006", "role": "uketsuke", "phase": 2, "order": 6,
+      "title": "ナイトウォークの前に 点呼する", "duration_minutes": 4,
+      "instructions": ["名ぼを 見る", "名前を よんで「いますか?」", "全員 そろったか たしかめる"],
+      "completion_condition": "全員 いるか かくにんできた",
+      "point": "暗い 外に 出る前に「全員 いる?」が いちばん 大事。1人でも いなかったら、すぐ おとなに 伝えよう。",
+      "troubles": [{ "label": "いない人が いる", "action": "すぐ おとなへ" }, { "label": "へんじが ない", "action": "もう一度 よぶ" }, { "label": "数えにくい", "action": "2人で 数える" }],
       "depends_on": ["uk-004"]
     },
     {
-      "id": "uk-006",
-      "role": "uketsuke",
-      "phase": 1,
-      "order": 6,
-      "title": "みんなのなまえをかみにかく",
-      "duration_minutes": 4,
-      "instructions": [
-        "おおきなかみを1まいよういする",
-        "きた{人|ひと}のなまえを{上|うえ}から{下|した}にかく",
-        "ねたりかえったら しるしをつける"
-      ],
-      "completion_condition": "なまえのリストが かんせいしている",
-      "point": "リストがあると、だれがいて、だれがいなくなったかが すぐわかるよ。{家|か}ぞくのひとがさがしにきたとき、「ここにいるよ」っておしえてあげられる。",
-      "troubles": [
-        { "label": "じがちいさい",  "action": "{1行|いちぎょう}に{1人|ひとり}だけ" },
-        { "label": "まちがえた",    "action": "けして{書|か}きなおす" },
-        { "label": "ながいリスト",  "action": "2まいめに" }
-      ],
-      "depends_on": ["uk-005"]
-    },
-    {
-      "id": "uk-007",
-      "role": "uketsuke",
-      "phase": 1,
-      "order": 7,
-      "title": "つかれた{人|ひと}にこえをかける",
-      "duration_minutes": 3,
-      "instructions": [
-        "30{分|ぷん}に1かいうけつけのまわりをみる",
-        "つかれてそうな{人|ひと}をみつける",
-        "「みずのみますか?」とこえをかける"
-      ],
-      "completion_condition": "{1人|ひとり}でもこえをかけた",
-      "point": "じっと{立|た}ってるだけでもつかれる。とくにおとしよりは、こえをかけてあげると あんしんするよ。みずをひとくちのむだけで、げんきになることもある。",
-      "troubles": [
-        { "label": "みずがない",    "action": "たべものチームへ" },
-        { "label": "おこられた",    "action": "ほかの{人|ひと}にこえを" },
-        { "label": "つかれてる{人|ひと}だらけ", "action": "ちかくのおとなにそうだん" }
-      ],
+      "id": "uk-007", "role": "uketsuke", "phase": 2, "order": 7,
+      "title": "自由時間の すごし方を きめる", "duration_minutes": 4,
+      "instructions": ["「避難所で どう すごす?」を 話す", "やる ことを きめる(ひろば・クイズ・だんらん)", "少し 電気を 消して 夜を かんじてみる"],
+      "completion_condition": "自由時間の すごし方が きまった",
+      "point": "本物の 避難所は、ひまな 時間も ある。少し 暗くして 夜を かんじると、電気の ありがたさが わかるよ。",
+      "troubles": [{ "label": "きまらない", "action": "やりたい人の 案" }, { "label": "くらいの こわい", "action": "電気を つける" }, { "label": "ねむい", "action": "ねても OK" }],
       "depends_on": ["uk-006"]
     },
-
     {
-      "id": "oh-004",
-      "role": "oheya",
-      "phase": 1,
-      "order": 4,
-      "title": "ねるばしょをきめる",
-      "duration_minutes": 4,
-      "instructions": [
-        "たいいくかんを{大|おお}きくみる",
-        "{1人|ひとり}ぶんを 1じょう({畳|じょう})くらいでくぎる",
-        "つうろを1メートルあけてのこす"
-      ],
-      "completion_condition": "ねるばしょと つうろがわかれている",
-      "point": "つうろ(あるくみち)が1メートルないと、{車|くるま}いすやストレッチャーが{入|はい}れなくなる。あかちゃんやおとしよりは、トイレちかくにねるばしょをつくってあげると、よなかが{楽|らく}。",
-      "troubles": [
-        { "label": "せまい",        "action": "{1人|ひとり}ぶんを{小|ちい}さく" },
-        { "label": "つうろがない",  "action": "1れつぶんもどす" },
-        { "label": "けんかになる",  "action": "ちかくのおとなにきめてもらう" }
-      ],
-      "depends_on": ["oh-003"]
+      "id": "uk-008", "role": "uketsuke", "phase": 2, "order": 8,
+      "title": "寝る前の 班別 点呼(21じ)", "duration_minutes": 3,
+      "instructions": ["名ぼで 全員 いるか かくにん", "いない人が いないか", "記録の 人に 伝える"],
+      "completion_condition": "寝る前に 全員 かくにんできた",
+      "point": "夜は 暗くて まいごに なりやすい。寝る前に「全員 いる?」を たしかめると、安心して ねむれる。",
+      "troubles": [{ "label": "おうちに もどった人", "action": "名ぼで 確認" }, { "label": "数が 合わない", "action": "もう一度" }, { "label": "ねてる人", "action": "そっと 確認" }],
+      "depends_on": ["uk-006"]
     },
     {
-      "id": "oh-005",
-      "role": "oheya",
-      "phase": 1,
-      "order": 5,
-      "title": "はだしのへやとくつのへやをわける",
-      "duration_minutes": 3,
-      "instructions": [
-        "ねるところは『はだし』にする",
-        "{入口|いりぐち}でくつをぬぐルールをつくる",
-        "くつばこをじゅんびする"
-      ],
-      "completion_condition": "くつをおく{場所|ばしょ}がきまっている",
-      "point": "くつのままねるところに{入|はい}ると、すなやばいきんがはいる。ねるところはきれいにたもとう。くつばこがなくても、ダンボールに{名前|なまえ}をかいてならべればOK。",
-      "troubles": [
-        { "label": "くつばこなし",   "action": "ダンボールで{代用|だいよう}" },
-        { "label": "{名前|なまえ}がない",    "action": "ばんごうをかく" },
-        { "label": "ルールわすれる", "action": "かんばんをはる" }
-      ],
-      "depends_on": ["oh-004"]
+      "id": "uk-009", "role": "uketsuke", "phase": 3, "order": 9,
+      "title": "朝の 起床 点呼", "duration_minutes": 3,
+      "instructions": ["朝 おきたら 名ぼで かくにん", "体調わるい人が いないか きく", "記録の 人に 伝える"],
+      "completion_condition": "朝の 点呼が できた",
+      "point": "朝も「全員 げんき?」を たしかめる。夜の あいだに 体調を くずす人も いるから、朝の かくにんが 大事。",
+      "troubles": [{ "label": "おきない人", "action": "やさしく おこす" }, { "label": "体調わるい", "action": "けんこう係へ" }, { "label": "いない", "action": "おとなへ" }],
+      "depends_on": ["uk-008"]
     },
     {
-      "id": "oh-006",
-      "role": "oheya",
-      "phase": 1,
-      "order": 6,
-      "title": "トイレのばしょをかんばんでしる",
-      "duration_minutes": 3,
-      "instructions": [
-        "トイレのばしょをかみにかく",
-        "やじるしをはる",
-        "おとこ・おんなを{分|わ}ける"
-      ],
-      "completion_condition": "トイレの{場所|ばしょ}が やじるしでわかる",
-      "point": "トイレが{見|み}つけにくいと、がまんしてしまう。きれいなじで、おおきなやじるしをかいてあげよう。よる、くらいのでライトもいっしょにおいてあげるとあんしんできる。",
-      "troubles": [
-        { "label": "じがちいさい",   "action": "もっとおおきく" },
-        { "label": "トイレがこわれた", "action": "けがチームに" },
-        { "label": "{数|かず}がたりない",   "action": "ちかくのおとなにそうだん" }
-      ],
-      "depends_on": ["oh-004"]
-    },
-    {
-      "id": "oh-007",
-      "role": "oheya",
-      "phase": 1,
-      "order": 7,
-      "title": "ひがしずまるかみる",
-      "duration_minutes": 2,
-      "instructions": [
-        "ガスのにおいがしないかかぐ",
-        "けむりや{火|ひ}がないかみる",
-        "あったらすぐおとなに"
-      ],
-      "completion_condition": "へやの{中|なか}に{火|ひ}やけむりがない",
-      "point": "じしんのあと、{火|ひ}がついていなくても、ガスがもれていることがある。におってきたら、ぜったいにスイッチをいじらないで、おとなにつたえよう。",
-      "troubles": [
-        { "label": "ガスくさい",     "action": "すぐおとなへ・119" },
-        { "label": "けむり{見|み}える",   "action": "{外|そと}にひなん" },
-        { "label": "{火|ひ}がついた",     "action": "おとな・119" }
-      ],
-      "depends_on": ["oh-003"]
+      "id": "uk-010", "role": "uketsuke", "phase": 3, "order": 10,
+      "title": "「行動せんげん」を きめて 発表", "duration_minutes": 4,
+      "instructions": ["「家で 何を かえる?」を 話す", "班の せんげんを 紙に 書く", "みんなの 前で 発表する"],
+      "completion_condition": "行動せんげんを 発表できた",
+      "point": "たいけんを「家で やる こと」に つなげると、本物の そなえに なる。1つでも いいから、できる ことを きめよう。",
+      "troubles": [{ "label": "思いつかない", "action": "水を ためる 等" }, { "label": "発表 こわい", "action": "ふくと 一緒に" }, { "label": "1つに しぼれない", "action": "いちばん 大事なの" }],
+      "depends_on": ["uk-009"]
     },
 
     {
-      "id": "mo-004",
-      "role": "monosuke",
-      "phase": 1,
-      "order": 4,
-      "title": "みずをいりぐちちかくにはこぶ",
-      "duration_minutes": 3,
-      "instructions": [
-        "ペットボトルを{5本|ごほん}もつ",
-        "うけつけのよこにならべる",
-        "『のんでね』のかみをはる"
-      ],
-      "completion_condition": "みずがすぐにのめるばしょにある",
-      "point": "つかれた{人|ひと}や こわい{思|おも}いをした{人|ひと}は、まずみずを1くちのむと おちつくよ。うけつけの{近|ちか}くにおくと、{入|はい}ってきた{人|ひと}がすぐ{手|て}にとれる。",
-      "troubles": [
-        { "label": "{本数|ほんすう}すくない", "action": "{1人|ひとり}500ml にする" },
-        { "label": "{重|おも}い",   "action": "{2人|ふたり}ではこぶ" },
-        { "label": "{場所|ばしょ}がない",    "action": "テーブルの{上|うえ}" }
-      ],
-      "depends_on": ["mo-003"]
+      "id": "oh-001", "role": "oheya", "phase": 0, "order": 1,
+      "title": "あぶないところを さがす", "duration_minutes": 3,
+      "instructions": ["2人ペアで 中を あるく", "かべ・天じょう・ゆか・窓を 見る", "われ・落ちもの・ぬれを さがす"],
+      "completion_condition": "あぶないところが わかった",
+      "point": "大きな 雨や 風の あとは、たてものが いたんでいる ことがある。あぶないと 思ったら すぐ リーダーへ。",
+      "troubles": [{ "label": "1人しか いない", "action": "おとなと 一緒に" }, { "label": "くらい", "action": "ライトを もつ" }, { "label": "こわい", "action": "むりせず 外で" }],
+      "depends_on": []
     },
     {
-      "id": "mo-005",
-      "role": "monosuke",
-      "phase": 1,
-      "order": 5,
-      "title": "ふとんをよわい{人|ひと}からくばる",
-      "duration_minutes": 4,
-      "instructions": [
-        "あかちゃん・おとしよりに{先|さき}に",
-        "ふとんを{1人|ひとり}1まいくばる",
-        "のこりはあとでくばる"
-      ],
-      "completion_condition": "ふとんが よわい{人|ひと}にとどいている",
-      "point": "ねるときに、ゆかにそのままねるとさむい。からだがひえると、びょうきになりやすい。あったかいふとんは、ねつをまもってくれる『おうち』みたいなもの。",
-      "troubles": [
-        { "label": "ふとんたりない",  "action": "ダンボールでも" },
-        { "label": "どこにあるか?",  "action": "そうこチームへ" },
-        { "label": "けんかになる",    "action": "ちかくのおとなにきめてもらう" }
-      ],
-      "depends_on": ["mo-003"]
+      "id": "oh-002", "role": "oheya", "phase": 0, "order": 2,
+      "title": "見取り図どおりに 場所を しるす", "duration_minutes": 4,
+      "instructions": ["そうむの 見取り図を 見る", "テープや 紙で「ねる場所・通路・トイレ・救護」の しるし", "通路は 1メートル あける"],
+      "completion_condition": "どこが 何の 場所か 見て わかる",
+      "point": "さいしょに 場所を 分けると、あとが スムーズ。通路が 1メートル ないと、車いすや 大人が とおれない。",
+      "troubles": [{ "label": "せまい", "action": "ねる場所を 小さく" }, { "label": "テープが ない", "action": "紙と ひもで" }, { "label": "わからない", "action": "図を 見る" }],
+      "depends_on": ["oh-001"]
     },
     {
-      "id": "mo-006",
-      "role": "monosuke",
-      "phase": 1,
-      "order": 6,
-      "title": "たべものをかぞえる",
-      "duration_minutes": 3,
-      "instructions": [
-        "そうこからたべものを{出|だ}す",
-        "ひとつずつ かぞえる",
-        "かみに「○○ が ◯こ」とかく"
-      ],
-      "completion_condition": "たべものの{数|かず}がかみにかかれた",
-      "point": "{数|かず}がわからないと、たりるかわからない。アレルギー(たまご・ぎゅうにゅう・こむぎ)の{人|ひと}もいるから、「これはなに?」が{見|み}えるようにすると{安心|あんしん}。",
-      "troubles": [
-        { "label": "おおすぎる",    "action": "おおよそで OK" },
-        { "label": "わからない",    "action": "おとなにきく" },
-        { "label": "やぶれてる",    "action": "{別|べつ}にしておく" }
-      ],
+      "id": "oh-003", "role": "oheya", "phase": 0, "order": 3,
+      "title": "パーテーションで 区切る", "duration_minutes": 5,
+      "instructions": ["パーテーションを 2人で はこぶ", "ねる場所の あいだを 区切る", "屋内テントを「着がえ・救護」に つかう"],
+      "completion_condition": "区切りが できて プライバシーが まもれる",
+      "point": "知らない人の となりは ふあん。区切ると 着がえも できて あんしん。テントは 更衣室にも なるよ。",
+      "troubles": [{ "label": "足りない", "action": "大事な所から" }, { "label": "たおれる", "action": "おとなと" }, { "label": "重い", "action": "2人で" }],
+      "depends_on": ["oh-002"]
+    },
+    {
+      "id": "oh-004", "role": "oheya", "phase": 0, "order": 4,
+      "title": "折りたたみベッドを 組み立てる", "duration_minutes": 5,
+      "instructions": ["ベッドを 2人で はこぶ", "組み立てる(ゆびの はさみこみ 注意!)", "よわい人の 場所から おく・毛布を のせる"],
+      "completion_condition": "ベッドが くまれて ねられる",
+      "point": "ゆかに そのまま ねると、つめたくて ほこりも すう。組み立ては ゆびを はさまないよう おとなと 一緒に。",
+      "troubles": [{ "label": "組み方 わからない", "action": "おとなと 一緒に" }, { "label": "ゆびを はさみそう", "action": "ゆっくり やる" }, { "label": "数が 多い", "action": "よわい人から" }],
+      "depends_on": ["oh-002"]
+    },
+    {
+      "id": "oh-005", "role": "oheya", "phase": 0, "order": 5,
+      "title": "よわい人の スペースを つくる", "duration_minutes": 3,
+      "instructions": ["お年より・赤ちゃんの 場所を きめる", "トイレの 近く・しずかな 所に", "「ゆっくりスペース」の 紙を はる"],
+      "completion_condition": "よわい人の 場所が できた",
+      "point": "お年よりや 赤ちゃんは、トイレに ちかい しずかな 場所が らく。みんなで 気づかうと やさしい 避難所に なる。",
+      "troubles": [{ "label": "場所が ない", "action": "入口の 近くに" }, { "label": "うるさい", "action": "パーテで かこむ" }, { "label": "人が 多い", "action": "おとなと 相談" }],
+      "depends_on": ["oh-004"]
+    },
+    {
+      "id": "oh-006", "role": "oheya", "phase": 1, "order": 6,
+      "title": "新聞紙スリッパを つくる", "duration_minutes": 5,
+      "instructions": ["新聞紙を 広げる", "手順の 紙を 見て おる", "家族で 1足 つくる"],
+      "completion_condition": "新聞紙スリッパが できた",
+      "point": "たいいくかんの ゆかは つめたい。スリッパで 足が あたたかく なるし、ガラスから 足も まもれる。",
+      "troubles": [{ "label": "おり方 わからない", "action": "手順の 紙を 見る" }, { "label": "やぶれた", "action": "かさねる" }, { "label": "大きさ 合わない", "action": "おとなと" }],
+      "depends_on": ["oh-005"]
+    },
+    {
+      "id": "oh-007", "role": "oheya", "phase": 1, "order": 7,
+      "title": "ゴミ置き場を つくる", "duration_minutes": 3,
+      "instructions": ["ゴミ置き場の 場所を きめる", "「もえる・紙・ペット」の 分別の 紙を はる", "みんなに 知らせる"],
+      "completion_condition": "ゴミの 分けかたが わかる",
+      "point": "たくさんの 人が いると ゴミも たくさん。分けて 置くと、くさく ならず びょうきも ふせげる。",
+      "troubles": [{ "label": "ふくろが ない", "action": "ダンボールで" }, { "label": "場所が ない", "action": "入口の 外に" }, { "label": "わからない", "action": "紙を 見て" }],
+      "depends_on": ["oh-002"]
+    },
+    {
+      "id": "oh-008", "role": "oheya", "phase": 2, "order": 8,
+      "title": "ナイトの コースの 安全を かくにん", "duration_minutes": 4,
+      "instructions": ["あるく コースを おとなと 見る", "段差・車道・足元の あぶないを さがす", "「ここ 注意」の しるし・足元ライト"],
+      "completion_condition": "コースの あぶない所が わかった",
+      "point": "夜の 外は 見えにくい。先に 段差や 車道を しらべておくと けがを ふせげる。車道は みんなで とまる。",
+      "troubles": [{ "label": "暗すぎる", "action": "ライトを ふやす" }, { "label": "あぶない所 多い", "action": "おとなへ" }, { "label": "雨が ふりそう", "action": "中止は おとなが 判断" }],
+      "depends_on": ["oh-005"]
+    },
+    {
+      "id": "oh-009", "role": "oheya", "phase": 2, "order": 9,
+      "title": "夜の 足元ライトと 見回り", "duration_minutes": 3,
+      "instructions": ["トイレまでの 道に 足元ライトを おく", "非常口を かくにん", "通路に ものが ないか 見る"],
+      "completion_condition": "夜 あんぜんに あるける",
+      "point": "夜中の トイレで つまずくと あぶない。足元の あかりと、通路に ものを 置かない ことが 大事。",
+      "troubles": [{ "label": "ライトが ない", "action": "おとなに" }, { "label": "非常口 わからない", "action": "かくにん する" }, { "label": "ものが 多い", "action": "かたづける" }],
+      "depends_on": ["oh-008"]
+    },
+    {
+      "id": "oh-010", "role": "oheya", "phase": 3, "order": 10,
+      "title": "寝具を かたづけ 原状ふっき", "duration_minutes": 5,
+      "instructions": ["毛布を たたむ", "ベッドを 分解する(ゆび注意・おとなと)", "パーテーションを かえす ように まとめる"],
+      "completion_condition": "「次の人が 使える」じょうたいに もどった",
+      "point": "借りた ものは「次の人が 気もちよく 使えるか」で かたづける。きれいに もどすまでが 避難所の しごと。",
+      "troubles": [{ "label": "分解 こわい", "action": "おとなと" }, { "label": "多くて 大変", "action": "みんなで" }, { "label": "どこに もどす?", "action": "おとなに きく" }],
+      "depends_on": ["oh-004"]
+    },
+
+    {
+      "id": "mo-001", "role": "monosuke", "phase": 0, "order": 1,
+      "title": "支援物資の おき場所を きめる", "duration_minutes": 2,
+      "instructions": ["水・食べ物を 置く 場所を きめる", "「しえん物資」の 紙を はる", "リーダーに 場所を 伝える"],
+      "completion_condition": "物資の 置き場所が きまった",
+      "point": "バラバラに 置くと 何が どれだけ あるか わからない。1か所に まとめると 配りやすい。",
+      "troubles": [{ "label": "場所が ない", "action": "すみっこに" }, { "label": "ぬれる", "action": "台の 上に" }, { "label": "わからない", "action": "リーダーへ" }],
+      "depends_on": []
+    },
+    {
+      "id": "mo-002", "role": "monosuke", "phase": 0, "order": 2,
+      "title": "水・食べ物を 数える", "duration_minutes": 3,
+      "instructions": ["水を 数える(なんぼん?)", "食べ物を 数える", "紙に「◯◯ が ◯こ」と 書く"],
+      "completion_condition": "数が 紙に 書けた",
+      "point": "数が わかると「足りる?」が わかる。足りなかったら、リーダーから 本部に 伝えてもらおう。",
+      "troubles": [{ "label": "多すぎる", "action": "おおよそで OK" }, { "label": "こわれてる", "action": "べつに する" }, { "label": "数えきれない", "action": "2人で" }],
+      "depends_on": ["mo-001"]
+    },
+    {
+      "id": "mo-003", "role": "monosuke", "phase": 0, "order": 3,
+      "title": "飲み水を 入口の 近くに はこぶ", "duration_minutes": 3,
+      "instructions": ["ペットボトルを はこぶ(重いのは 2人で)", "入口の 近くに ならべる", "「のんでね」と「手あらい用」を 分けて 紙を はる"],
+      "completion_condition": "すぐ のめる 水が ある",
+      "point": "つかれた人は まず 水を ひとくち。飲む水と 手をあらう水を 分けると まちがえない。",
+      "troubles": [{ "label": "重い", "action": "2人で はこぶ" }, { "label": "場所が ない", "action": "台の 上" }, { "label": "少ない", "action": "1人 500ml" }],
+      "depends_on": ["mo-001"]
+    },
+    {
+      "id": "mo-004", "role": "monosuke", "phase": 1, "order": 4,
+      "title": "ポリ袋に お米と 水を 入れる", "duration_minutes": 5,
+      "instructions": ["ポリ袋に お米を 入れる", "線まで 水を 入れる", "空気を ぬいて 口を しっかり しばる"],
+      "completion_condition": "ポリ袋の じゅんびが できた(炊くのは おとな)",
+      "point": "火と なべは おとなが やる。みんなは お米と 水の じゅんび。口を しっかり しばると おいしく できる。",
+      "troubles": [{ "label": "水の りょう?", "action": "線まで 入れる" }, { "label": "しばり方?", "action": "おとなと" }, { "label": "袋が やぶれた", "action": "新しい 袋" }],
       "depends_on": ["mo-002"]
     },
     {
-      "id": "mo-007",
-      "role": "monosuke",
-      "phase": 1,
-      "order": 7,
-      "title": "みんなのぶんをわける",
-      "duration_minutes": 4,
-      "instructions": [
-        "リーダーに「くばっていい?」",
-        "うけつけのリストでかぞえる",
-        "{1人|ひとり}1つずつ じゅんばんにくばる"
-      ],
-      "completion_condition": "みんなにわけられた",
-      "point": "じゅんばんにくばると、けんかにならない。あかちゃん・おとしより・けがをしている{人|ひと}を {先|さき}にすると いいよ。たりないときは、リーダーに「たりない」とつたえよう。",
-      "troubles": [
-        { "label": "たりない",      "action": "ちかくのおとなにそうだん" },
-        { "label": "わりこむ{人|ひと}",    "action": "「じゅんばんだよ」とつたえる" },
-        { "label": "アレルギー",    "action": "べつのものを" }
-      ],
+      "id": "mo-005", "role": "monosuke", "phase": 1, "order": 5,
+      "title": "配ぜんの じゅんびを する", "duration_minutes": 3,
+      "instructions": ["食器・スプーンを ならべる", "順番の 番号ふだを つくる", "よわい人からの 列を 考える"],
+      "completion_condition": "配ぜんの じゅんびが できた",
+      "point": "順番を きめておくと、横入りや けんかが おきない。番号の 紙が あると わかりやすい。",
+      "troubles": [{ "label": "食器が 足りない", "action": "分けて つかう" }, { "label": "ならばない", "action": "番号ふだ" }, { "label": "もめる", "action": "おとなと" }],
+      "depends_on": ["mo-004"]
+    },
+    {
+      "id": "mo-006", "role": "monosuke", "phase": 1, "order": 6,
+      "title": "アレルギーに 気をつけて 配る", "duration_minutes": 3,
+      "instructions": ["アレルギーの 名ぼを 見る", "「これは 何が 入ってる?」の 紙を つける", "甘口など べつの ものは 分けて 配る"],
+      "completion_condition": "アレルギーの 人に あんぜんに 配れた",
+      "point": "たまご・牛にゅう・小麦などで 食べられない人が いる。まちがえると あぶないから「これは 何?」が 見えると あんしん。",
+      "troubles": [{ "label": "わからない", "action": "おとなに きく" }, { "label": "表示が ない", "action": "紙を つくる" }, { "label": "混ざりそう", "action": "べつの 場所で" }],
+      "depends_on": ["mo-005"]
+    },
+    {
+      "id": "mo-007", "role": "monosuke", "phase": 1, "order": 7,
+      "title": "よわい人から 順番に 配ぜん", "duration_minutes": 4,
+      "instructions": ["リーダーに「配って いい?」と きく", "赤ちゃん・お年よりから 先に", "1人 1つずつ 順番に"],
+      "completion_condition": "みんなに 配れた",
+      "point": "順番に 配れば けんかに ならない。よわい人を 先に するのが やさしさ。火と 包丁は おとな、みんなは 配ぜんと 片づけ。",
+      "troubles": [{ "label": "足りない", "action": "おとなへ" }, { "label": "横入り", "action": "「順番だよ」" }, { "label": "こぼした", "action": "ふく" }],
       "depends_on": ["mo-006"]
+    },
+    {
+      "id": "mo-008", "role": "monosuke", "phase": 1, "order": 8,
+      "title": "食べた あとの 片づけ・ゴミ", "duration_minutes": 4,
+      "instructions": ["食器を あつめる", "ゴミを ゴミ場へ(分別)", "テーブル/シートを ふく"],
+      "completion_condition": "食べた あとが きれいに なった",
+      "point": "みんなで 片づけると はやい。食べもの ゴミは くさく なりやすいから すぐ ゴミ場へ。",
+      "troubles": [{ "label": "ゴミ 多い", "action": "分けて すてる" }, { "label": "よごれ", "action": "ふく" }, { "label": "残った 食べ物", "action": "おとなに 相談" }],
+      "depends_on": ["mo-007"]
+    },
+    {
+      "id": "mo-009", "role": "monosuke", "phase": 2, "order": 9,
+      "title": "夜の 水分を ようい", "duration_minutes": 2,
+      "instructions": ["寝る 場所の 近くに 水を おく", "「夜 のどが かわいたら ここ」の 紙", "朝の 分も のこす"],
+      "completion_condition": "夜 すぐ のめる 水が ある",
+      "point": "夜中に のどが かわいても、暗くて 探すのは たいへん。近くに 水が あると あんしんして ねむれる。",
+      "troubles": [{ "label": "水が 少ない", "action": "朝の 分も 考える" }, { "label": "こぼれそう", "action": "ふたを する" }, { "label": "どこに?", "action": "足元に" }],
+      "depends_on": ["mo-003"]
+    },
+    {
+      "id": "mo-010", "role": "monosuke", "phase": 3, "order": 10,
+      "title": "朝の 片づけ・せいり", "duration_minutes": 4,
+      "instructions": ["のこった 物資を 数える", "食器を まとめて せいり", "ゴミを 最後に かたづける"],
+      "completion_condition": "朝の 片づけが できた",
+      "point": "のこった ものを 数えると「どれだけ 使ったか」が わかる。最後まで きれいに するのが 大事。",
+      "troubles": [{ "label": "ゴミ 多い", "action": "みんなで" }, { "label": "食器 多い", "action": "分けて" }, { "label": "物資が あまった", "action": "おとなに わたす" }],
+      "depends_on": ["mo-008"]
     },
 
     {
-      "id": "ky-004",
-      "role": "kyugo",
-      "phase": 1,
-      "order": 4,
-      "title": "ぐあいわるい{人|ひと}がいるかみる",
-      "duration_minutes": 3,
-      "instructions": [
-        "へやのなかをゆっくりあるく",
-        "「だいじょうぶ?」とこえをかける",
-        "かおいろが{悪|わる}い{人|ひと}をきゅうごへ"
-      ],
-      "completion_condition": "へやじゅうを1かいまわった",
-      "point": "ぐあいわるくても、じぶんからは{言|い}いにくい{人|ひと}がいるよ。こちらからこえをかけてあげよう。かおいろがあおい・しろい・あかい{人|ひと}は、ねつやけが、つかれのサインかも。",
-      "troubles": [
-        { "label": "へんじがない",  "action": "もう{一度|いちど}やさしく" },
-        { "label": "あゆめない{人|ひと}",  "action": "おとなとはこぶ" },
-        { "label": "おこっている",  "action": "そっとしておく" }
-      ],
+      "id": "ky-001", "role": "kyugo", "phase": 0, "order": 1,
+      "title": "救護スペースを つくる", "duration_minutes": 4,
+      "instructions": ["しずかな 場所を えらぶ", "屋内テント/パーテーションで 区切る", "ベッドと 水を おく・「きゅうご」の 紙"],
+      "completion_condition": "ぐあいわるい人が 休める 場所が できた",
+      "point": "ぐあいの わるい人が みんなと 同じ 場所だと、ほかの人にも うつる ことがある。しずかな「きゅうご」を つくろう。",
+      "troubles": [{ "label": "場所が ない", "action": "パーテで かこむ" }, { "label": "しずかじゃ ない", "action": "おくへ" }, { "label": "ベッドが ない", "action": "マットで" }],
+      "depends_on": []
+    },
+    {
+      "id": "ky-002", "role": "kyugo", "phase": 0, "order": 2,
+      "title": "手あらい・消毒の 場所を つくる", "duration_minutes": 3,
+      "instructions": ["水か アルコールを ようい", "「てを あらおう」の 紙を はる", "マスクも 近くに おく"],
+      "completion_condition": "手を あらえる 場所が できた",
+      "point": "手あらいは びょうきに ならない いちばんの ほうほう。ごはん前・トイレの あとは かならず。",
+      "troubles": [{ "label": "水が ない", "action": "アルコールで" }, { "label": "せっけん ない", "action": "水だけでも" }, { "label": "場所は?", "action": "入口の 近く" }],
+      "depends_on": []
+    },
+    {
+      "id": "ky-003", "role": "kyugo", "phase": 0, "order": 3,
+      "title": "体温計の 使い方を おぼえる", "duration_minutes": 3,
+      "instructions": ["スイッチを 入れる", "おでこに かざす(さわらない)", "出た 数字を 見る・37.5いじょうは おとなへ"],
+      "completion_condition": "体温計が 使えるように なった",
+      "point": "おでこに かざすだけで 計れる。さわらないから うつらない。高い人を 早く 見つけて おとなに 伝えよう。",
+      "troubles": [{ "label": "つかない", "action": "電池/おとな" }, { "label": "数字 バラつく", "action": "もう一度" }, { "label": "こわがる", "action": "やさしく" }],
+      "depends_on": []
+    },
+    {
+      "id": "ky-004", "role": "kyugo", "phase": 0, "order": 4,
+      "title": "くすりを のむ人を 聞いて 書く", "duration_minutes": 3,
+      "instructions": ["「毎日 のむ くすり ある?」と 家族に きく", "名前と くすりを 紙に 書く", "リーダー/おとなに 伝える"],
+      "completion_condition": "服やくの人の リストが できた",
+      "point": "大人には、毎日 のまないと あぶない くすりの人が いる。早く しらべて 伝えると、いざという時 安心。",
+      "troubles": [{ "label": "わからない", "action": "本人・家族に" }, { "label": "聞きづらい", "action": "おとなと" }, { "label": "多い", "action": "メモを 分ける" }],
+      "depends_on": []
+    },
+    {
+      "id": "ky-005", "role": "kyugo", "phase": 1, "order": 5,
+      "title": "ごはん前の 手あらいを よびかける", "duration_minutes": 3,
+      "instructions": ["「ごはん前に 手を あらおう」と こえかけ", "手あらい場所へ あんない", "できたか 見る"],
+      "completion_condition": "みんなが 手を あらった",
+      "point": "食べる前に 手を あらわないと、ばいきんも いっしょに 食べちゃう。こえを かけると みんな 忘れない。",
+      "troubles": [{ "label": "ならぶ", "action": "順番に" }, { "label": "水 つめたい", "action": "少し がまん" }, { "label": "忘れる人", "action": "もう一度 こえかけ" }],
+      "depends_on": ["ky-002"]
+    },
+    {
+      "id": "ky-006", "role": "kyugo", "phase": 1, "order": 6,
+      "title": "「ぐあい どう?」と 聞いてまわる", "duration_minutes": 4,
+      "instructions": ["ゆっくり 歩いて まわる", "「あつくない? 水のんだ?」と きく", "かおいろが わるい人を 救護へ"],
+      "completion_condition": "班の みんなに 声を かけた",
+      "point": "ぐあいが わるくても 自分から 言えない人が いる。とくに あつい日は 水分。こちらから 聞いて あげよう。",
+      "troubles": [{ "label": "へんじ ない", "action": "やさしく もう一度" }, { "label": "かおいろ わるい", "action": "救護へ" }, { "label": "人が 多い", "action": "2人で" }],
       "depends_on": ["ky-003"]
     },
     {
-      "id": "ky-005",
-      "role": "kyugo",
-      "phase": 1,
-      "order": 5,
-      "title": "てをあらうばしょをつくる",
-      "duration_minutes": 3,
-      "instructions": [
-        "じゃぐち or バケツのみずを じゅんびする",
-        "せっけん or アルコールをおく",
-        "『てをあらおう』のかみをはる"
-      ],
-      "completion_condition": "てをあらえるばしょができた",
-      "point": "てをあらうのは、びょうきにならない{一番|いちばん}のほうほう。とくにごはんのまえ・トイレのあと。さむい{水|みず}でも、ばいきんはおちる。せっけんがあれば もっといい。",
-      "troubles": [
-        { "label": "みずがない",     "action": "アルコールでOK" },
-        { "label": "せっけんなし",   "action": "みずだけでもOK" },
-        { "label": "ばしょがない",   "action": "バケツでもOK" }
-      ],
-      "depends_on": ["ky-003"]
-    },
-    {
-      "id": "ky-006",
-      "role": "kyugo",
-      "phase": 1,
-      "order": 6,
-      "title": "やくをのんでいる{人|ひと}をきく",
-      "duration_minutes": 3,
-      "instructions": [
-        "うけつけリストで「やく」のらんを{見|み}る",
-        "もっていない{人|ひと}がいるかきく",
-        "なまえをかみにかく"
-      ],
-      "completion_condition": "やくをのんでる{人|ひと}のリストができた",
-      "point": "おとなには、まいにちのまないとあぶないやくをのんでる{人|ひと}がいる(けつあつ・とうにょうびょうなど)。やくがなくなると、ぐあいわるくなる。{早|はや}くしらべて、リーダーにつたえよう。",
-      "troubles": [
-        { "label": "わからない",    "action": "ほんにん・かぞくにきく" },
-        { "label": "{聞|き}きづらい",    "action": "おとなにきく" },
-        { "label": "たくさん",      "action": "メモにわけてかく" }
-      ],
-      "depends_on": ["ky-004"]
-    },
-    {
-      "id": "ky-007",
-      "role": "kyugo",
-      "phase": 1,
-      "order": 7,
-      "title": "リーダーにじょうきょうをつたえる",
-      "duration_minutes": 2,
-      "instructions": [
-        "リーダーを{見|み}つける",
-        "ぐあいわるい{人|ひと}と やくない{人|ひと}の{数|かず}をつたえる",
-        "リーダーの しじをきく"
-      ],
-      "completion_condition": "リーダーに じょうきょうがつたわった",
-      "point": "リーダーが ぜんぶしっているわけじゃない。ほうこくしないと、たすけがよばれない。「だれが・どこに・どんなじょうたい」を{短|みじか}くつたえよう。",
-      "troubles": [
-        { "label": "リーダーいない",   "action": "{副|ふく}リーダーにつたえる" },
-        { "label": "なに{話|はな}すか?",   "action": "メモを{見|み}ながら" },
-        { "label": "{話|はなし}がながい",   "action": "{1人|ひとり}ずつ{短|みじか}く" }
-      ],
+      "id": "ky-007", "role": "kyugo", "phase": 2, "order": 7,
+      "title": "ナイト前に 体調・水分を チェック", "duration_minutes": 3,
+      "instructions": ["「ぐあい どう?」を 聞く", "くつ・服そうを 見る", "水を のんだか かくにん"],
+      "completion_condition": "全員 ナイトに 行ける 体調か わかった",
+      "point": "暗い 外を あるく前に 体調を かくにん。ぐあいわるい人は むりせず お留守番。水分を とってから 出発。",
+      "troubles": [{ "label": "体調 わるい", "action": "留守番・おとなへ" }, { "label": "くつが 心配", "action": "はきかえる" }, { "label": "つかれてる", "action": "むりしない" }],
       "depends_on": ["ky-006"]
+    },
+    {
+      "id": "ky-008", "role": "kyugo", "phase": 2, "order": 8,
+      "title": "寝る前に 体調を かくにん", "duration_minutes": 3,
+      "instructions": ["「頭いたい? きもち わるい?」を 聞く", "熱が ありそうな人を 体温計で", "わるい人は おとな・救護へ"],
+      "completion_condition": "寝る前の 体調かくにんが できた",
+      "point": "夜の あいだに 体調を くずすと、すぐ 気づきにくい。寝る前に かくにんして、わるい人は おとなに 伝えておこう。",
+      "troubles": [{ "label": "熱が ある", "action": "おとなへ" }, { "label": "元気 ない", "action": "救護で 休む" }, { "label": "かくす子", "action": "やさしく" }],
+      "depends_on": ["ky-007"]
+    },
+    {
+      "id": "ky-009", "role": "kyugo", "phase": 3, "order": 9,
+      "title": "朝 体温・体調を かくにん", "duration_minutes": 3,
+      "instructions": ["朝 みんなの 体温を はかる", "「よく ねむれた?」を 聞く", "わるい人を おとな・救護へ"],
+      "completion_condition": "朝の 体調かくにんが できた",
+      "point": "朝の 体温と 体調で、その日 げんきに すごせるか わかる。夜の つかれが 出る人も いるから 大事。",
+      "troubles": [{ "label": "高い", "action": "おとなへ" }, { "label": "だるい", "action": "水分・休む" }, { "label": "数字 へん", "action": "もう一度" }],
+      "depends_on": ["ky-008"]
     }
   ]
 }

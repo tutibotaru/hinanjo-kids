@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 親子に配る ミニ手順カード(A4縦)。絵本トーン。ブラウザで開いて印刷(A4 / 2up でA5可)。 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 840 1188" role="img" aria-label="親子ミニ手順カード">
+  <rect width="840" height="1188" fill="#FFF7ED"/>
+
+  <!-- 帯 -->
+  <rect x="0" y="0" width="840" height="170" fill="#F97316"/>
+  <text x="420" y="86" text-anchor="middle" font-family="sans-serif" font-size="46" font-weight="bold" fill="#FFFFFF">スマホで こうやって すすめてね</text>
+  <text x="420" y="132" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#FFF7ED">おうちの人と いっしょにね</text>
+
+  <!-- 1 -->
+  <circle cx="112" cy="270" r="46" fill="#F97316"/>
+  <text x="112" y="270" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">1</text>
+  <text x="184" y="258" font-family="sans-serif" font-size="36" font-weight="bold" fill="#7C2D12">じぶんの はんの QR を よむ</text>
+  <text x="184" y="300" font-family="sans-serif" font-size="24" fill="#92400E">カメラを かざすだけ。アプリは いらないよ</text>
+
+  <!-- 2 -->
+  <circle cx="112" cy="440" r="46" fill="#FB923C"/>
+  <text x="112" y="440" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">2</text>
+  <text x="184" y="428" font-family="sans-serif" font-size="36" font-weight="bold" fill="#7C2D12">ニックネームを いれる</text>
+  <text x="184" y="470" font-family="sans-serif" font-size="24" fill="#92400E">ほんみょうじゃなくて OK。じゅうしょは かかない</text>
+
+  <!-- 3 -->
+  <circle cx="112" cy="610" r="46" fill="#F59E0B"/>
+  <text x="112" y="610" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">3</text>
+  <text x="184" y="598" font-family="sans-serif" font-size="36" font-weight="bold" fill="#7C2D12">やくわりを 1つ えらぶ</text>
+  <text x="184" y="640" font-family="sans-serif" font-size="24" fill="#92400E">4つの しつもんに こたえると おすすめが でる</text>
+
+  <!-- 4 -->
+  <circle cx="112" cy="780" r="46" fill="#F97316"/>
+  <text x="112" y="780" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">4</text>
+  <text x="184" y="768" font-family="sans-serif" font-size="36" font-weight="bold" fill="#7C2D12">「できた!」で すすむ</text>
+  <text x="184" y="810" font-family="sans-serif" font-size="24" fill="#92400E">こまったら「こまった」/ とばすなら「とばす」</text>
+
+  <!-- 5 -->
+  <circle cx="112" cy="950" r="46" fill="#FB923C"/>
+  <text x="112" y="950" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">5</text>
+  <text x="184" y="938" font-family="sans-serif" font-size="36" font-weight="bold" fill="#7C2D12">ぜんぶ おわったら おしまい!</text>
+  <text x="184" y="980" font-family="sans-serif" font-size="24" fill="#92400E">⭐おつかれさま → しゅうりょうしょうを もらう</text>
+
+  <!-- したのメモ -->
+  <rect x="60" y="1040" width="720" height="112" rx="16" fill="#FEF3C7"/>
+  <text x="84" y="1086" font-family="sans-serif" font-size="24" fill="#78350F">・よめない じは みぎうえの「亜あ」で ふりがな</text>
+  <text x="84" y="1126" font-family="sans-serif" font-size="24" fill="#78350F">・こまったら ちかくの おとなに きいてね</text>
+</svg>

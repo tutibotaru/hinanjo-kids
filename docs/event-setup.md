@@ -1,14 +1,19 @@
 # 本番セッション セットアップ手順 — 6/6(土)
 
+> **🆕 2026-06-02 更新 — 重要**: 単一 `FKJ606`/`kids` の旧案は**破棄**。本番は **4グループ制**で、
+> `JCKIDSA`〜`JCKIDSD`(各班1セッション)・`audience_mode=family`・`phase=1` を **作成済み**。
+> 以下に残る旧 `FKJ606`/`kids` 記述は読み替えること(下の作成SQLは4グループ版に更新済み)。
+> 手順中の URL の `FKJ606` は、各班の `JCKIDSA`〜`JCKIDSD` に置換して使う(QR・ポスターも4枚)。
+
 ## ステップ 1: セッション作成
 
 **月曜 (6/1) までに 確定** したい項目:
 
 | 項目 | デフォルト案 | 確定値 |
 |---|---|---|
-| 会場名 | 高梁市立福地小学校 体育館 | _____________ |
-| 参加コード | `FKJ606` (= 福地JC 6/6) | _____________ |
-| audience_mode | `kids` (確定) | kids |
+| 会場名 | 高梁市立福地小学校 体育館 | 高梁市立福地小学校 体育館 |
+| 参加コード | ~~`FKJ606`~~ → **4グループ** | `JCKIDSA` / `JCKIDSB` / `JCKIDSC` / `JCKIDSD` |
+| audience_mode | ~~`kids`~~ | **`family`**(親子・確定 2026-06-02) |
 | mode | `training` で 開始 | training |
 
 ### A. ブラウザから 作成する場合
@@ -17,7 +22,7 @@
 2. 運営者ゲート(チェック + 計算)を 通過
 3. **避難所名**: 確定値を 入力
 4. **参加コード**: 確定値を 入力(または 再生成)
-5. **参加するのは**: 「子どもだけ」 を 選択
+5. **参加するのは**: 親子向け(`family`)を 選択 ※「子どもだけ」(=`kids`)は選ばない
 6. 「開設して QR を発行」
 
 ### B. SQL から 直接作成する場合(推奨・確実)
@@ -25,18 +30,19 @@
 主催者と相談して 参加コードが決まったら、 開発者が Supabase SQL Editor で:
 
 ```sql
+-- 🆕 2026-06-02 実施済み(4グループ・family・phase=1)。冪等(再実行で既存も phase まで更新)。
 INSERT INTO public.sessions (name, qr_code, audience_mode, mode, phase)
-VALUES (
-  '福地小学校体育館 ぼうさいキャンプ',  -- ← 確定した会場名(高梁市立福地小学校 体育館)
-  'FKJ606',                         -- ← 確定した参加コード(英大文字+数字)
-  'kids',
-  'training',
-  1   -- ← phase=1: 全フェーズ開放(A1=完全自走)。0だとリーダーのフェーズ操作が必要になる
-)
+VALUES
+  ('福地小学校A班', 'JCKIDSA', 'family', 'training', 1),
+  ('福地小学校B班', 'JCKIDSB', 'family', 'training', 1),
+  ('福地小学校C班', 'JCKIDSC', 'family', 'training', 1),
+  ('福地小学校D班', 'JCKIDSD', 'family', 'training', 1)
 ON CONFLICT (qr_code) DO UPDATE
-SET name = EXCLUDED.name,
-    audience_mode = EXCLUDED.audience_mode
-RETURNING id, qr_code, name;
+  SET name = EXCLUDED.name,
+      audience_mode = EXCLUDED.audience_mode,
+      mode = EXCLUDED.mode,
+      phase = EXCLUDED.phase   -- ← 旧版はphase非更新だった。既存JCKIDSA(phase=0)を1へ直すため追加
+RETURNING id, qr_code, name, audience_mode, mode, phase;
 ```
 
 ## ステップ 2: QR コード生成
