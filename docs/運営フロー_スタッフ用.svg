@@ -32,15 +32,15 @@
   <text x="92" y="494" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">3</text>
   <text x="132" y="502" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">役割わけ(4チーム)</text>
   <text x="74" y="540" font-family="sans-serif" font-size="19" fill="#44403C">・4問 → おすすめ＋「いま◯人 / すくないよ」が出る</text>
-  <text x="74" y="566" font-family="sans-serif" font-size="19" fill="#44403C">・受付・部屋づくり・食料と水・ケガ対応 の4つを埋める</text>
+  <text x="74" y="566" font-family="sans-serif" font-size="19" fill="#44403C">・そうむ / しせつ / みず・たべもの / けんこう の4つを埋める</text>
   <text x="74" y="592" font-family="sans-serif" font-size="19" fill="#44403C">・各班 ≒4家族で「1家族1役割」が理想。偏れば声かけ</text>
 
   <!-- ④ 体験 -->
   <rect x="48" y="611" width="744" height="150" rx="14" fill="#FFFFFF" stroke="#FED7AA" stroke-width="3"/>
   <circle cx="92" cy="651" r="26" fill="#F97316"/>
   <text x="92" y="651" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">4</text>
-  <text x="132" y="659" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">体験(約45分・自走)</text>
-  <text x="74" y="697" font-family="sans-serif" font-size="19" fill="#44403C">・phase=1で全ステップ開放。各自のペースで進む</text>
+  <text x="132" y="659" font-family="sans-serif" font-size="25" font-weight="bold" fill="#9A3412">体験(自走・4ブロック)</text>
+  <text x="74" y="697" font-family="sans-serif" font-size="19" fill="#44403C">・phase=3で全ブロック開放(せつえい/ごはん/よる/あさ)</text>
   <text x="74" y="723" font-family="sans-serif" font-size="19" fill="#44403C">・「できた / こまった / とばす」だけ。フェーズ操作は不要</text>
   <text x="74" y="749" font-family="sans-serif" font-size="19" fill="#44403C">・スタッフは見守り中心(L0)。やってあげすぎない</text>
 
