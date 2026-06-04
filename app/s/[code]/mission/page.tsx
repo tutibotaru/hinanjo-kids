@@ -200,14 +200,6 @@ function MissionView({
     [participants, role.id],
   );
 
-  // 現在ステップが「役割内で何番目か」(1始まり)。
-  // 完了したものも含めた全体の中での位置を示すための数。
-  const currentPosition = useMemo(() => {
-    if (!current) return 0;
-    const idx = myRoleSteps.findIndex((s) => s.id === current.step.id);
-    return idx >= 0 ? idx + 1 : 0;
-  }, [current, myRoleSteps]);
-
   async function persist(
     status: StepStatus,
     troubleLabel: string | null,
@@ -282,7 +274,7 @@ function MissionView({
     <main className="min-h-screen bg-slate-50 pb-52">
       <TrainingBanner mode={session.mode} />
       <div className="mx-auto max-w-md">
-        <header className="border-b border-slate-200 bg-white px-5 py-3">
+        <header className="border-b border-slate-200 bg-white px-5 py-2">
           <div className="flex items-center gap-3">
             <span
               aria-hidden
@@ -297,22 +289,23 @@ function MissionView({
                 なかま {sameRoleCount}<ruby>人<rt>にん</rt></ruby>
               </p>
             </div>
-            <div className="flex flex-shrink-0 flex-col gap-1">
-              <div className="flex justify-end gap-1">
-                <FuriganaToggle />
-                <button
-                  type="button"
-                  onClick={() => setMenuOpen((o) => !o)}
-                  aria-label="メニュー(しょうたい・なまえ・やくわり)"
-                  aria-expanded={menuOpen}
-                  style={{ minHeight: 40, minWidth: 44 }}
-                  className="flex items-center justify-center rounded-md border border-slate-200 bg-white text-lg font-bold text-slate-500 hover:bg-slate-50"
-                >
-                  ⋯
-                </button>
-              </div>
+            <div className="relative flex flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setMenuOpen((o) => !o)}
+                aria-label="メニュー(ふりがな・こうたい・しょうたい・なまえ・やくわり)"
+                aria-expanded={menuOpen}
+                style={{ minHeight: 44, minWidth: 44 }}
+                className="flex items-center justify-center rounded-md border border-slate-200 bg-white text-xl font-bold text-slate-500 hover:bg-slate-50"
+              >
+                ⋯
+              </button>
               {menuOpen && (
-                <div className="flex flex-col gap-1 rounded-lg border border-slate-200 bg-white p-1.5 shadow-md">
+                <div className="absolute right-0 top-12 z-20 flex w-52 flex-col gap-1 rounded-lg border border-slate-200 bg-white p-2 shadow-lg">
+                  <div className="flex items-center justify-between px-1 pb-1">
+                    <span className="text-xs text-slate-500">ふりがな</span>
+                    <FuriganaToggle />
+                  </div>
                   <InviteButton code={code} />
                   <Link
                     href={`/s/${code}/nickname`}
@@ -328,33 +321,33 @@ function MissionView({
                   >
                     やくわりをかえる
                   </Link>
+                  {/* 共用端末で次の子に渡す:localStorage を消して /nickname に戻すだけ。
+                      participant 行は DB に残るので進捗データは保持される。 */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "つぎの ひとに わたす? あなたの できた・こまったは のこるよ。",
+                        )
+                      ) {
+                        localStorage.removeItem(`hinanjo:participant:${code}`);
+                        window.location.href = `/s/${code}/nickname`;
+                      }
+                    }}
+                    style={{ minHeight: 40 }}
+                    className="flex items-center justify-center rounded-md border border-orange-300 bg-orange-50 px-3 text-xs font-semibold text-orange-700 hover:bg-orange-100 active:bg-orange-200"
+                    aria-label="つぎの ひとに わたす"
+                  >
+                    📱 つぎの ひとに わたす
+                  </button>
                 </div>
               )}
-              {/* 共用端末で次の子に渡す:localStorage を消して /nickname に戻すだけ。
-                  participant 行は DB に残るので進捗データは保持される。 */}
-              <button
-                type="button"
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      "つぎの ひとに わたす? あなたの できた・こまったは のこるよ。",
-                    )
-                  ) {
-                    localStorage.removeItem(`hinanjo:participant:${code}`);
-                    window.location.href = `/s/${code}/nickname`;
-                  }
-                }}
-                style={{ minHeight: 40 }}
-                className="flex items-center justify-center rounded-md border border-orange-300 bg-orange-50 px-3 text-xs font-semibold text-orange-700 hover:bg-orange-100 active:bg-orange-200"
-                aria-label="つぎの ひとに わたす"
-              >
-                📱 こうたい
-              </button>
             </div>
           </div>
         </header>
 
-        <div className="bg-white px-5 py-3">
+        <div className="bg-white px-5 py-2">
           <div className="flex items-baseline justify-between text-xs text-slate-600">
             <span>いま:{phaseLabel(current ? current.step.phase : session.phase)}</span>
             <span>
@@ -428,7 +421,7 @@ function MissionView({
             </Link>
           </section>
         ) : (
-          <section className="px-5 py-6">
+          <section className="px-5 py-4">
             <div className="inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
               {current.progress?.status === "stuck"
                 ? "もういちど やってみる"
@@ -438,8 +431,7 @@ function MissionView({
               <RubyText text={current.step.title} />
             </h1>
             <p className="mt-1 text-xs text-slate-500">
-              ステップ {currentPosition} / ぜんぶで {totalForRole} ・ めやす{" "}
-              {current.step.duration_minutes} <ruby>分<rt>ふん</rt></ruby>
+              めやす {current.step.duration_minutes} <ruby>分<rt>ふん</rt></ruby>
             </p>
 
             <ol className="mt-6 space-y-3">
