@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, ensureAnonAuth } from "@/lib/supabase/client";
 import RubyText from "@/components/ruby-text";
 import FuriganaToggle from "@/components/furigana-toggle";
 import stepsData from "@/data/steps.json";
@@ -187,14 +187,22 @@ export default function RolePage() {
     if (!stored) return;
     setSaving(true);
     setError(null);
+    // WHY: 役割保存も匿名サインインを確定してから。owner が自分の auth.uid() で
+    // ないと下の UPDATE が RLS で 0 行になる。
+    await ensureAnonAuth();
     const supabase = createClient();
-    const { error: updateError } = await supabase
+    // WHY .select(): update().eq() は RLS で 0 行更新でも error=null を返す。
+    // owner 不一致(NULL等)で保存されないまま mission へ進むと、mission が
+    // role=null を読んで /role へ戻り「役割選択から先に進めない」無限ループになる。
+    // 更新行を select で受けて 0 行なら保存失敗として扱い、遷移せずに再試行を促す。
+    const { data: updated, error: updateError } = await supabase
       .from("participants")
       .update({ role: roleId })
-      .eq("id", stored.id);
-    if (updateError) {
+      .eq("id", stored.id)
+      .select("id");
+    if (updateError || !updated || updated.length === 0) {
       setSaving(false);
-      setError("つうしんエラー。もういちど ためしてね");
+      setError("ほぞんできなかったよ。もういちど おしてね");
       return;
     }
     router.push(`/s/${code}/mission`);

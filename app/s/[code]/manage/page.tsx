@@ -316,7 +316,8 @@ export default function ManagePage() {
                 {session.name}
               </h1>
               <p className="mt-0.5 text-xs text-slate-500">
-                コード {code} / フェーズ {session.phase} /{" "}
+                コード {code} / フェーズ {session.phase + 1}/{PHASE_MAX + 1}（
+                {PHASE_LABELS[session.phase]}） /{" "}
                 {session.mode === "training" ? "たいけん" : "ほんばん"}
               </p>
               {autoUnlockReason && (
@@ -354,7 +355,12 @@ export default function ManagePage() {
           <section className="rounded-lg border border-slate-200 bg-white p-4">
             <h2 className="text-sm font-bold text-slate-900">フェーズを すすめる</h2>
             <p className="mt-1 text-xs text-slate-500">
-              いま: フェーズ {session.phase} — {PHASE_LABELS[session.phase]}
+              いま: フェーズ {session.phase + 1}/{PHASE_MAX + 1} —{" "}
+              {PHASE_LABELS[session.phase]}
+            </p>
+            <p className="mt-0.5 text-[11px] leading-relaxed text-slate-400">
+              「つぎのフェーズ →」を おすと、その しゅんかんに 班の ぜんいんに
+              つぎの ぶんの タスクが ひらきます（自動で すすみません）。
             </p>
             <div className="mt-3 flex gap-2">
               <button

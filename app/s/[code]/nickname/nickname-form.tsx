@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, ensureAnonAuth } from "@/lib/supabase/client";
 
 type StoredParticipant = {
   id: string;
@@ -48,6 +48,14 @@ export default function NicknameForm({
 
     setSubmitting(true);
     setError(null);
+
+    // WHY: 参加者を作る前に匿名サインインを確定させる。これを待たずに INSERT すると
+    // owner(= DB既定 auth.uid())が NULL の行ができ、あとの役割 UPDATE が RLS
+    // (authenticated は owner=auth.uid() 必須)で 0 行=無言失敗し、役割選択から
+    // 先へ進めなくなる(mission が role=null を読み /role へ戻すループ)。
+    // step_progress(できた)や投稿の is_session_member 判定も owner に依存するため、
+    // ここで owner を確実に自分の auth.uid() にしておく。弱回線で特に重要。
+    await ensureAnonAuth();
 
     const supabase = createClient();
     const key = storageKey(sessionCode);

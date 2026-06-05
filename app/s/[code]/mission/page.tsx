@@ -158,11 +158,17 @@ function MissionView({
   const { participants } = useParticipants(session.id);
   const { session: liveSession } = useSession(session.id);
   const paused = liveSession?.mode === "paused";
+  // WHY: リーダーが manage でフェーズを進めた瞬間に、全端末で新しいぶんのタスクが
+  // 開くように、静的な prop(初回ロード時の値)ではなく Realtime の
+  // liveSession.phase を使う。これが無いと、フェーズを進めても各自がページを
+  // リロードするまで新しいタスクが出てこない(中央統制が効かない)。
+  // liveSession 取得前の一瞬だけ prop の session.phase でフォールバックする。
+  const currentPhase = liveSession?.phase ?? session.phase;
 
   const myRoleSteps = useMemo(() => {
     const all = stepsData.steps as Step[];
-    return all.filter((s) => s.role === role.id && s.phase <= session.phase);
-  }, [role.id, session.phase]);
+    return all.filter((s) => s.role === role.id && s.phase <= currentPhase);
+  }, [role.id, currentPhase]);
 
   const queue = useMemo(() => {
     return myRoleSteps
@@ -182,12 +188,12 @@ function MissionView({
 
   const current = queue[0] ?? null;
   const totalForRole = myRoleSteps.length;
-  // WHY: 全フェーズ開放(自走モード)では これ以上の フェーズが無いので、
-  // 完了時に「つぎを まってね」ではなく「ぜんぶ おしまい」を出す。
+  // WHY: 最終フェーズまで開いていれば「ぜんぶ おしまい」、まだ先がある(リーダーが
+  // 次を開く)なら「いまの ぶんは おしまい・まってね」を出すための判定。
   const isLastPhase =
-    session.phase >= Math.max(...(stepsData.steps as Step[]).map((s) => s.phase));
-  // 進捗は「いまいるブロック(フェーズ)」単位で出す。全48中の◯より「このブロック◯/3」で達成感を。
-  const currentBlock = current ? current.step.phase : session.phase;
+    currentPhase >= Math.max(...(stepsData.steps as Step[]).map((s) => s.phase));
+  // 進捗は「いまいるブロック(フェーズ)」単位で出す。全体の◯より「このブロック◯/N」で達成感を。
+  const currentBlock = current ? current.step.phase : currentPhase;
   const blockSteps = useMemo(
     () => myRoleSteps.filter((s) => s.phase === currentBlock),
     [myRoleSteps, currentBlock],
@@ -356,7 +362,7 @@ function MissionView({
 
         <div className="bg-white px-5 py-2">
           <div className="flex items-baseline justify-between text-xs text-slate-600">
-            <span>いま:{phaseLabel(current ? current.step.phase : session.phase)}</span>
+            <span>いま:{phaseLabel(current ? current.step.phase : currentPhase)}</span>
             <span>
               このブロック {blockDone} / {blockTotal}
             </span>
