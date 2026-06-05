@@ -543,7 +543,7 @@ C:\Users\hebik\OneDrive\デスクトップ\JC避難所体験\
 # 🆕 最新状態と次の一手(2026-06-02 セッション終了時)— ★ここを最初に読む★
 
 このセクションが現時点の最新。上の各「セッション追記」は経緯ログ。
-**git は `42f9566` まで push 済み → Vercel 本番 READY(`hinanjo-kids.vercel.app` に反映)。**
+**git は `c9b46d9` まで push 済み → Vercel 本番 READY(`hinanjo-kids.vercel.app` に反映)。**
 **⚠ 重要訂正**: 旧記載「abd6dd2まで本番反映済み」は**誤り**。`abd6dd2` の未使用変数(`otherSummary`)で `next build` が失敗し、**abd6dd2〜0c27da5〜64cb224 の3デプロイは ERROR**=本番は `efcc301` のまま止まっていた。`3d05387` で修正し**デプロイ成功・本番反映**。**今後 push 後は Vercel のデプロイ成否を必ず確認**(`next dev` は lint エラーを出さないため見逃す)。本番ビルド確認は `npm run build`。
 
 ---
