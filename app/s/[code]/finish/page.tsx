@@ -161,17 +161,24 @@ function FinishView({
     return m;
   }, [allSteps]);
 
-  const doneCount = progress.filter((p) => p.status === "done").length;
-  const skippedCount = progress.filter((p) => p.status === "skipped").length;
-  // 困った: 最終ステータスではなく「一度でも困った」を数える(学習ループ)。
-  const stuckCount = progress.filter((p) => troubleHits(p) > 0).length;
   const stepsInPhase = allSteps.filter((s) => s.phase <= session.phase);
   const totalSteps = stepsInPhase.length;
   const stepIdsInPhase = new Set(stepsInPhase.map((s) => s.id));
-  // 着手 = 何らかの進捗行があるステップ数(done/skip/stuck の重複加算を避ける)
-  const attemptedCount = progress.filter((p) =>
-    stepIdsInPhase.has(p.step_id),
-  ).length;
+  // WHY: 進捗行は (参加者×ステップ) 単位。1つの班に複数家族がいると、同じ
+  // 班の同じステップに複数の done 行が付き、合計が totalSteps(=42)を超えて
+  // 「50/42 できたよ」や達成率100%超になってしまう。セッション全体の達成は
+  // 「重複しないステップ数」で数えるのが自然(最大 = totalSteps)。
+  const inPhase = progress.filter((p) => stepIdsInPhase.has(p.step_id));
+  const doneCount = new Set(
+    inPhase.filter((p) => p.status === "done").map((p) => p.step_id),
+  ).size;
+  const skippedCount = new Set(
+    inPhase.filter((p) => p.status === "skipped").map((p) => p.step_id),
+  ).size;
+  // 着手 = 進捗行がある「ステップ数」(行数ではなく重複なしで数える)
+  const attemptedCount = new Set(inPhase.map((p) => p.step_id)).size;
+  // 困った: 「一度でも困った」イベント数(これは重複加算が自然=学習ループ)。
+  const stuckCount = progress.filter((p) => troubleHits(p) > 0).length;
 
   // 経過時間: 最初の参加者の joined_at から現在まで(参加者ゼロなら 0)
   const firstJoinedAt = participants[0]?.joined_at;
