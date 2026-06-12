@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 夜のナイトウォーク・ほたるウォッチ 子ども向け やくそくカード(A4縦)。親子ミニ手順カードと同テイスト(番号丸+太字+やさしい理由+下のboxes)を夜パレットで。ブラウザで開いてA4印刷。 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 840 1188" role="img" aria-label="ナイトウォーク・ほたるウォッチ やくそくカード">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#312E81"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="840" height="1188" fill="#EEF2FF"/>
+
+  <!-- 帯(夜空) -->
+  <rect x="0" y="0" width="840" height="178" fill="url(#hdr)"/>
+  <!-- 月 -->
+  <circle cx="724" cy="74" r="34" fill="#FDE68A"/>
+  <circle cx="740" cy="64" r="29" fill="#312E81"/>
+  <!-- 星 -->
+  <circle cx="636" cy="44" r="2.6" fill="#FFFFFF"/>
+  <circle cx="676" cy="112" r="2" fill="#C7D2FE"/>
+  <circle cx="770" cy="120" r="2.4" fill="#FFFFFF"/>
+  <circle cx="700" cy="34" r="1.8" fill="#C7D2FE"/>
+  <circle cx="612" cy="120" r="1.8" fill="#FFFFFF"/>
+
+  <text x="44" y="76" font-family="sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF">ナイトウォーク・ほたるウォッチ</text>
+  <text x="46" y="120" font-family="sans-serif" font-size="24" fill="#C7D2FE">よる の おさんぽ。みんなで まもる やくそく</text>
+  <text x="46" y="154" font-family="sans-serif" font-size="20" fill="#A5B4FC">🔦 足元を てらして、そっと しずかに あるこう</text>
+
+  <!-- 1 -->
+  <circle cx="104" cy="252" r="42" fill="#4F46E5"/>
+  <text x="104" y="252" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">1</text>
+  <text x="168" y="244" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">おうちの人と 手を つなぐ</text>
+  <text x="168" y="282" font-family="sans-serif" font-size="22" fill="#4338CA">ぜったいに はなさない。かってに 行かない。</text>
+
+  <!-- 2 -->
+  <circle cx="104" cy="364" r="42" fill="#F59E0B"/>
+  <text x="104" y="364" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">2</text>
+  <text x="168" y="356" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">2れつで しずかに あるく</text>
+  <text x="168" y="394" font-family="sans-serif" font-size="22" fill="#4338CA">道に ひろがらない。大きな声を ださない。</text>
+
+  <!-- 3 -->
+  <circle cx="104" cy="476" r="42" fill="#4F46E5"/>
+  <text x="104" y="476" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">3</text>
+  <text x="168" y="468" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">ライトは 足元（あしもと）だけ</text>
+  <text x="168" y="506" font-family="sans-serif" font-size="22" fill="#4338CA">人や ほたるの 目に むけないでね。</text>
+
+  <!-- 4 -->
+  <circle cx="104" cy="588" r="42" fill="#F59E0B"/>
+  <text x="104" y="588" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">4</text>
+  <text x="168" y="580" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">走らない・下を 見て あるく</text>
+  <text x="168" y="618" font-family="sans-serif" font-size="22" fill="#4338CA">くらいと つまずく。ゆっくり あるこう。</text>
+
+  <!-- 5 -->
+  <circle cx="104" cy="700" r="42" fill="#4F46E5"/>
+  <text x="104" y="700" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">5</text>
+  <text x="168" y="692" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">「車（くるま）!」で とまる</text>
+  <text x="168" y="730" font-family="sans-serif" font-size="22" fill="#4338CA">はしに よって、車を 先に とおす。</text>
+
+  <!-- 6 -->
+  <circle cx="104" cy="812" r="42" fill="#F59E0B"/>
+  <text x="104" y="812" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF">6</text>
+  <text x="168" y="804" font-family="sans-serif" font-size="33" font-weight="bold" fill="#312E81">ほたるは 見るだけ</text>
+  <text x="168" y="842" font-family="sans-serif" font-size="22" fill="#4338CA">つかまえない。そっと 見ると もっと 光るよ。</text>
+
+  <!-- 点呼・こまったとき -->
+  <rect x="44" y="872" width="752" height="104" rx="16" fill="#E0E7FF" stroke="#818CF8" stroke-width="2"/>
+  <text x="68" y="908" font-family="sans-serif" font-size="23" font-weight="bold" fill="#3730A3">📣 てんこ（なまえ よび）と こまった とき</text>
+  <text x="68" y="940" font-family="sans-serif" font-size="19" fill="#3730A3">・出発・とうちゃくで なまえを よぶよ。よばれたら「はい!」と へんじ。</text>
+  <text x="68" y="966" font-family="sans-serif" font-size="19" fill="#3730A3">・はぐれたら その場で とまって よぶ。こわい・ぐあいわるい は おとなへ。</text>
+
+  <!-- もちもの -->
+  <rect x="44" y="996" width="366" height="148" rx="16" fill="#FEF9C3" stroke="#FACC15" stroke-width="2"/>
+  <text x="64" y="1032" font-family="sans-serif" font-size="23" font-weight="bold" fill="#854D0E">🎒 もちもの</text>
+  <text x="64" y="1066" font-family="sans-serif" font-size="19" fill="#854D0E">・かいちゅう電灯（ライト）</text>
+  <text x="64" y="1094" font-family="sans-serif" font-size="19" fill="#854D0E">・はおるもの（長そで）</text>
+  <text x="64" y="1122" font-family="sans-serif" font-size="19" fill="#854D0E">・はきなれた くつ・ぼうし・虫よけ</text>
+
+  <!-- ほたるを みる コツ -->
+  <rect x="430" y="996" width="366" height="148" rx="16" fill="#DCFCE7" stroke="#4ADE80" stroke-width="2"/>
+  <text x="450" y="1032" font-family="sans-serif" font-size="23" font-weight="bold" fill="#166534">✨ ほたるを みる コツ</text>
+  <text x="450" y="1066" font-family="sans-serif" font-size="19" fill="#166534">・ライトを けして そっと とまる</text>
+  <text x="450" y="1094" font-family="sans-serif" font-size="19" fill="#166534">・つかまえない・さわらない</text>
+  <text x="450" y="1122" font-family="sans-serif" font-size="19" fill="#166534">・しずかに すると もっと 光る!</text>
+
+  <!-- footer -->
+  <text x="420" y="1172" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#64748B">高梁青年会議所 ぼうさいキャンプ ／ 親子で避難所体験</text>
+</svg>

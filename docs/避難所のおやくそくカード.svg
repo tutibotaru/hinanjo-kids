@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 避難所のおやくそく 子ども向けカード(A4縦)。親子ミニ手順カードと同テイスト。全体共通ルール(22時就寝/7時起床/帰るとき名札+本部)は「ぜんいんで まもる」枠で強調。ブラウザで開いてA4印刷。 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 840 1188" role="img" aria-label="ひなんじょの おやくそく カード">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="840" height="1188" fill="#F0FDF4"/>
+
+  <!-- 帯 -->
+  <rect x="0" y="0" width="840" height="186" fill="url(#hdr)"/>
+  <text x="748" y="84" text-anchor="middle" font-family="sans-serif" font-size="48">🏠</text>
+  <text x="44" y="74" font-family="sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF">ひなんじょの おやくそく</text>
+  <text x="46" y="118" font-family="sans-serif" font-size="23" fill="#D1FAE5">みんなが あんしんして すごせるように</text>
+  <text x="46" y="152" font-family="sans-serif" font-size="19" fill="#A7F3D0">ここは みんなの おうち。じぶんが されて うれしいことを しよう</text>
+
+  <!-- じかんの やくそく(ぜんいん) -->
+  <rect x="44" y="202" width="752" height="104" rx="16" fill="#FEF3C7" stroke="#FBBF24" stroke-width="2.5"/>
+  <text x="66" y="238" font-family="sans-serif" font-size="22" font-weight="bold" fill="#92400E">🕙 じかんの やくそく（ぜんいんで まもる）</text>
+  <line x1="418" y1="252" x2="418" y2="294" stroke="#FBBF24" stroke-width="2"/>
+  <text x="76" y="288" font-family="sans-serif" font-size="21" font-weight="bold" fill="#92400E">🌙 よる22時 → しずかに ねる</text>
+  <text x="438" y="288" font-family="sans-serif" font-size="21" font-weight="bold" fill="#92400E">☀ あさ7時 → おきる</text>
+
+  <!-- 1 -->
+  <circle cx="104" cy="360" r="34" fill="#059669"/>
+  <text x="104" y="360" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">1</text>
+  <text x="162" y="354" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">ばしょは みんなの もの</text>
+  <text x="162" y="386" font-family="sans-serif" font-size="18" fill="#047857">ひろげすぎない・とおる みちを ふさがない</text>
+
+  <!-- 2 -->
+  <circle cx="104" cy="452" r="34" fill="#0D9488"/>
+  <text x="104" y="452" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">2</text>
+  <text x="162" y="446" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">しずかに すごす</text>
+  <text x="162" y="478" font-family="sans-serif" font-size="18" fill="#047857">大きな声や はしりは ひるまだけ。スマホは 音を 小さく</text>
+
+  <!-- 3 -->
+  <circle cx="104" cy="544" r="34" fill="#059669"/>
+  <text x="104" y="544" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">3</text>
+  <text x="162" y="538" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">トイレ・水は たいせつに</text>
+  <text x="162" y="570" font-family="sans-serif" font-size="18" fill="#047857">きれいに つかう・水を むだに しない・手を あらう</text>
+
+  <!-- 4 -->
+  <circle cx="104" cy="636" r="34" fill="#0D9488"/>
+  <text x="104" y="636" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">4</text>
+  <text x="162" y="630" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">ひとりで そとに でない</text>
+  <text x="162" y="662" font-family="sans-serif" font-size="18" fill="#047857">どこか いくときは かならず 大人と いっしょ</text>
+
+  <!-- 5 -->
+  <circle cx="104" cy="728" r="34" fill="#059669"/>
+  <text x="104" y="728" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">5</text>
+  <text x="162" y="722" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">こまったら すぐ 大人に いう</text>
+  <text x="162" y="754" font-family="sans-serif" font-size="18" fill="#047857">こわい・ぐあいわるい・トイレ。「たすけて」は はずかしくない</text>
+
+  <!-- 6 -->
+  <circle cx="104" cy="820" r="34" fill="#0D9488"/>
+  <text x="104" y="820" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">6</text>
+  <text x="162" y="814" font-family="sans-serif" font-size="29" font-weight="bold" fill="#064E3B">みんなで なかよく</text>
+  <text x="162" y="846" font-family="sans-serif" font-size="18" fill="#047857">「ありがとう」「ごめんね」。小さい子や お年よりに やさしく</text>
+
+  <!-- かえる ときは(ぜんいん) -->
+  <rect x="44" y="872" width="752" height="108" rx="16" fill="#FEF3C7" stroke="#FBBF24" stroke-width="2.5"/>
+  <text x="66" y="908" font-family="sans-serif" font-size="22" font-weight="bold" fill="#92400E">🏷 かえる ときは（ぜんいんで まもる）</text>
+  <text x="66" y="942" font-family="sans-serif" font-size="19" fill="#92400E">・名札（なふだ）を ホワイトボードに はる</text>
+  <text x="66" y="970" font-family="sans-serif" font-size="19" fill="#92400E">・本部（ほんぶ）に「かえります」と つたえる</text>
+
+  <!-- おぼえてね -->
+  <rect x="44" y="1000" width="752" height="72" rx="16" fill="#DCFCE7" stroke="#34D399" stroke-width="2"/>
+  <text x="420" y="1044" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="bold" fill="#065F46">💡 こまったら ひとりで がまんせず、大人に いおう</text>
+
+  <!-- footer -->
+  <text x="420" y="1108" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#6B7280">高梁青年会議所 ぼうさいキャンプ ／ 親子で避難所体験</text>
+</svg>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ポリ袋ごはん(湯せん炊飯)の手引きシート(A4縦)。親子ミニ手順カードと同テイスト(番号丸+太字+やさしい理由+下のboxes)。火・やけどは赤い安全box。ブラウザで開いてA4印刷。 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 840 1188" role="img" aria-label="ふくろで ごはんを たこう ポリ袋炊飯の手引き">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F59E0B"/>
+      <stop offset="1" stop-color="#B45309"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="840" height="1188" fill="#FFFBEB"/>
+
+  <!-- 帯 -->
+  <rect x="0" y="0" width="840" height="186" fill="url(#hdr)"/>
+  <text x="748" y="86" text-anchor="middle" font-family="sans-serif" font-size="50">🍚</text>
+  <text x="44" y="74" font-family="sans-serif" font-size="38" font-weight="bold" fill="#FFFFFF">ふくろで ごはんを たこう！</text>
+  <text x="46" y="118" font-family="sans-serif" font-size="23" fill="#FEF3C7">ポリ袋 ひとつで ごはんが たける（0.5合）</text>
+  <text x="46" y="152" font-family="sans-serif" font-size="19" fill="#FED7AA">水や ガスが すくない ときでも。お皿も よごれないよ！</text>
+
+  <!-- ようい するもの -->
+  <rect x="44" y="200" width="752" height="150" rx="16" fill="#FEF3C7" stroke="#FCD34D" stroke-width="2"/>
+  <text x="66" y="236" font-family="sans-serif" font-size="23" font-weight="bold" fill="#78350F">🍚 ようい するもの</text>
+  <text x="66" y="272" font-family="sans-serif" font-size="18" fill="#78350F">・ポリ袋（「湯せん可」の もの）</text>
+  <text x="66" y="302" font-family="sans-serif" font-size="18" fill="#78350F">・お米 0.5合</text>
+  <text x="66" y="332" font-family="sans-serif" font-size="18" fill="#78350F">・水</text>
+  <text x="430" y="272" font-family="sans-serif" font-size="18" fill="#78350F">・紙コップ（計量カップ がわり）</text>
+  <text x="430" y="302" font-family="sans-serif" font-size="18" fill="#78350F">・なべ・お湯・カセットコンロ</text>
+  <text x="430" y="332" font-family="sans-serif" font-size="18" fill="#78350F">・棒（さいばし など）</text>
+
+  <!-- 1 -->
+  <circle cx="104" cy="400" r="36" fill="#EA580C"/>
+  <text x="104" y="400" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">1</text>
+  <text x="166" y="394" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">ふくろに お米を 入れる</text>
+  <text x="166" y="428" font-family="sans-serif" font-size="19" fill="#B45309">0.5合 ＝ 紙コップの 90mlの 線まで</text>
+
+  <!-- 2 -->
+  <circle cx="104" cy="488" r="36" fill="#F59E0B"/>
+  <text x="104" y="488" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">2</text>
+  <text x="166" y="482" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">水を 米より 少し多め 入れる</text>
+  <text x="166" y="516" font-family="sans-serif" font-size="19" fill="#B45309">米1：水1.1（線より ちょっと上）</text>
+
+  <!-- 3 -->
+  <circle cx="104" cy="576" r="36" fill="#EA580C"/>
+  <text x="104" y="576" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">3</text>
+  <text x="166" y="570" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">10分 つけて おく</text>
+  <text x="166" y="604" font-family="sans-serif" font-size="19" fill="#B45309">お米が 水を すうよ</text>
+
+  <!-- 4 -->
+  <circle cx="104" cy="664" r="36" fill="#F59E0B"/>
+  <text x="104" y="664" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">4</text>
+  <text x="166" y="658" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">空気を ぬいて 上を かたく しばる</text>
+  <text x="166" y="692" font-family="sans-serif" font-size="19" fill="#B45309">すき間が あると お湯が 入っちゃう</text>
+
+  <!-- 5 -->
+  <circle cx="104" cy="752" r="36" fill="#EA580C"/>
+  <text x="104" y="752" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">5</text>
+  <text x="166" y="746" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">お湯で グツグツ 20〜30分</text>
+  <text x="166" y="780" font-family="sans-serif" font-size="19" fill="#B45309">棒で 袋を ささえ、なべに つけない（大人と）</text>
+
+  <!-- 6 -->
+  <circle cx="104" cy="840" r="36" fill="#F59E0B"/>
+  <text x="104" y="840" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF">6</text>
+  <text x="166" y="834" font-family="sans-serif" font-size="30" font-weight="bold" fill="#7C2D12">火を とめて 10分 むらす → お皿へ</text>
+  <text x="166" y="868" font-family="sans-serif" font-size="19" fill="#B45309">ふくろから そのまま。できあがり！</text>
+
+  <!-- 安全 -->
+  <rect x="44" y="888" width="752" height="128" rx="16" fill="#FEE2E2" stroke="#F87171" stroke-width="2"/>
+  <text x="66" y="924" font-family="sans-serif" font-size="23" font-weight="bold" fill="#991B1B">⚠ たいせつな やくそく（火・やけど）</text>
+  <text x="66" y="956" font-family="sans-serif" font-size="19" fill="#991B1B">・火と お湯は かならず 大人と いっしょに</text>
+  <text x="66" y="984" font-family="sans-serif" font-size="19" fill="#991B1B">・棒で 袋を ささえ、なべの ふち・底に つけない（とけるの ぼうし）</text>
+  <text x="66" y="1012" font-family="sans-serif" font-size="19" fill="#991B1B">・とても 熱いよ! やけどに 気を つけて</text>
+
+  <!-- おぼえてね -->
+  <rect x="44" y="1036" width="752" height="74" rx="16" fill="#FFEDD5" stroke="#FB923C" stroke-width="2"/>
+  <text x="420" y="1082" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="bold" fill="#9A3412">💡 おぼえてね　水は「お米より ちょっと多め」！</text>
+
+  <!-- footer -->
+  <text x="420" y="1150" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#78716C">高梁青年会議所 ぼうさいキャンプ ／ 親子で避難所体験</text>
+</svg>

@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>タスク紙版 全42まい</title><style>
+  *{box-sizing:border-box;}
+  @page{size:A4 portrait;margin:0;}
+  html,body{margin:0;padding:0;font-family:'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;color:#1f2937;}
+  body{background:#e5e7eb;}
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:14mm 14mm 14mm;position:relative;}
+  .band{color:#fff;border-radius:14px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
+  .band .role{font-size:26px;font-weight:800;}
+  .band .blk{font-size:16px;opacity:.95;text-align:right;}
+  .title{font-size:40px;font-weight:800;margin:22px 2px 6px;line-height:1.25;}
+  .meta{font-size:16px;color:#6b7280;margin:0 2px 18px;}
+  .lead{display:inline-block;font-weight:700;font-size:15px;border-radius:999px;padding:5px 14px;}
+  ol.steps{list-style:none;margin:12px 0 4px;padding:0;}
+  ol.steps li{display:flex;gap:14px;align-items:flex-start;border:1.5px solid #e5e7eb;border-radius:12px;padding:12px 14px;margin:10px 0;}
+  ol.steps .n{flex:0 0 auto;width:34px;height:34px;border-radius:50%;color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;}
+  ol.steps .t{font-size:23px;line-height:1.4;padding-top:2px;}
+  .box{border-radius:12px;padding:12px 16px;margin:14px 0;}
+  .box .bt{font-size:14px;font-weight:800;margin-bottom:4px;}
+  .box .bb{font-size:21px;line-height:1.4;}
+  .point{background:#F0F9FF;border:1.5px solid #7DD3FC;}
+  .point .bt{color:#0369A1;} .point .bb{color:#0C4A6E;font-size:18px;}
+  .trouble{background:#FFFBEB;border:1.5px solid #FCD34D;}
+  .trouble .bt{color:#92400E;margin-bottom:8px;}
+  .tr{display:flex;align-items:center;gap:10px;font-size:18px;margin:6px 0;color:#78350F;}
+  .tr .lab{font-weight:700;min-width:34%;}
+  .tr .arr{color:#d97706;font-weight:800;}
+  .check{margin:20px 2px 6px;font-size:30px;font-weight:800;}
+  .check .cb{display:inline-block;border-radius:8px;width:34px;height:34px;vertical-align:-6px;margin-right:12px;}
+  .foot{position:absolute;left:14mm;right:14mm;bottom:9mm;font-size:12px;color:#9ca3af;border-top:1px solid #e5e7eb;padding-top:6px;}
+  ruby rt{font-size:.5em;font-weight:400;}
+  @media print{body{background:#fff;}.sheet{margin:0 auto;box-shadow:none;}}
+
+  .r-uketsuke .band{background:#EA580C;}
+  .r-uketsuke .title{color:#7C2D12;}
+  .r-uketsuke .lead{background:#FFF7ED;color:#7C2D12;}
+  .r-uketsuke ol.steps .n{background:#EA580C;}
+  .r-uketsuke .done{background:#FFF7ED;border:1.5px solid #EA580C;}
+  .r-uketsuke .done .bt,.r-uketsuke .done .bb{color:#7C2D12;}
+  .r-uketsuke .check{color:#7C2D12;}
+  .r-uketsuke .check .cb{border:3px solid #EA580C;}
+
+  .r-oheya .band{background:#D97706;}
+  .r-oheya .title{color:#78350F;}
+  .r-oheya .lead{background:#FFFBEB;color:#78350F;}
+  .r-oheya ol.steps .n{background:#D97706;}
+  .r-oheya .done{background:#FFFBEB;border:1.5px solid #D97706;}
+  .r-oheya .done .bt,.r-oheya .done .bb{color:#78350F;}
+  .r-oheya .check{color:#78350F;}
+  .r-oheya .check .cb{border:3px solid #D97706;}
+
+  .r-monosuke .band{background:#0284C7;}
+  .r-monosuke .title{color:#0C4A6E;}
+  .r-monosuke .lead{background:#F0F9FF;color:#0C4A6E;}
+  .r-monosuke ol.steps .n{background:#0284C7;}
+  .r-monosuke .done{background:#F0F9FF;border:1.5px solid #0284C7;}
+  .r-monosuke .done .bt,.r-monosuke .done .bb{color:#0C4A6E;}
+  .r-monosuke .check{color:#0C4A6E;}
+  .r-monosuke .check .cb{border:3px solid #0284C7;}
+
+  .r-kyugo .band{background:#DC2626;}
+  .r-kyugo .title{color:#7F1D1D;}
+  .r-kyugo .lead{background:#FEF2F2;color:#7F1D1D;}
+  .r-kyugo ol.steps .n{background:#DC2626;}
+  .r-kyugo .done{background:#FEF2F2;border:1.5px solid #DC2626;}
+  .r-kyugo .done .bt,.r-kyugo .done .bb{color:#7F1D1D;}
+  .r-kyugo .check{color:#7F1D1D;}
+  .r-kyugo .check .cb{border:3px solid #DC2626;}
+@media screen{.sheet{margin:8mm auto;box-shadow:0 2px 10px rgba(0,0,0,.2)}}</style></head>
+<body><div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">せつえいブロック ・ やること 1／11</div></div>
+  <h1 class="title">リーダーと ふくリーダーを きめる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「だれが リーダーする?」と きく</span></li><li><span class="n">2</span><span class="t">リーダーと ふくを 1人ずつ きめる</span></li><li><span class="n">3</span><span class="t">名ふだに「リーダー」「副リーダー」と 書く</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">リーダーと ふくリーダーが きまった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">リーダーは みんなを まとめる人、ふくは てつだう人。1人だと たいへんだから 2人で 手分けしよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">やる人が いない</span><span class="arr">→</span><span class="act">じゃんけんで きめる</span></div><div class="tr"><span class="lab">けんかに なる</span><span class="arr">→</span><span class="act">2人で リーダー</span></div><div class="tr"><span class="lab">やりたい人 が おおい</span><span class="arr">→</span><span class="act">こうたいで やる</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-001 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">せつえいブロック ・ やること 2／11</div></div>
+  <h1 class="title">ホワイトボードに 書く</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t"><ruby>避難所<rt>ひなんじょ</rt></ruby>名と 日づけを 書く</span></li><li><span class="n">2</span><span class="t">班の 人数を 書く</span></li><li><span class="n">3</span><span class="t">「ルール」「じょうほう」「伝言」の らんを 作る</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ホワイトボードに 書けた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ホワイトボードに 書いておくと、みんなが「いま 何を する?」が わかる。こまったら ここを 見よう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">何を 書く?</span><span class="arr">→</span><span class="act">人数と やること</span></div><div class="tr"><span class="lab">ペンが ない</span><span class="arr">→</span><span class="act">ちかくの おとなに</span></div><div class="tr"><span class="lab">字が にがて</span><span class="arr">→</span><span class="act">ふくと いっしょに</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-002 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">せつえいブロック ・ やること 3／11</div></div>
+  <h1 class="title">はいちを みんなで きめる</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">大きな 紙(見取り図)を ひろげる</span></li><li><span class="n">2</span><span class="t">ねる場所・通路・<ruby>救護<rt>きゅうご</rt></ruby>・にもつ置き場を きめる</span></li><li><span class="n">3</span><span class="t">紙に かきこむ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">班の はいちが 紙に きまった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">さいしょに「どこに 何を おくか」を きめると、せつえいが はやい。通路は 1メートル あけるのが やくそく。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">きまらない</span><span class="arr">→</span><span class="act">多数決で きめる</span></div><div class="tr"><span class="lab">通路が ない</span><span class="arr">→</span><span class="act">1れつ もどす</span></div><div class="tr"><span class="lab">もめる</span><span class="arr">→</span><span class="act">ちかくの おとなに</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-003 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">せつえいブロック ・ やること 4／11</div></div>
+  <h1 class="title">せいかつの ルールを 書く</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「いま はなれてる人」を 書く</span></li><li><span class="n">2</span><span class="t">「ゆずりあう・じゅんばんを まもる」を 書く</span></li><li><span class="n">3</span><span class="t">ホワイトボードの ルールらんに 書く</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ルールが ホワイトボードに 書いてある</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たくさんの 人が いっしょに すごすから、ルールが ないと こまる。みんなで きめた ルールは まもりやすい。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">何を 書く?</span><span class="arr">→</span><span class="act">しずか・はなれてる人・ゆずる</span></div><div class="tr"><span class="lab">らんが せまい</span><span class="arr">→</span><span class="act">小さく 書く</span></div><div class="tr"><span class="lab">まもらない人</span><span class="arr">→</span><span class="act">やさしく つたえる</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-004 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">ごはんブロック ・ やること 5／11</div></div>
+  <h1 class="title">みんなに ごはんが いきわたったか かくにん</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">名ぼで「まだの人」が いないか みる</span></li><li><span class="n">2</span><span class="t">食べてない人を 見つけたら みず班へ</span></li><li><span class="n">3</span><span class="t">ぜんいん そろったら「いただきます」の あいさつ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ぜんいんに いきわたって「いただきます」した</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">みんなに ごはんが いったか 見るのが しごと。まわってない人を 助けて、ぜんいん そろったら「いただきます」!</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">まだの人が いる</span><span class="arr">→</span><span class="act">みず班に つたえる</span></div><div class="tr"><span class="lab">たりない</span><span class="arr">→</span><span class="act"><ruby>本部<rt>ほんぶ</rt></ruby>から れんらく</span></div><div class="tr"><span class="lab">だれが まだ?</span><span class="arr">→</span><span class="act">名ぼで チェック</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-011 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">よるブロック ・ やること 6／11</div></div>
+  <h1 class="title">ナイトウォークの <ruby>点呼<rt>てんこ</rt></ruby>と 合図</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">出発前に 名ぼで 全員 いるか 数える</span></li><li><span class="n">2</span><span class="t">あるく間:リーダーは前・副はうしろで 数える/「とまれ」を うしろへ つたえる</span></li><li><span class="n">3</span><span class="t">お寺と 帰ってきた時に もう一度 <ruby>点呼<rt>てんこ</rt></ruby></span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">出発前・お寺・帰着で 全員 かくにんできた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">道路の 安全は 大人(JC)が 先頭・うしろで まもる。子どもリーダーの しごとは「数える・合図を つたえる」。1人でも たりなかったら すぐ 大人へ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">数が 合わない</span><span class="arr">→</span><span class="act">すぐ 大人へ</span></div><div class="tr"><span class="lab">くらくて 見えない</span><span class="arr">→</span><span class="act">ライト・大人と</span></div><div class="tr"><span class="lab">はぐれそう</span><span class="arr">→</span><span class="act">手を つなぐ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-006 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">よるブロック ・ やること 7／11</div></div>
+  <h1 class="title">自由時間の すごし方を きめる</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「<ruby>避難所<rt>ひなんじょ</rt></ruby>で どう すごす?」を 話す</span></li><li><span class="n">2</span><span class="t">やる ことを きめる(ひろば・クイズ・だんらん)</span></li><li><span class="n">3</span><span class="t">少し 電気を 消して 夜を かんじてみる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">自由時間の すごし方が きまった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">本物の <ruby>避難所<rt>ひなんじょ</rt></ruby>は、ひまな 時間も ある。少し 暗くして 夜を かんじると、電気の ありがたさが わかるよ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">きまらない</span><span class="arr">→</span><span class="act">やりたい人の 案</span></div><div class="tr"><span class="lab">くらいの こわい</span><span class="arr">→</span><span class="act">電気を つける</span></div><div class="tr"><span class="lab">ねむい</span><span class="arr">→</span><span class="act">ねても OK</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-007 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">よるブロック ・ やること 8／11</div></div>
+  <h1 class="title">寝る前の 班別 <ruby>点呼<rt>てんこ</rt></ruby>(21じ)</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">名ぼで 全員 いるか かくにん</span></li><li><span class="n">2</span><span class="t">「はなれてる人」が もどったか かくにん</span></li><li><span class="n">3</span><span class="t">いない人を <ruby>記録<rt>きろく</rt></ruby>・<ruby>本部<rt>ほんぶ</rt></ruby>に 伝える</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">寝る前に 全員 かくにんできた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">夜は 暗くて まいごに なりやすい。寝る前に「全員 いる?」を たしかめると、安心して ねむれる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">おうちに もどった人</span><span class="arr">→</span><span class="act">名ぼで 確認</span></div><div class="tr"><span class="lab">数が 合わない</span><span class="arr">→</span><span class="act">もう一度</span></div><div class="tr"><span class="lab">ねてる人</span><span class="arr">→</span><span class="act">そっと 確認</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-008 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">あさブロック ・ やること 9／11</div></div>
+  <h1 class="title">朝の 起床 <ruby>点呼<rt>てんこ</rt></ruby></h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">朝 おきたら 名ぼで かくにん</span></li><li><span class="n">2</span><span class="t">体調わるい人が いないか きく</span></li><li><span class="n">3</span><span class="t"><ruby>記録<rt>きろく</rt></ruby>の 人に 伝える</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">朝の <ruby>点呼<rt>てんこ</rt></ruby>が できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">朝も「全員 げんき?」を たしかめる。夜の あいだに 体調を くずす人も いるから、朝の かくにんが 大事。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">おきない人</span><span class="arr">→</span><span class="act">やさしく おこす</span></div><div class="tr"><span class="lab">体調わるい</span><span class="arr">→</span><span class="act">けんこう係へ</span></div><div class="tr"><span class="lab">いない</span><span class="arr">→</span><span class="act">おとなへ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-009 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">あさブロック ・ やること 10／11</div></div>
+  <h1 class="title">かたづけの 分担を きめる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">かたづける物を 紙に 書く(ねぐ・ベッド・パーテ・ゴミ)</span></li><li><span class="n">2</span><span class="t">だれが どこを やるか きめる</span></li><li><span class="n">3</span><span class="t"><ruby>本部<rt>ほんぶ</rt></ruby>ボードに 書いて 知らせる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">かたづけの 分担が きまった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">「次の人が 気もちよく 使えるか」が かたづけの きほん。分担を きめると、はやく きれいに もどせる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">きまらない</span><span class="arr">→</span><span class="act">班で 半分こ</span></div><div class="tr"><span class="lab">おもい物</span><span class="arr">→</span><span class="act">大人と 一緒に</span></div><div class="tr"><span class="lab">時間がない</span><span class="arr">→</span><span class="act">大事な所から</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-012 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-uketsuke">
+  <div class="band"><div class="role">そうむ</div><div class="blk">あさブロック ・ やること 11／11</div></div>
+  <h1 class="title">「行動せんげん」を きめて 発表</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「家で 何を かえる?」を 話す</span></li><li><span class="n">2</span><span class="t">班の せんげんを 紙に 書く</span></li><li><span class="n">3</span><span class="t">みんなの 前で 発表する</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">行動せんげんを 発表できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たいけんを「家で やる こと」に つなげると、本物の そなえに なる。1つでも いいから、できる ことを きめよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">思いつかない</span><span class="arr">→</span><span class="act">水を ためる 等</span></div><div class="tr"><span class="lab">発表 こわい</span><span class="arr">→</span><span class="act">ふくと 一緒に</span></div><div class="tr"><span class="lab">1つに しぼれない</span><span class="arr">→</span><span class="act">いちばん 大事なの</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-010 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">せつえいブロック ・ やること 1／11</div></div>
+  <h1 class="title">あぶない ものが ないか みる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">じぶんの班の エリアを 2人で みる</span></li><li><span class="n">2</span><span class="t">ガラス・とがった物・つまずく物を さがす</span></li><li><span class="n">3</span><span class="t">あったら かたづける/リーダーに つたえる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">エリアに あぶない物が ない</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb"><ruby>災害<rt>さいがい</rt></ruby>の あとは、われた物や 落ちた物が あぶない。まず じぶんたちの ばしょを 安全に しよう。とがった物は さわらず おとなへ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">1人しか いない</span><span class="arr">→</span><span class="act">おとなと 一緒に</span></div><div class="tr"><span class="lab">とがった物</span><span class="arr">→</span><span class="act">さわらず おとなへ</span></div><div class="tr"><span class="lab">多い</span><span class="arr">→</span><span class="act">みんなで かたづけ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-001 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">せつえいブロック ・ やること 2／11</div></div>
+  <h1 class="title">じぶんの班の エリアを 区切る</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">見取り図を 書く</span></li><li><span class="n">2</span><span class="t">紙で「ねる場所・通路・<ruby>救護<rt>きゅうご</rt></ruby>」を しるす</span></li><li><span class="n">3</span><span class="t">通路は 1メートル あける</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">どこが 何の 場所か 見て わかる</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">さいしょに 場所を 分けると あとが スムーズ。通路が 1メートル ないと、車いすや 大人が とおれない。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">せまい</span><span class="arr">→</span><span class="act">ねる場所を 小さく</span></div><div class="tr"><span class="lab">紙が たりない</span><span class="arr">→</span><span class="act">大事な所から</span></div><div class="tr"><span class="lab">わからない</span><span class="arr">→</span><span class="act">見取り図を 見る</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-002 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">せつえいブロック ・ やること 3／11</div></div>
+  <h1 class="title">パーテーションで 区切る・テントの 使いみちを きめる</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">パーテーションで ねる場所を 区切る</span></li><li><span class="n">2</span><span class="t">班の 屋内テント(1つ)の 使いみちを きめる(着がえ/にもつ/見張り など)</span></li><li><span class="n">3</span><span class="t">「ここは ◯◯」の 紙を はる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">区切りと テントの 使いみちが きまった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">知らない人の となりは ふあん。区切ると あんしん。テントは 班の すきな ことに 使える——着がえ・にもつ・見張りの ばしょ など、班で きめよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">使いみち 迷う</span><span class="arr">→</span><span class="act">着がえに する</span></div><div class="tr"><span class="lab">パーテ足りない</span><span class="arr">→</span><span class="act">大事な所から</span></div><div class="tr"><span class="lab">たおれる</span><span class="arr">→</span><span class="act">大人と</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-003 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">せつえいブロック ・ やること 4／11</div></div>
+  <h1 class="title">折りたたみベッドを 組み立てる</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">まわりの人を よんで みんなで はこぶ</span></li><li><span class="n">2</span><span class="t">力を 合わせて 組み立てる(ゆびの はさみこみ 注意!)</span></li><li><span class="n">3</span><span class="t">たすけが いる人の 場所から おく・<ruby>毛布<rt>もうふ</rt></ruby>を のせる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ベッドが くまれて ねられる</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ベッドは 重いし 数も 多い。まわりの人を よんで みんなで やると 早くて 安全。ゆびを はさまないよう 大人と。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">人が たりない</span><span class="arr">→</span><span class="act">まわりに よびかけ</span></div><div class="tr"><span class="lab">ゆびを はさみそう</span><span class="arr">→</span><span class="act">ゆっくり・大人と</span></div><div class="tr"><span class="lab">組み方 わからない</span><span class="arr">→</span><span class="act">大人と 一緒に</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-004 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">ごはんブロック ・ やること 5／11</div></div>
+  <h1 class="title">新聞紙スリッパを つくる</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">新聞紙を 広げる</span></li><li><span class="n">2</span><span class="t">手順の 紙を 見て おる</span></li><li><span class="n">3</span><span class="t">家族で 1足 つくる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">新聞紙スリッパが できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たいいくかんの ゆかは つめたい。スリッパで 足が あたたかく なるし、ガラスから 足も まもれる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">おり方 わからない</span><span class="arr">→</span><span class="act">手順の 紙を 見る</span></div><div class="tr"><span class="lab">やぶれた</span><span class="arr">→</span><span class="act">かさねる</span></div><div class="tr"><span class="lab">大きさ 合わない</span><span class="arr">→</span><span class="act">おとなと</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-006 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">ごはんブロック ・ やること 6／11</div></div>
+  <h1 class="title">ごはんを 食べる 場所を つくる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">シート(ブルーシート)を ひろげる</span></li><li><span class="n">2</span><span class="t">通路を ふさがない ように おく</span></li><li><span class="n">3</span><span class="t">食べたあとは たたんで かたづけ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなで 食べる 場所が できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ゆかに そのまま すわるより、シートが あると きれいで あたたかい。通路を ふさぐと あぶないので 気をつけよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">シートが ない</span><span class="arr">→</span><span class="act">新聞紙でも OK</span></div><div class="tr"><span class="lab">せまい</span><span class="arr">→</span><span class="act">班で 分けて</span></div><div class="tr"><span class="lab">よごれた</span><span class="arr">→</span><span class="act">ふいて たたむ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-011 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">ごはんブロック ・ やること 7／11</div></div>
+  <h1 class="title">ゴミ置き場を つくる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">ゴミ置き場の 場所を きめる</span></li><li><span class="n">2</span><span class="t">「もえる・紙・ペット」の 分別の 紙を はる</span></li><li><span class="n">3</span><span class="t">みんなに 知らせる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ゴミの 分けかたが わかる</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たくさんの 人が いると ゴミも たくさん。分けて 置くと、くさく ならず びょうきも ふせげる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">ふくろが ない</span><span class="arr">→</span><span class="act">ダンボールで</span></div><div class="tr"><span class="lab">場所が ない</span><span class="arr">→</span><span class="act">はしの 方に</span></div><div class="tr"><span class="lab">わからない</span><span class="arr">→</span><span class="act">紙を 見て</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-007 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">よるブロック ・ やること 8／11</div></div>
+  <h1 class="title">夜の あんぜんを ととのえる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">ねる所の まわりの ものを かたづける</span></li><li><span class="n">2</span><span class="t">足元に かいちゅう電灯/ライトを おく</span></li><li><span class="n">3</span><span class="t">通路に ものが ないか 見る</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">夜 あんぜんに あるける</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">夜中に あるくとき、通路に ものが あると つまずく。足元の あかりと、通路を あけておく ことが 大事。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">ライトが ない</span><span class="arr">→</span><span class="act">おとなに</span></div><div class="tr"><span class="lab">暗い</span><span class="arr">→</span><span class="act">ライトを ふやす</span></div><div class="tr"><span class="lab">ものが 多い</span><span class="arr">→</span><span class="act">はしに よせる</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-009 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">よるブロック ・ やること 9／11</div></div>
+  <h1 class="title">安全・<ruby>防犯<rt>ぼうはん</rt></ruby>を ととのえる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">にもつは 1か所に まとめる(なくならない ように)</span></li><li><span class="n">2</span><span class="t">知らない人が きたら 大人に つたえる</span></li><li><span class="n">3</span><span class="t">通路に ものを 置かない</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">にもつと 通路が あんぜんに なった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たくさんの人が いると、にもつが まぎれたり、知らない人が 入る ことも。まとめて おく・大人に つたえる が だいじ。通路は「にげ道」だから あけておく。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">にもつが 多い</span><span class="arr">→</span><span class="act">班ごとに まとめる</span></div><div class="tr"><span class="lab">知らない人</span><span class="arr">→</span><span class="act">すぐ 大人へ</span></div><div class="tr"><span class="lab">通路に 物が</span><span class="arr">→</span><span class="act">はしに よせる</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-012 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">あさブロック ・ やること 10／11</div></div>
+  <h1 class="title">寝具を かたづけ 原状ふっき</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t"><ruby>毛布<rt>もうふ</rt></ruby>を たたむ</span></li><li><span class="n">2</span><span class="t">ベッドを 分解する(ゆび注意・おとなと)</span></li><li><span class="n">3</span><span class="t">パーテーションを かえす ように まとめる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">「次の人が 使える」じょうたいに もどった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">借りた ものは「次の人が 気もちよく 使えるか」で かたづける。きれいに もどすまでが <ruby>避難所<rt>ひなんじょ</rt></ruby>の しごと。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">分解 こわい</span><span class="arr">→</span><span class="act">おとなと</span></div><div class="tr"><span class="lab">多くて 大変</span><span class="arr">→</span><span class="act">みんなで</span></div><div class="tr"><span class="lab">どこに もどす?</span><span class="arr">→</span><span class="act">おとなに きく</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-010 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-oheya">
+  <div class="band"><div class="role">しせつ</div><div class="blk">あさブロック ・ やること 11／11</div></div>
+  <h1 class="title">わすれ物・ゴミの さいごチェック</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">ねていた 場所を 見て まわる</span></li><li><span class="n">2</span><span class="t">わすれ物・ゴミが ないか チェック</span></li><li><span class="n">3</span><span class="t">「次の人が 使えるか」で かくにん</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">わすれ物・ゴミが ない</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">借りた 場所は きれいに して かえす。「次の人が 気もちよく 使えるか?」で 見ると、見おとしが へる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">だれの?</span><span class="arr">→</span><span class="act"><ruby>本部<rt>ほんぶ</rt></ruby>で よびかけ</span></div><div class="tr"><span class="lab">ゴミ多い</span><span class="arr">→</span><span class="act">みんなで 分別</span></div><div class="tr"><span class="lab">見おとし</span><span class="arr">→</span><span class="act">2人で チェック</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">oh-013 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">せつえいブロック ・ やること 1／10</div></div>
+  <h1 class="title"><ruby>支援物資<rt>しえんぶっし</rt></ruby>を 取りに行く</h1>
+  <div class="meta">めやす 2 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t"><ruby>支援物資<rt>しえんぶっし</rt></ruby>(水・ジュース・食べ物)が 来たら 取りに行く</span></li><li><span class="n">2</span><span class="t">重いものは 2人で はこぶ</span></li><li><span class="n">3</span><span class="t">班の ところに あつめる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb"><ruby>支援物資<rt>しえんぶっし</rt></ruby>を 受け取った</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb"><ruby>支援物資<rt>しえんぶっし</rt></ruby>は みんなの ぶん。来たら 取りに行って、班の ところに あつめよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">重い</span><span class="arr">→</span><span class="act">2人で はこぶ</span></div><div class="tr"><span class="lab">どこ?</span><span class="arr">→</span><span class="act">スタッフに きく</span></div><div class="tr"><span class="lab">いつ来る?</span><span class="arr">→</span><span class="act">大人に きく</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-001 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">せつえいブロック ・ やること 2／10</div></div>
+  <h1 class="title">水・食べ物を 数える</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">水を 数える(なんぼん?)</span></li><li><span class="n">2</span><span class="t">食べ物を 数える</span></li><li><span class="n">3</span><span class="t">ホワイトボードに「◯◯ が ◯こ」と 書く</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">数が 紙に 書けた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">数が わかると「足りる?」が わかる。足りなかったら、リーダーから <ruby>本部<rt>ほんぶ</rt></ruby>に 伝えてもらおう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">多すぎる</span><span class="arr">→</span><span class="act">おおよそで OK</span></div><div class="tr"><span class="lab">こわれてる</span><span class="arr">→</span><span class="act">べつに する</span></div><div class="tr"><span class="lab">数えきれない</span><span class="arr">→</span><span class="act">2人で</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-002 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">せつえいブロック ・ やること 3／10</div></div>
+  <h1 class="title">みんなに 配る</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">数えた <ruby>物資<rt>ぶっし</rt></ruby>を みんなに 配る</span></li><li><span class="n">2</span><span class="t">たすけが いる人(赤ちゃん・お年より)から 先に</span></li><li><span class="n">3</span><span class="t">1人ずつ <ruby>順番<rt>じゅんばん</rt></ruby>に</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなに 配れた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb"><ruby>順番<rt>じゅんばん</rt></ruby>に 配れば けんかに ならない。たすけが いる人を 先に するのが やさしさ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">足りない</span><span class="arr">→</span><span class="act">大人に つたえる</span></div><div class="tr"><span class="lab">横入り</span><span class="arr">→</span><span class="act">「<ruby>順番<rt>じゅんばん</rt></ruby>だよ」</span></div><div class="tr"><span class="lab">配り方?</span><span class="arr">→</span><span class="act">1人ずつ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-003 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 4／10</div></div>
+  <h1 class="title">ごはんの 時間を きめて 知らせる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">スタッフに ごはんの 時間を きく</span></li><li><span class="n">2</span><span class="t">ホワイトボードに 書く</span></li><li><span class="n">3</span><span class="t">みんなに「ごはんだよ」と 知らせる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ごはんの 時間が みんなに つたわった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ごはんの 時間が わかると みんな あんしん。たすけが いる人から 先に、を わすれずに。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">まだ できない</span><span class="arr">→</span><span class="act">「もうすこし」と 伝える</span></div><div class="tr"><span class="lab">聞こえない</span><span class="arr">→</span><span class="act">ボードを 見せる</span></div><div class="tr"><span class="lab">ならばない</span><span class="arr">→</span><span class="act"><ruby>順番<rt>じゅんばん</rt></ruby>の 紙</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">uk-005 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 5／10</div></div>
+  <h1 class="title">ポリ袋ごはんの やり方を 説明する</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">紙の 手順を 見せる</span></li><li><span class="n">2</span><span class="t">お米と 水を 入れて 口を しばる、を やって見せる</span></li><li><span class="n">3</span><span class="t">みんなで いっしょに やる(炊くのは 大人)</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなが ポリ袋ごはんの やり方を わかった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ポリ袋ごはんは みんなで 作る。みず班は やり方を おしえる 先生役。火と お湯は 大人。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">手順 むずかしい</span><span class="arr">→</span><span class="act">紙を 見せる</span></div><div class="tr"><span class="lab">水の りょう?</span><span class="arr">→</span><span class="act">線まで</span></div><div class="tr"><span class="lab">しばり方?</span><span class="arr">→</span><span class="act">大人と</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-004 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 6／10</div></div>
+  <h1 class="title">じゃがりこ ポテサラの やり方を 説明する</h1>
+  <div class="meta">めやす 5 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">じゃがりこに お湯を 入れる、を 見せる(お湯は 大人)</span></li><li><span class="n">2</span><span class="t">ふたを して まって まぜる、を つたえる</span></li><li><span class="n">3</span><span class="t">みんなで いっしょに 作る</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなが じゃがりこ ポテサラの やり方を わかった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">じゃがりこに お湯を 入れて まぜるだけ。みず班は おしえる 先生役。お湯は あついから 大人に 入れてもらう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">かたい</span><span class="arr">→</span><span class="act">もう少し まつ</span></div><div class="tr"><span class="lab">お湯 こわい</span><span class="arr">→</span><span class="act">大人に たのむ</span></div><div class="tr"><span class="lab">味 こい</span><span class="arr">→</span><span class="act">少し 水を</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-011 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 7／10</div></div>
+  <h1 class="title">おはし・お皿が いきわたったか かくにん</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">おはし・お皿・コップを くばる</span></li><li><span class="n">2</span><span class="t">全員に いきわたったか みる</span></li><li><span class="n">3</span><span class="t">たりない人に とどける</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">全員に おはし・お皿が ある</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">食べる前に、おはしと お皿が 全員に あるか かくにん。たりないと 食べられない人が 出る。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">たりない</span><span class="arr">→</span><span class="act">大人に きく</span></div><div class="tr"><span class="lab">だれが まだ?</span><span class="arr">→</span><span class="act">名ぼで チェック</span></div><div class="tr"><span class="lab">わたし忘れ</span><span class="arr">→</span><span class="act">もう一度 まわる</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-005 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 8／10</div></div>
+  <h1 class="title">アレルギーの 人が いないか かくにん</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">班の みんなに「アレルギー ある?」と きく</span></li><li><span class="n">2</span><span class="t">ある人を リーダー・大人に つたえる</span></li><li><span class="n">3</span><span class="t">その人が 食べられる ものを かくにん</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">アレルギーの 人が わかった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">たまご・牛にゅう・小麦などで 食べられない人が いるか 先に かくにん。あったら 大人に つたえて、食べられる ものを ようい。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">わからない</span><span class="arr">→</span><span class="act">本人・家族に きく</span></div><div class="tr"><span class="lab">いるかも</span><span class="arr">→</span><span class="act">大人に つたえる</span></div><div class="tr"><span class="lab">食べられる?</span><span class="arr">→</span><span class="act">大人に かくにん</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-006 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">ごはんブロック ・ やること 9／10</div></div>
+  <h1 class="title">食べた あとの 片づけ・ゴミ</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">食器を あつめる</span></li><li><span class="n">2</span><span class="t">ゴミを ゴミ場へ(分別)</span></li><li><span class="n">3</span><span class="t">テーブル/シートを ふく</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">食べた あとが きれいに なった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">みんなで 片づけると はやい。食べもの ゴミは くさく なりやすいから すぐ ゴミ場へ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">ゴミ 多い</span><span class="arr">→</span><span class="act">分けて すてる</span></div><div class="tr"><span class="lab">よごれ</span><span class="arr">→</span><span class="act">ふく</span></div><div class="tr"><span class="lab">残った 食べ物</span><span class="arr">→</span><span class="act">おとなに 相談</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-008 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-monosuke">
+  <div class="band"><div class="role">みずとたべもの</div><div class="blk">あさブロック ・ やること 10／10</div></div>
+  <h1 class="title">朝の 片づけ・せいり</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">のこった <ruby>物資<rt>ぶっし</rt></ruby>を 数える</span></li><li><span class="n">2</span><span class="t">食器を まとめて せいり</span></li><li><span class="n">3</span><span class="t">ゴミを 最後に かたづける</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">朝の 片づけが できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">のこった ものを 数えると「どれだけ 使ったか」が わかる。最後まで きれいに するのが 大事。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">ゴミ 多い</span><span class="arr">→</span><span class="act">みんなで</span></div><div class="tr"><span class="lab">食器 多い</span><span class="arr">→</span><span class="act">分けて</span></div><div class="tr"><span class="lab"><ruby>物資<rt>ぶっし</rt></ruby>が あまった</span><span class="arr">→</span><span class="act">おとなに わたす</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">mo-010 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">せつえいブロック ・ やること 1／10</div></div>
+  <h1 class="title">ぐあいわるい人は JCの 大人に つたえる</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">JCの <ruby>本部<rt>ほんぶ</rt></ruby>の 大人(スタッフ)が だれか かくにん</span></li><li><span class="n">2</span><span class="t">ぐあいわるい人は その 大人に すぐ つたえる</span></li><li><span class="n">3</span><span class="t">みんなに「ぐあいわるい人は 大人へ」と つたえる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">ぐあいわるい人の つたえ先が わかった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ぐあいが わるい人が 出たら、JCの 大人に すぐ つたえる。子どもだけで がんばらず、大人に つなぐ。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">だれに?</span><span class="arr">→</span><span class="act">JCの 大人へ</span></div><div class="tr"><span class="lab">どこ?</span><span class="arr">→</span><span class="act">スタッフに きく</span></div><div class="tr"><span class="lab">急ぎ</span><span class="arr">→</span><span class="act">大きな声で よぶ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-001 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">せつえいブロック ・ やること 2／10</div></div>
+  <h1 class="title">手を きれいに する 場所を つくる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">アルコールスプレーを ようい</span></li><li><span class="n">2</span><span class="t">「てを きれいに」の 紙を はる</span></li><li><span class="n">3</span><span class="t">ごはん前・トイレの あとに つかう、と つたえる</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">手を きれいに できる 場所が できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">水が なくても アルコールスプレーで OK。手を きれいに するのは、びょうきに ならない いちばんの ほうほう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">スプレーが ない</span><span class="arr">→</span><span class="act">大人に きく</span></div><div class="tr"><span class="lab">いつ つかう?</span><span class="arr">→</span><span class="act">ごはん前・トイレの あと</span></div><div class="tr"><span class="lab">場所は?</span><span class="arr">→</span><span class="act">みんなが とおる所</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-002 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">せつえいブロック ・ やること 3／10</div></div>
+  <h1 class="title"><ruby>体温計<rt>たいおんけい</rt></ruby>の 使い方を おぼえる</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">スイッチを 入れる</span></li><li><span class="n">2</span><span class="t">おでこに かざす(さわらない)</span></li><li><span class="n">3</span><span class="t">出た 数字を 見る・37.5いじょうは おとなへ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb"><ruby>体温計<rt>たいおんけい</rt></ruby>が 使えるように なった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">おでこに かざすだけで 計れる。さわらないから うつらない。高い人を 早く 見つけて おとなに 伝えよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">つかない</span><span class="arr">→</span><span class="act">電池/おとな</span></div><div class="tr"><span class="lab">数字 バラつく</span><span class="arr">→</span><span class="act">もう一度</span></div><div class="tr"><span class="lab">こわがる</span><span class="arr">→</span><span class="act">やさしく</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-003 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">ごはんブロック ・ やること 4／10</div></div>
+  <h1 class="title">ごはん前に 手を きれいに する</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「ごはん前に 手を きれいに」と こえかけ</span></li><li><span class="n">2</span><span class="t">アルコールスプレーの 場所へ あんない</span></li><li><span class="n">3</span><span class="t">できたか 見る</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなが 手を きれいに した</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">食べる前に 手を きれいに しないと、ばいきんも いっしょに 食べちゃう。アルコールで OK。こえを かけると みんな 忘れない。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">ならぶ</span><span class="arr">→</span><span class="act"><ruby>順番<rt>じゅんばん</rt></ruby>に</span></div><div class="tr"><span class="lab">スプレー たりない</span><span class="arr">→</span><span class="act">大人に</span></div><div class="tr"><span class="lab">忘れる人</span><span class="arr">→</span><span class="act">もう一度 こえかけ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-005 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">ごはんブロック ・ やること 5／10</div></div>
+  <h1 class="title">「ぐあい どう?」と 聞いてまわる</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">ゆっくり 歩いて まわる</span></li><li><span class="n">2</span><span class="t">「あつくない? 水のんだ?」と きく</span></li><li><span class="n">3</span><span class="t">かおいろが わるい人を <ruby>救護<rt>きゅうご</rt></ruby>へ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">班の みんなに 声を かけた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">ぐあいが わるくても 自分から 言えない人が いる。とくに あつい日は 水分。こちらから 聞いて あげよう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">へんじ ない</span><span class="arr">→</span><span class="act">やさしく もう一度</span></div><div class="tr"><span class="lab">かおいろ わるい</span><span class="arr">→</span><span class="act"><ruby>救護<rt>きゅうご</rt></ruby>へ</span></div><div class="tr"><span class="lab">人が 多い</span><span class="arr">→</span><span class="act">2人で</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-006 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">ごはんブロック ・ やること 6／10</div></div>
+  <h1 class="title">きまった時間に 検温する</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t"><ruby>非接触体温計<rt>ひせっしょくたいおんけい</rt></ruby>を 用意(班に 1本)</span></li><li><span class="n">2</span><span class="t">おでこに かざして はかる</span></li><li><span class="n">3</span><span class="t">37.5いじょうの人を 大人・<ruby>救護<rt>きゅうご</rt></ruby>へ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">みんなの <ruby>体温<rt>たいおん</rt></ruby>が はかれた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">あつい日や つかれた時は、ねつが 出やすい。きまった時間に みんなの <ruby>体温<rt>たいおん</rt></ruby>を はかると、ぐあいわるい人を 早く 見つけられる。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">高い人が いる</span><span class="arr">→</span><span class="act">大人・<ruby>救護<rt>きゅうご</rt></ruby>へ</span></div><div class="tr"><span class="lab">いやがる</span><span class="arr">→</span><span class="act">やさしく・無理しない</span></div><div class="tr"><span class="lab">数字 へん</span><span class="arr">→</span><span class="act">もう一度</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-010 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">よるブロック ・ やること 7／10</div></div>
+  <h1 class="title">ナイト前に 体調・水分を チェック</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「ぐあい どう?」を 聞く</span></li><li><span class="n">2</span><span class="t">くつ・服そうを 見る</span></li><li><span class="n">3</span><span class="t">水を のんだか かくにん</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">全員 ナイトに 行ける 体調か わかった</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">暗い 外を あるく前に 体調を かくにん。ぐあいわるい人は むりせず お留守番。水分を とってから 出発。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">体調 わるい</span><span class="arr">→</span><span class="act">留守番・おとなへ</span></div><div class="tr"><span class="lab">くつが 心配</span><span class="arr">→</span><span class="act">はきかえる</span></div><div class="tr"><span class="lab">つかれてる</span><span class="arr">→</span><span class="act">むりしない</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-007 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">よるブロック ・ やること 8／10</div></div>
+  <h1 class="title">寝る前に 体調を かくにん</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">「頭いたい? きもち わるい?」を 聞く</span></li><li><span class="n">2</span><span class="t">熱が ありそうな人を <ruby>体温計<rt>たいおんけい</rt></ruby>で</span></li><li><span class="n">3</span><span class="t">わるい人は おとな・<ruby>救護<rt>きゅうご</rt></ruby>へ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">寝る前の 体調かくにんが できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">夜の あいだに 体調を くずすと、すぐ 気づきにくい。寝る前に かくにんして、わるい人は おとなに 伝えておこう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">熱が ある</span><span class="arr">→</span><span class="act">おとなへ</span></div><div class="tr"><span class="lab">元気 ない</span><span class="arr">→</span><span class="act"><ruby>救護<rt>きゅうご</rt></ruby>で 休む</span></div><div class="tr"><span class="lab">かくす子</span><span class="arr">→</span><span class="act">やさしく</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-008 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">よるブロック ・ やること 9／10</div></div>
+  <h1 class="title">こころの ケア・こまりごと探し</h1>
+  <div class="meta">めやす 4 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">さみしそう・こわそうな子に 声をかける</span></li><li><span class="n">2</span><span class="t">「こまってること ない?」と きく</span></li><li><span class="n">3</span><span class="t">じぶんで むずかしい時は 大人に つなぐ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">声を かけて まわれた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb"><ruby>避難所<rt>ひなんじょ</rt></ruby>では、こわい・さみしい きもちに なる人も いる。となりに いて 声を かけるだけで あんしんする。むずかしい ことは 大人に つなごう。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">何て 言う?</span><span class="arr">→</span><span class="act">「だいじょうぶ?」でOK</span></div><div class="tr"><span class="lab">話したくなさそう</span><span class="arr">→</span><span class="act">そっと そばに</span></div><div class="tr"><span class="lab">なきやまない</span><span class="arr">→</span><span class="act">大人に つなぐ</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-011 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div>
+<div style="page-break-after:always"><div class="sheet r-kyugo">
+  <div class="band"><div class="role">けんこう</div><div class="blk">あさブロック ・ やること 10／10</div></div>
+  <h1 class="title">朝 <ruby>体温<rt>たいおん</rt></ruby>・体調を かくにん</h1>
+  <div class="meta">めやす 3 ふん</div>
+  <div class="lead">いま やること</div>
+  <ol class="steps"><li><span class="n">1</span><span class="t">朝 みんなの <ruby>体温<rt>たいおん</rt></ruby>を はかる</span></li><li><span class="n">2</span><span class="t">「よく ねむれた?」を 聞く</span></li><li><span class="n">3</span><span class="t">わるい人を おとな・<ruby>救護<rt>きゅうご</rt></ruby>へ</span></li></ol>
+  <div class="box done"><div class="bt">✓ できたサイン（これが できたら OK）</div><div class="bb">朝の 体調かくにんが できた</div></div>
+  <div class="box point"><div class="bt">💡 だいじなこと</div><div class="bb">朝の <ruby>体温<rt>たいおん</rt></ruby>と 体調で、その日 げんきに すごせるか わかる。夜の つかれが 出る人も いるから 大事。</div></div>
+  <div class="box trouble"><div class="bt">こまった ときは</div><div class="tr"><span class="lab">高い</span><span class="arr">→</span><span class="act">おとなへ</span></div><div class="tr"><span class="lab">だるい</span><span class="arr">→</span><span class="act">水分・休む</span></div><div class="tr"><span class="lab">数字 へん</span><span class="arr">→</span><span class="act">もう一度</span></div></div>
+  <div class="check"><span class="cb"></span>できた！</div>
+  <div class="foot">ky-009 ／ 親子で避難所体験 ・ 高梁青年会議所 ぼうさいキャンプ</div>
+</div></div></body></html>
