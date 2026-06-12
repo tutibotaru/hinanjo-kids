@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useStepProgress } from "@/lib/hooks/useStepProgress";
@@ -12,6 +12,7 @@ import InviteButton from "@/components/invite-button";
 import RubyText from "@/components/ruby-text";
 import FuriganaToggle from "@/components/furigana-toggle";
 import PausedOverlay from "@/components/paused-overlay";
+import NewPhaseOverlay from "@/components/new-phase-overlay";
 import { useSession } from "@/lib/hooks/useSession";
 import { stripRuby } from "@/lib/ruby";
 import { phaseLabel } from "@/lib/phases";
@@ -164,6 +165,23 @@ function MissionView({
   // リロードするまで新しいタスクが出てこない(中央統制が効かない)。
   // liveSession 取得前の一瞬だけ prop の session.phase でフォールバックする。
   const currentPhase = liveSession?.phase ?? session.phase;
+
+  // フェーズが進んだら「あたらしい やること」を全画面で知らせる。
+  // WHY: リーダーが進めると画面は Realtime で更新されるが、一度見て下を向いた人は
+  // 更新に気づけなかった(本番のふりかえり)。マウント時の値を基準に、フェーズが
+  // 上がったら一度だけ合図を出し、タップで新しいやることへ。
+  const [newPhaseAnnounce, setNewPhaseAnnounce] = useState<number | null>(null);
+  const seenPhaseRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (seenPhaseRef.current === null) {
+      seenPhaseRef.current = currentPhase;
+      return;
+    }
+    if (currentPhase > seenPhaseRef.current) {
+      setNewPhaseAnnounce(currentPhase);
+    }
+    seenPhaseRef.current = currentPhase;
+  }, [currentPhase]);
 
   const myRoleSteps = useMemo(() => {
     const all = stepsData.steps as Step[];
@@ -593,6 +611,11 @@ function MissionView({
 
       <BottomNav code={code} sessionId={session.id} />
       <PausedOverlay visible={paused} sessionName={session.name} />
+      <NewPhaseOverlay
+        visible={newPhaseAnnounce !== null}
+        blockName={phaseLabel(newPhaseAnnounce ?? currentPhase)}
+        onDismiss={() => setNewPhaseAnnounce(null)}
+      />
     </main>
   );
 }
